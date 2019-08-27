@@ -1,0 +1,42 @@
+#nop -- ---------------------------------------------------------------------
+#nop -- Default variables
+#nop -- ---------------------------------------------------------------------
+
+#var barchar {-}
+#var ttd /home/tom/git/kallisti
+#var lib $ttd/lib
+
+#nop -- Player Map and Initials ---------------------------------------------
+
+#alias {global} {#all #var {%1} {%2}}
+
+#alias {sload} {
+
+    #if { "%1" == "" } {
+      #showme <cfa> Yes, but load who?
+    } {
+    #script {password} {/usr/bin/pass bhang@kallistimud.com};
+    #event {SESSION CONNECTED} {
+        #read $ttd/players/%1.tin;
+        #read $lib/common.tin;
+        #read $lib/login.tin;
+        #unevent {SESSION CONNECTED};
+        };
+    }
+    #session {k} {kallistimud.com} {4000}
+}
+
+
+
+#nop -- ---------------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------------
+
+#message {ACTION} {off}
+#message {TAB} {off}
+#message {ALIAS} {off}
+#message {VARIABLE} {off}
+
+sload saiya
+
+#nop -- vim: syntax=tt

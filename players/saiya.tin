@@ -1,0 +1,11 @@
+#nop -- Saiya's Configuration
+
+#class {saiya} {kill}
+#class {saiya} {open}
+
+#variable {name} {saiya};
+#var sex[$name] male;
+#class {stasis} {close}
+
+
+#nop -- vim: syntax=tt
