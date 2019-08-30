@@ -1,0 +1,12 @@
+#class {stockvalues} {kill}
+#class {stockvalues} {open}
+
+#foreach {$stocktags[%*]} {stock} {
+    #action {^{$stock}%s%d%s%d%s%d%s%d$} {
+        updateStock {%1} {%3} {%5} {%7} {%9};
+    } {1}
+}
+
+#class {stockvalues} {close}
+
+#nop -- vim: syntax=tt

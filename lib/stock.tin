@@ -1,0 +1,66 @@
+#nop name_of_script: msdp.tt
+
+
+#class {stock} {kill}
+#class {stock} {open}
+
+#var stockBasis 1200
+#var stockGrabFlag 0
+#list {stocktags} {create} {Weapons;Siege Equipment;Lamp Oil;Mithril;Pygmy Pigs;Lapis Lazuli;Rordack Cheese}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+#alias {updateStock} {
+    #var stockCur[%1] %2;
+    #var stockPur[%1] %3;
+    #var stockCnt[%1] %4;
+    #var stockVal[%1] %5;
+}
+
+#tab stockAdvice
+#alias stockAdvice {
+
+    #foreach {$stocktags[%*]} {tag} {
+        #if {$stockCnt[$tag] == 0} {
+            #math result {$stockBasis * 10 / $stockCur[$tag]};
+            #echo {Buy up $tag by $result shares.}
+        };
+        #elseif { @stockDelta{$tag} > 0 } {
+            #echo {Buy up $tag by @stockComputeUnits{$tag} shares.}
+        }
+    }
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions and Triggers
+#nop -- ---------------------------------------------------------------
+
+#action {^------------------------------------------------------------------------$} {
+    #if { $stockGrabFlag == 0 } {
+        #var stockGrabFlag 1;
+        #read $lib/stockvalues.tin
+    } {
+        #var stockGrabFlag 0;
+        #class stockvalues kill
+    }
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+
+#function stockDelta {#math {result} {$stockPur[%1] - $stockCur[%1]}}
+
+#function stockComputeUnits {
+      #math _pct {@stockDelta{%1} / $stockCur[%1] * 100.0};
+      #math _cash {$_pct / 5 * $stockBasis};
+      #math result {$_cash / $stockCur[%1]};
+      #format result {%d} {$result};
+}
+
+#class {stock} {close}
+
+
+#nop -- vim: syntax=tt
