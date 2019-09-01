@@ -1,0 +1,12 @@
+#class {map} {kill}
+#class {map} {open}
+
+#alias mapRoom {
+    #map vnum $MSDP_ROOM_VNUM;
+    #map set roomname $MSDP_ROOM_NAME;
+}
+
+
+#class {map} {close}
+
+#nop -- vim: syntax=tt
