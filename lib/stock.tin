@@ -4,7 +4,7 @@
 #class {stock} {kill}
 #class {stock} {open}
 
-#var stockBasis 1200
+#var stockBasis 70000
 #var stockGrabFlag 0
 #list {stocktags} {create} {Weapons;Siege Equipment;Lamp Oil;Mithril;Pygmy Pigs;Lapis Lazuli;Rordack Cheese}
 
@@ -23,12 +23,17 @@
 #alias stockAdvice {
 
     #foreach {$stocktags[%*]} {tag} {
-        #if {$stockCnt[$tag] == 0} {
-            #math result {$stockBasis * 10 / $stockCur[$tag]};
-            #echo {Buy up $tag by $result shares.}
+        #math result {$stockBasis * 0.95}; #format stockLow {%d} $result;
+        #math result {$stockBasis * 1.05}; #format stockHi {%d} $result;
+
+        #if {$stockVal[$tag] < $stockLow} {
+            #math result { {$stockLow - $stockVal[$tag]} / {$stockVal[$tag] + 1}};
+            #echo {buy $result $tag}
         };
-        #elseif { @stockDelta{$tag} > 0 } {
-            #echo {Buy up $tag by @stockComputeUnits{$tag} shares.}
+        #elseif {$stockVal[$tag] > $stockHi} {
+            #math delta {$stockVal[$tag] - $stockHi};
+            #math result {$delta / {stockVal[$tag] + 1}}
+            #echo {sell $result $tag}
         }
     }
 }
