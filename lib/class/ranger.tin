@@ -1,0 +1,9 @@
+#class {ranger} {kill}
+#class {ranger} {open}
+
+#al ii {bash %0;kick;kick}
+#al kk {kick %0}
+
+#class {ranger} {close}
+
+#nop -- vim: syntax=tt
