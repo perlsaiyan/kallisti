@@ -2,10 +2,18 @@
 #class {stockvalues} {open}
 
 #foreach {$stocktags[%*]} {stock} {
-    #action {^{$stock}%s%d%s%d%s%d%s%d$} {
+    #action {^{%1}%s%d%s%d%s%d%s%d$} {
         updateStock {%1} {%3} {%5} {%7} {%9};
     } {1}
 }
+
+#action {^{Weapons}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Siege Equipment}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Lamp Oil}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Mithril}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Pygmy Pigs}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Lapis Lazuli}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
+#action {^{Rordack Cheese}%s%d%s%d%s%d%s%d$} {updateStock {%1} {%3} {%5} {%7} {%9}}
 
 #class {stockvalues} {close}
 
