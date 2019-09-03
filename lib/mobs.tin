@@ -1,0 +1,78 @@
+#class {mobs} {kill}
+#class {mobs} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#nop -- Grab Mob lines
+#act {~^\e\[1;37m%1.} {
+    #list {mobsInRoom} {add} {%1}
+}
+#act {~^\e\[0;37m\e\[1;37m%1.} {
+    #list {mobsInRoom} {add} {%1}
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+#alias mobsAdd {
+    #format mh {%H} {%0}
+}
+
+#alias mobsClearList { #list {mobsInRoom} {clear} }
+
+#alias updateMobLine {
+
+    #if {&mobsInRoom[1]} {
+        #showme {Target: @mobsKWFromLong{$mobsInRoom[1]}} {-4};
+    };
+    #else {
+        #showme {Target: None} {-4};
+    };
+
+    #nop
+}
+
+#tab mobShow
+#alias {mobShow} {
+  #if {&mobsInRoom[] > 0} {
+      #echo {Mobs in the Room};
+      #echo {----------------------------------------------------------};
+      #loop {1} {&mobsInRoom[]} {_tmp} {
+        #var _kw {@mobsKWFromLong{$mobsInRoom[$_tmp]}};
+        #format {mobLine} {[%+2s] %.42s (%s) (%d)}
+            {$_tmp} {$mobsInRoom[$_tmp]} {$_kw}
+            {$mobPR[$mobsInRoom[$_tmp]]};
+        #echo {$mobLine}
+      }
+  } { #echo {There are no mobs in the room.};#cr}
+}
+
+#alias mk {#var mobsKWHash[@hash{$mobsInRoom[%1]}] %2;}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------
+event_register {mapEnterRoom} {mobsClearList} {mobsClearList}
+event_register {statusUpdate} {updateMobLine} {updateMobLine}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+
+#func mobsKWFromLong {
+    #format _mktmp {%H} {%0};
+    #var result $mobsKWHash[$_mktmp];
+}
+
+#func hash { #format {result} {%H} {%0}; }
+
+#nop -- ---------------------------------------------------------------
+#nop -- Ticks
+#nop -- ---------------------------------------------------------------
+
+#class {mobs} {close}
+
+#nop -- vim: syntax=tt
