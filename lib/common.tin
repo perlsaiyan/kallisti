@@ -83,10 +83,14 @@
 
 #function prettyName {#format result {%n} {$name}}
 
-#alias {syslog} {#showme <CCA>SYSLOG: %0}
+#alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
 #read $lib/msdp.tin
 #read $lib/map.tin
 #read $lib/stock.tin
+#read $lib/mobs.tin
+#read $lib/events.tin
+
+
 
 log on
