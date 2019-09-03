@@ -1,0 +1,8 @@
+#class {status} {kill}
+#class {status} {open}
+
+
+#tick {status line} {event_raise statusUpdate 1} {1}
+
+#class {status} {kill}
+#nop -- vim: syntax=tt
