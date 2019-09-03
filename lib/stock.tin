@@ -1,11 +1,14 @@
-#nop name_of_script: msdp.tt
+#nop name_of_script: stock.tin
 
 
 #class {stock} {kill}
 #class {stock} {open}
 
-#var stockBasis 70000
+#nop -- stockBasis is the average amount of stock value you want per share;
+#var stockBasis 90000
 #var stockGrabFlag 0
+#var stockTrading 1
+
 #list {stocktags} {create} {Weapons;Siege Equipment;Lamp Oil;Mithril;Pygmy Pigs;Lapis Lazuli;Rordack Cheese}
 
 #nop -- ---------------------------------------------------------------
@@ -17,25 +20,66 @@
     #var stockPur[%1] %3;
     #var stockCnt[%1] %4;
     #var stockVal[%1] %5;
+    #if {$stockTrading == 1 } {stockTrade %1};
 }
 
-#tab stockAdvice
-#alias stockAdvice {
+#tab stockAuto
+#alias stockAuto {
 
-    #foreach {$stocktags[%*]} {tag} {
-        #math result {$stockBasis * 0.95}; #format stockLow {%d} $result;
-        #math result {$stockBasis * 1.05}; #format stockHi {%d} $result;
-
-        #if {$stockVal[$tag] < $stockLow} {
-            #math result { {$stockLow - $stockVal[$tag]} / {$stockVal[$tag] + 1}};
-            #echo {buy $result $tag}
-        };
-        #elseif {$stockVal[$tag] > $stockHi} {
-            #math delta {$stockVal[$tag] - $stockHi};
-            #math result {$delta / {stockVal[$tag] + 1}}
-            #echo {sell $result $tag}
-        }
+    #if {$stockTrading == 1} {
+        #var stockTrading 0;
+        #echo {Stock trading is off.}
+    } {
+        #var stockTrading 1;
+        #echo {Stock trading is on.}
     }
+}
+
+#tab stockSellOff
+#alias stockSellOff {
+    #foreach {$stocktags[%*]} {stock} {
+        #send {sell $stockCnt[$stock] $stock}
+    }
+}
+
+
+#alias stockTrade {
+    #math result {$stockBasis * 0.96}; #format stockMin {%d} $result;
+    #math result {$stockBasis * 1.04}; #format stockMax {%d} $result;
+
+    #nop -- Speculative, panic buy;
+    #if {$stockCur[%0] == 5} {
+        #math {_tmp} {20000 - $stockCnt[%0]};
+        syslog PANIC BUY %0 ($_tmp shares);
+    };
+    #elseif {$stockCur[%0] < 35} {
+        #nop -- syslog Only sell between 10-35.;
+        #math _tmp { ($stockVal[%0] - $stockMax) / $stockCur[%0]};
+        #if { $_tmp > 0 } {
+            stockTradeOrAdvise {sell} {$_tmp} {%0};
+        };
+        #showme <CCB> \
+    };
+    #elseif {$stockVal[%0] < $stockMin} {
+        #math _tmp { ($stockBasis - $stockVal[%0]) / $stockCur[%0]};
+        #if { $_tmp > 0 } {
+            stockTradeOrAdvise {buy} {$_tmp} {%0};
+        };
+    };
+    #elseif {$stockVal[%0] > $stockMax} {
+        #math _tmp { ($stockVal[%0] - $stockBasis) / $stockCur[%0]};
+        #if { $_tmp > 0 } {
+            stockTradeOrAdvise {sell} {$_tmp} {%0};
+        };
+    };
+}
+
+#alias stockTradeOrAdvise {
+    #if {$MSDP_ROOM_VNUM == 3544} {
+        #send {%1 %2 %3};
+    } {
+        #echo {Advice: %1 %2 %3};
+    };
 }
 
 #nop -- ---------------------------------------------------------------
@@ -48,22 +92,17 @@
         #read $lib/stockvalues.tin
     } {
         #var stockGrabFlag 0;
-        #class stockvalues kill
+        #class stockvalues kill;
     }
-}
+};
+
+#action {^<Market: the MGSE supervisor} {shares} {5};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
 #nop -- ---------------------------------------------------------------
 
-#function stockDelta {#math {result} {$stockPur[%1] - $stockCur[%1]}}
 
-#function stockComputeUnits {
-      #math _pct {@stockDelta{%1} / $stockCur[%1] * 100.0};
-      #math _cash {$_pct / 5 * $stockBasis};
-      #math result {$_cash / $stockCur[%1]};
-      #format result {%d} {$result};
-}
 
 #class {stock} {close}
 
