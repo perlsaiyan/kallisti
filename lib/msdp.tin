@@ -65,7 +65,6 @@
 }
 
 #nop #send {$IAC$SB$MSDP${VAR}XTERM_256_COLORS${VAL}1$IAC$SE};
-msdp_report
 
 #class {msdp} {close}
 
