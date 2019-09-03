@@ -6,6 +6,15 @@
     #map set roomname $MSDP_ROOM_NAME;
 }
 
+#action {~^\e\[1;35m%1%s\e} {
+    event_raise mapEnterRoom {%1}.
+}
+
+#alias mapEnterRoom {
+    #nop
+}
+
+event_register {mapEnterRoom} {mapEnterRoom} {mapEnterRoom %0}
 
 #class {map} {close}
 
