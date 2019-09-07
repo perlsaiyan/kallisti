@@ -47,6 +47,9 @@
 #tick {timer} {   #if { "$cursession" != "$sessionname"} {score} {#cr} } {30}
 #tick {timeStamp} { #format {logDATE} {%t} {%Y-%m-%d %T} ; #showme <ccd>Timestamp: $logDATE} {300}
 
+#action {^Ptam the God of the Ancients gives you a purple potion of sanctuary.} {
+    #delay {pack purple potion} {put all.purple sack} {1}
+} {5}
 
 #alias {log}
 {
