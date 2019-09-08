@@ -1,21 +1,78 @@
 #class {map} {kill}
 #class {map} {open}
 
-#alias mapRoom {
-    #map vnum $MSDP_ROOM_VNUM;
-    #map set roomname $MSDP_ROOM_NAME;
-}
+#nop -- ---------------------------------------------------------------
+#nop -- Variables
+#nop -- ---------------------------------------------------------------
 
-#action {~^\e\[1;35m%1%s\e} {
-    event_raise mapEnterRoom {%1}.
+#var mapFile {/tmp/ram/kallisti-map}
+#var mapEmbed off
+
+#map create 100000;
+#map flag nofollow;
+#map flag vtmap off;
+#map flag static;
+#map flag blockgraphics on;
+#map read $ttd/map/msdp.map
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+#alias mapRoom {
+	#map goto {$MSDP_ROOM_VNUM} {dig};
+	#map set roomarea $MSDP_AREA_NAME;
+	#map set roomname $MSDP_ROOM_NAME;
+	#map set roomterrain $MSDP_ROOM_TERRAIN;
+	#map set roomcolor <178>;
+	#nop Create unmapped exits and color unexplored rooms red.;
+	#foreach {$MSDP_ROOM_EXITS[]} {EXIT}
+	{
+		#map get {roomexits} {EXIT_LIST};
+		#if {&EXIT_LIST[$EXIT] == 0}
+		{
+			#map get {roomvnum} {EXIT_VNUM} {$MSDP_ROOM_EXITS[$EXIT]};
+			#map dig {@dA{$EXIT}} {$MSDP_ROOM_EXITS[$EXIT]};
+			#if {$EXIT_VNUM == 0}
+			{
+				#map set {roomcolor} {<118>} {$MSDP_ROOM_EXITS[$EXIT]}
+			}
+		}
+	}
+    #map map 40 40 overwrite $mapFile;
 }
 
 #alias mapEnterRoom {
     #nop
 }
 
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#action {~^\e\[1;35m%1%s\e} {
+    event_raise mapEnterRoom {%1}.
+}
+
+
 event_register {mapEnterRoom} {mapEnterRoom} {mapEnterRoom %0}
 
+#nop -- ---------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+#function dA {
+    #if {"%1" == "east"} {#var result e};
+    #elseif {"%1" == "west"} {#var result w};
+    #elseif {"%1" == "north"} {#var result n};
+    #elseif {"%1" == "south"} {#var result s};
+    #elseif {"%1" == "up"} {#var result u};
+    #elseif {"%1" == "down"} {#var result d};
+    #else {#var result %1};
+}
 #class {map} {close}
 
 #nop -- vim: syntax=tt
