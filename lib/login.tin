@@ -1,8 +1,8 @@
 #class {login} {kill}
 #class {login} {open}
 
-#action {Note, this is not your CHARACTER name} {bhang}
 #action {^Please enter your account password} {$password[1]; #unvar password;#cr}
+#action {^Enter your account name.} {bhang}
 
 #class {login} {close}
 
