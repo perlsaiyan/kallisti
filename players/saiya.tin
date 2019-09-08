@@ -7,6 +7,9 @@
 #var sex[$name] male;
 #class {stasis} {close}
 
+#var openingAttack {impale};
+#var mount eagle;
+
 #read $lib/class/ranger.tin
 
 #nop -- vim: syntax=tt
