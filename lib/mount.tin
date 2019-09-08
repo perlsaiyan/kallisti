@@ -1,0 +1,21 @@
+#class {mount} {kill}
+#class {mount} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Configuration variables
+#nop -- ---------------------------------------------------------------
+#var mount eagle;
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#action {^You try to ride a great eagle, but you fall on your butt} {
+    stand;
+    mount $mount
+}
+
+
+#class {mount} {close}
+#nop -- vim: syntax=tt
+
