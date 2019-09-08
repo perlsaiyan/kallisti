@@ -51,6 +51,8 @@
     #delay {pack purple potion} {put all.purple sack} {1}
 } {5}
 
+#alias pp {get purple sack;quaff purple}
+
 #alias {log}
 {
     #if {"%0" == "on"}
@@ -88,11 +90,13 @@
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
+#split 4 4
 #read $lib/msdp.tin
+#read $lib/events.tin
 #read $lib/map.tin
 #read $lib/stock.tin
+#read $lib/status.tin
 #read $lib/mobs.tin
-#read $lib/events.tin
 
 
 
