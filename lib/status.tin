@@ -2,7 +2,25 @@
 #class {status} {open}
 
 
+#alias statusBottom {
+
+
+    #format {_line4} {Area: %-15s | Mount: %-15s | Pos: %-8s | Opponents: %-5s}
+        {$MSDP_AREA_NAME} {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
+
+
+    #format {_line2} {Sanct: %-2s |} {$MSDP_AFFECTS[sanctuary]};
+
+    #showme {$_line2} {-2};
+    #showme { } {-3};
+    #showme {$_line4} {-4};
+    #nop
+}
+
+
+event_register {statusUpdate} {statusBottom} {statusBottom}
+
 #tick {status line} {event_raise statusUpdate 1} {1}
 
-#class {status} {kill}
+#class {status} {close}
 #nop -- vim: syntax=tt
