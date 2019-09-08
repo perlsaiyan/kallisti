@@ -5,9 +5,9 @@
 #class {stock} {open}
 
 #nop -- stockBasis is the average amount of stock value you want per share;
-#var stockBasis 50000
+#var stockBasis 90000
 #var stockGrabFlag 0
-#var stockTrading 1
+#var stockTrading 0
 
 #list {stocktags} {create} {Weapons;Siege Equipment;Lamp Oil;Mithril;Pygmy Pigs;Lapis Lazuli;Rordack Cheese}
 
@@ -54,7 +54,7 @@
         syslog PANIC BUY %0 ($_tmp shares);
         #showme <FCC> \
     };
-    #elseif {$stockCur[%0] < 35} {
+    #elseif {$stockCur[%0] < 65} {
         #nop -- syslog Only sell between 10-35.;
         #math _tmp { ($stockVal[%0] - $stockMax) / $stockCur[%0]};
         #if { $_tmp > 0 } {
