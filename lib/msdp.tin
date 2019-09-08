@@ -1,71 +1,103 @@
-#nop name_of_script: msdp.tt
-
-#class {msdp} {kill}
-#class {msdp} {open}
-
-#format IAC  %a 255
-#format DONT %a 254
-#format DO   %a 253
-#format WONT %a 252
-#format WILL %a 251
-#format SB   %a 250
-#format SE   %a 240
-
-#format MSDP %a  69
-
-#format VAR  %a  01
-#format VAL  %a  02
-
-#var REPORTABLE_VARIABLES {{AREA_NAME};{EXPERIENCE};{EXPERIENCE_TNL};{EXPERIENCE_TNL_MAX};{HEALTH};{HEALTH_MAX};{MANA};{MANA_MAX};{STAMINA};{STAMINA_MAX};{EXP_TNL};{EXP_TNL_MAX};{POSITION};{WORLD_TIME};{ROOM_VNUM};{ROOM_NAME};{ROOM_TERRAIN};{MOUNT_NAME};{COMBAT_STANCE};{OPPONENT_NUMBER};{GOLD};{BANK_GOLD};{MOUNT_STAMINA};{AFFECTS}}
-
-#nop Turn telnet debug off once everything works as it's spammy.
-
-#config {debug telnet} {off}
-
-#event {IAC WILL MSDP}
+#ALIAS {MSDP_CONFIGURE %1,%2}
 {
-        #send {$IAC$DO$MSDP\};
+	#local {i} {};
+	#local {index} {1};
+	#list {MSDP_VALUES} {create} {%2};
+	#send {$IAC$SB$PROTOCOL_MSDP\};
+	#foreach {%1} {i}
+	{
+		#send {${VAR}${i}${VAL}${MSDP_VALUES[$index]}\};
+		#math {index} {$index+1}
+	};
+	#send {$IAC$SE\}
 }
+{9}
 
-#event {IAC SB MSDP}
+#ALIAS {MSDP_LIST}
 {
-        #nop Save all variables with an MSDP_ prefix.;
-        #var {MSDP_%0} {%1}
+	#send {$IAC$SB$PROTOCOL_MSDP${VAR}LIST${VAL}REPORTABLE_VARIABLES$IAC$SE\}
 }
+{9}
 
-#nop This event is generated at the end of an MSDP sub negotiation.
-
-#event {IAC SB MSDP IAC SE}
+#ALIAS {MSDP_REPORT}
 {
-        #nop
+	#local {i} {};
+	#variable {result} {$IAC$SB$PROTOCOL_MSDP${VAR}REPORT};
+	#foreach {${MSDP_REPORTABLE_VARIABLES[]}} {i}
+	{
+		#variable {result} {${result}${VAL}${MSDP_REPORTABLE_VARIABLES[${i}]}}
+	};
+	#send {$result$IAC$SE\}
 }
+{9}
 
-#nop Ask the server to report all keys inside REPORTABLE_VARIABLES
-
-#alias {msdp_report}
+#ALIAS {MSDP_SEND %*}
 {
-        #var result {$IAC$SB$MSDP${VAR}REPORT};
+	#send {$IAC$SB$PROTOCOL_MSDP${VAR}SEND${VAL}%1$IAC$SE\}
+}
+{9}
 
-        #foreach {$REPORTABLE_VARIABLES[]} {tmp}
+#ALIAS {^MSDP$}
+{
+	#if {${PROTOCOL[%0]}}
+	{
+		#echo {%0 enabled.}
+	};
+	#else
+	{
+		#echo {%0 disabled.}
+	}
+}
+{9}
+
+#EVENT {IAC SB MSDP}
+{
+	#nop Save all variables in an MSDP list.;
+	#variable {MSDP_%0} {%1};
+	#variable {msdpOldList[%0]} {%1};
+	#switch {"%0"}
+	{
+		#case {"PLAY_SOUND"}
+		{
+			PLAY %1
+		};
+		#case {"REPORTABLE_VARIABLES"}
+		{
+			MSDP_REPORT
+		};
+        #case {"ROOM_VNUM"}
         {
-                #var result {$result${VAL}$tmp}
-        };
-
-        #send {$result$IAC$SE\}
+            mapRoom;
+        }
+	}
 }
 
-#alias {msdp_list}
+#EVENT {IAC SB MSDP IAC SE}
 {
-        #send {$IAC$SB$MSDP${VAR}LIST${VAL}%0$IAC$SE\}
+	#nop
 }
 
-#alias {msdp_send}
+#EVENT {IAC WILL MSDP}
 {
-        #send {$IAC$SB$MSDP${VAR}SEND${VAL}%0$IAC$SE\}
+	#send {$IAC$DO$PROTOCOL_MSDP\};
+	MSDP_LIST;
+	#nop {Uncomment the next line to use MSDP for sound instead of MSP};
+	#nop {MSDP_CONFIGURE sound,1};
+	#variable {PROTOCOL[MSDP]} {1}
 }
 
-#nop #send {$IAC$SB$MSDP${VAR}XTERM_256_COLORS${VAL}1$IAC$SE};
+#VARIABLE         {DO}  {ý}
+#VARIABLE         {DONT}  {þ}
+#VARIABLE         {IAC}  {ÿ}
+#VARIABLE         {PROTOCOL}  {{MSDP}{0}}
+#VARIABLE         {PROTOCOL_MSDP}  {E}
+#VARIABLE         {SB}  {ú}
+#VARIABLE         {SE}  {ð}
+#VARIABLE         {VAL}  {}
+#VARIABLE         {VAR}  {}
+#VARIABLE         {WILL}  {û}
+#VARIABLE         {WONT}  {ü}
+#VARIABLE         {msdpOldList}  {}
 
-#class {msdp} {close}
-
+#alias mapRoom {#nop} {9};
 #nop -- vim: syntax=tt
