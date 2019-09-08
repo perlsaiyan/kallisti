@@ -6,11 +6,22 @@
 #nop -- ---------------------------------------------------------------
 
 #nop -- Grab Mob lines
-#act {~^\e\[1;37m%1.} {
-    #list {mobsInRoom} {add} {%1}
+#act {~^\e\[1;37m%1.%s\[{[0-9]+}\]} {
+    #loop {1} {%3} {tmp} {
+        #list {mobsInRoom} {add} {%1};
+    };
+} {4}
+#act {~^\e\[0;37m\e\[1;37m%1.%s\[{[0-9]+}\]} {
+    #loop {1} {%3} {tmp} {
+        #list {mobsInRoom} {add} {%1};
+    };
+} {4}
+
+#act {~^\e\[1;37m%1.%s} {
+    #list {mobsInRoom} {add} {%1};
 }
 #act {~^\e\[0;37m\e\[1;37m%1.} {
-    #list {mobsInRoom} {add} {%1}
+    #list {mobsInRoom} {add} {%1};
 }
 
 #nop -- ---------------------------------------------------------------
@@ -21,15 +32,20 @@
     #format mh {%H} {%0}
 }
 
+#alias mobAttack {
+    $openingAttack @mobsKWFromLong{$mobsInRoom[1]};
+    #list {mobsInRoom} {delete} {1};
+}
+
 #alias mobsClearList { #list {mobsInRoom} {clear} }
 
 #alias updateMobLine {
 
     #if {&mobsInRoom[1]} {
-        #showme {Target: @mobsKWFromLong{$mobsInRoom[1]}} {-4};
+        #showme {Target: @mobsKWFromLong{$mobsInRoom[1]}} {-3};
     };
     #else {
-        #showme {Target: None} {-4};
+        #showme {Target: None} {-3};
     };
 
     #nop
@@ -57,6 +73,12 @@
 #nop -- ---------------------------------------------------------------
 event_register {mapEnterRoom} {mobsClearList} {mobsClearList}
 event_register {statusUpdate} {updateMobLine} {updateMobLine}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Macros
+#nop -- ---------------------------------------------------------------
+
+#macro {[15~} {mobAttack}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
