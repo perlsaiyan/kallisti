@@ -1,0 +1,23 @@
+#class {rest} {kill}
+#class {rest} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Configuration variables
+#nop -- ---------------------------------------------------------------
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#alias {restNow} {
+    dismount;
+    tether $mount;
+    sleep;
+    #delay {resting} {wake;stand;mount $mount} {180}
+}
+
+restNow
+
+#class {rest} {close}
+#nop -- vim: syntax=tt
+
