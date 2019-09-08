@@ -1,0 +1,39 @@
+#nop --
+#nop vars
+#nop --
+
+#var {openingAttack} {impale}
+#var {target} {null}
+
+#nop --
+#nop actions
+#nop --
+
+#action {[* You see your target's tracks leading %1. *]} {
+	%1
+}
+
+#action {[* You found your target! *]} {
+	$openingAttack $target
+}
+
+#action {You lose the tracks.} {
+	hunt $target
+}
+
+#action {You start searching for tracks but then realize your target is right here!} {
+	$openingAttack $target
+}
+
+#nop -- 
+#nop aliases
+#nop --
+
+#alias {hk} {
+	#var {target} {%1};
+	hunt %1
+}
+
+#class hk close
+
+#nop -- vim: syntax=tt
