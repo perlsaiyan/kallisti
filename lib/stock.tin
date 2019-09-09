@@ -54,7 +54,7 @@
         syslog PANIC BUY %0 ($_tmp shares);
         #showme <FCC> \
     };
-    #elseif {$stockCur[%0] < 65} {
+    #elseif {$stockCur[%0] < 90} {
         #nop -- syslog Only sell between 10-35.;
         #math _tmp { ($stockVal[%0] - $stockMax) / $stockCur[%0]};
         #if { $_tmp > 0 } {
