@@ -9,7 +9,8 @@
         {$MSDP_AREA_NAME} {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
 
 
-    #format {_line2} {Sanct: %-2s | Room: %-5s} {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM};
+    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s} 
+        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE};
 
     #showme {$_line2} {-2};
     #showme { } {-3};
