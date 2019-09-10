@@ -90,10 +90,13 @@
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
+#action {^You are dead!} {#var deathroom {$MSDP_ROOM_VNUM}}
+
 #split 4 4
 #read $lib/msdp.tin
 #read $lib/events.tin
-#read $lib/map.tin
+#nop -- #read $lib/map.tin;
+#read $lib/mount.tin
 #read $lib/stock.tin
 #read $lib/status.tin
 #read $lib/mobs.tin
