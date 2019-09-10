@@ -3,7 +3,6 @@
 
 #var autoScavenge on;
 
-#action {^A big pile of gold coins is lying here.} {scavengeGold} {5}
 #action {^A tiny pile of gold coins is lying here.} {scavengeGold} {5}
 #action {^A handful of gold coins is lying here.} {scavengeGold} {5}
 #action {^A little pile of gold coins is lying here.} {scavengeGold} {5}
