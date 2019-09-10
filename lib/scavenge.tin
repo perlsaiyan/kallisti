@@ -1,0 +1,7 @@
+#class {scavenge} {kill}
+#class {scavenge} {open}
+
+#ACTION {^A big pile of gold coins is lying here.} {get gold} {5}
+
+#class {scavenge} {close}
+#nop -- vim: syntax=tt
