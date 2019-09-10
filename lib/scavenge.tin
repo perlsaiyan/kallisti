@@ -1,7 +1,27 @@
 #class {scavenge} {kill}
 #class {scavenge} {open}
 
-#ACTION {^A big pile of gold coins is lying here.} {get gold} {5}
+#var autoScavenge on;
+
+#action {^A big pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A tiny pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A handful of gold coins is lying here.} {scavengeGold} {5}
+#action {^A little pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A small pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A big pile of gold coins is lying here.} {scavengeGold} {5}
+#action {^A large heap of gold coins is lying here.} {scavengeGold} {5}
+#action {^A huge mound of gold coins is lying here.} {scavengeGold} {5}
+#action {^An enormouse mound of gold coins is lying here.} {scavengeGold} {5}
+#action {^A small mountain of gold coins is lying here.} {scavengeGold} {5}
+#action {^A mountain of gold coins is lying here.} {scavengeGold} {5}
+#action {^A huge mountain of gold coins is lying here.} {scavengeGold} {5}
+#action {^An enormous mountain of gold coins is lying here.} {scavengeGold} {5}
+#action {^An absolutely colossal mountain of gold coins is lying here.} {scavengeGold} {5}
+
+#alias {scavengeGold} {
+    #if { "$autoScavenge" == "on" } {get all.coins};
+}
 
 #class {scavenge} {close}
 #nop -- vim: syntax=tt
