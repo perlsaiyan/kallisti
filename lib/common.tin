@@ -95,7 +95,7 @@
 #split 4 4
 #read $lib/msdp.tin
 #read $lib/events.tin
-#nop -- #read $lib/map.tin;
+#read $lib/map.tin;
 #read $lib/mount.tin
 #read $lib/scavenge.tin
 #read $lib/stock.tin
