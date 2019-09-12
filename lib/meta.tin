@@ -1,0 +1,22 @@
+#class {meta} {kill}
+#class {meta} {open}
+
+#action {meta'd %1 to %2, cost = %3xp, %4gp} {
+	#math {metaExpTotal} {$metaExpTotal+%3};
+	#math {metaTotalGold} {$metaTotalGold+%4}
+}
+
+#tab metaTotal
+#alias {metaTotal} {
+	#var {metaExpTotal} {0};
+	#var {metaTotalGold} {0};
+	meta
+}
+
+#tab metaReport
+#alias {metaReport} {
+	#echo {<g23>Total exp Meta'd: <efc>$metaExpTotal};
+	#echo {<g23>Total gold Meta'd: <fea>$metaTotalGold}
+}
+
+#class {meta} {close}
