@@ -1,0 +1,237 @@
+#class {hk} {kill}
+#class {hk} {open}
+
+#nop ------------------------------------------
+#nop -- Variables
+#nop ------------------------------------------
+
+#list {hms} {create} {HEALTH;MANA;STAMINA}
+
+#nop ------------------------------------------
+#nop -- Events
+#nop ------------------------------------------
+
+event_register {mob_kill} {checkLevels} {checkLevelsLow}
+
+#nop ------------------------------------------
+#nop -- Macros
+#nop ------------------------------------------
+
+#nop -- stops hunt loop
+
+#nop ------------------------------------------
+#nop -- Helpful aliases
+#nop ------------------------------------------
+
+#tab hkKill
+#alias {hkKill} {#untick {checkLevelsHigh};#untick {kick};_cleanupHK;gt all recall;#class hk kill}
+
+#alias {lostTracks} {
+	#var {huntFailCount} {0};
+	checkLevelsLow;
+	hkKill
+}
+
+#alias {_cleanupHK} {
+	#var {openingAttack} {};
+	#var {target} {};
+	#var {nextTarget} {};
+	#var {areaName} {};
+	#var {target} {}
+}
+
+#nop -- Set opening attack, can be included in character's class file
+
+#tab setOpener
+#alias {setOpener} {
+	#var {openingAttack} {%1}
+}
+
+#nop -- Regen mode can be included in each character's class file as well
+
+#tab setRegenMode
+#alias {setRegenMode} {
+	#var {regenMode} {%1}
+}
+
+#alias {doRegen} {
+    dismount;tether eagle;sleep;
+	#var {regen} {1};
+	#ticker {checkLevelsHigh} {checkLevelsHigh} {5}
+}
+
+#alias {doWake} {
+	wake;
+	stand;
+    mount $mount;
+	$openingAttack $nextTarget;
+	look;
+	#untick {checkLevelsHigh}
+}
+
+#nop -- Set thresholds for regen - top and bottom. Lower defaults to 30, upper to 90 with no argument, in the order HMS
+
+#tab {upperThresholds}
+#alias {upperThresholds} {
+	#if {"%1"==""} {
+		#var {HEALTH_thresholdUp} {90}} {
+		#var {HEALTH_thresholdUp} {%1}};
+	#if {"%2"==""} {
+		#var {MANA_thresholdUp} {90}} {
+		#var {MANA_thresholdUp} {%2}};
+	#if {"%3"==""} {
+		#var {STAMINA_thresholdUp} {90}} {
+		#var {STAMINA_thresholdUp} {%3}};
+	#echo {<ffa>Upper thresholds set to $HEALTH_thresholdUp H $MANA_thresholdUp M $STAMINA_thresholdUp S}
+}
+
+#tab {lowThresholds}
+#alias {lowThresholds} {
+	#if {"%1"==""} {
+		#var {HEALTH_thresholdLow} {30}} {
+		#var {HEALTH_thresholdLow} {%1}};
+	#if {"%2"==""} {
+		#var {MANA_thresholdLow} {30}} {
+		#var {MANA_thresholdLow} {%2}};
+	#if {"%3"==""} {
+		#var {STAMINA_thresholdLow} {30}} {
+		#var {STAMINA_thresholdLow} {%3}};
+	#echo {<ffa>Bottom thresholds set to $HEALTH_thresholdLow H $MANA_thresholdLow M $STAMINA_thresholdLow S}
+}
+
+#nop ------------------------------------------
+#nop -- Checking thresholds
+#nop ------------------------------------------
+
+#nop -- do wake if we've regenned sufficiently
+
+#alias {checkLevelsHigh} {diaLog azone checking levels HIGH;
+	#if {@percent{MSDP_HEALTH}>$HEALTH_thresholdUp && @percent{MSDP_MANA}>$MANA_thresholdUp && @percent{MSDP_STAMINA}>$STAMINA_thresholdUp} {
+		doWake}
+}
+
+#nop -- do regen if our hms is too low
+
+#alias {checkLevelsLow} {diaLog azoneLog Checking Levels LOW;
+	#nop %0;
+	#if {@percent{MSDP_HEALTH}>$HEALTH_thresholdLow && @percent{MSDP_MANA}>$MANA_thresholdLow && @percent{MSDP_STAMINA}>$STAMINA_thresholdLow && $MSDP_OPPONENT_NUMBER==0} {
+		$openingAttack $nextTarget} {
+		#if {$MSDP_OPPONENT_NUMBER==0} {doRegen}
+		}
+	}
+
+
+#nop ------------------------------------------
+#nop -- Hunting and killing aliases
+#nop ------------------------------------------
+
+#alias {hk} {
+	#var {target} {%1};
+	#var {hk} {1};
+	#var {nextTarget} {%1};
+	hunt %1
+}
+
+#nop ------------------------------------------
+#nop -- Actions
+#nop ------------------------------------------
+
+#action {^[* You see your target's tracks leading %1. *]} {
+	#if {$hk==1} {%1}
+}
+
+#action {^[* You found your target! *]} {
+	#if {$hk==1} {
+		$openingAttack $target;
+		#var target $nextTarget;
+		#var hk 0;
+		#var huntFailCount 0}
+}
+
+#action {^[* You fail to find the tracks. *]} {
+	#math {huntFailCount} {$huntFailCount+1};
+	checkLevelsLow;
+	#if {$huntFailCount>5} {lostTracks} {
+		hunt $target
+	}
+}
+
+#action {%1 is dead!  R.I.P.} {
+	event_raise {mob_kill} {checkLevels} 
+}
+
+#action {No target found by the name of '%1.'} {
+	hk $nextTarget
+}
+
+#action {You start searching for tracks but then realize your target is right here!} {
+	$openingAttack $target;
+	#var target $nextTarget
+}
+
+#action {The white aura around your body fades.} {pp}
+
+#action {Alas, you cannot go up...} {op vent u;u}
+
+#action {The %1 to the %2 seems to be closed.} {
+	op %1 %2;
+	%2
+}
+
+#action {The %1 above seems to be closed.} {
+	op %1 up;
+	up
+}
+
+#action {The %1 below seems to be closed.} {
+	op %1 down;
+	down
+}
+
+#action {The %1 to the %2 seems to be locked.} {un %1 %2;%2}
+
+
+#action {^You impale %1 in {his|her|its} chest - %1 screams in pain. (%2 damage)} {kick}
+
+#action {A powerful wind flows through the tunnels, sweeping you along with it.} {hk $target}
+
+#action {You are exhausted!} {checkLevelsLow}
+
+#action {You try to impale %1, but fumble your weapon!} {#2 shihonage}
+
+
+#nop ------------------------------------------
+#nop -- Functions
+#nop ------------------------------------------
+
+#function {percent}
+{
+	#math {result} {(${%1} / ${%1_MAX}) * 100.0};
+	#format {result} {%d} {$result}
+}
+
+#nop ------------------------------------------
+#nop -- Events
+#nop ------------------------------------------
+
+#event {VARIABLE UPDATE MSDP_OPPONENT_NUMBER} {
+	diaLog azone Updating opponent number;
+	#if {$MSDP_OPPONENT_NUMBER>1} {
+		#ticker {kick} {kick} {5}} {
+		#untick {kick}
+		}
+	}
+#event {VARIABLE UPDATE MSDP_STAMINA} {
+	diaLog azone Updating MSDP_STAMINA;
+	#if {$MSDP_OPPONENT_NUMBER==0  && @percent($MSDP_STAMINA)<$STAMINA_thresholdLow} {
+		doRegen
+	}
+}
+
+
+setOpener impale
+setRegenMode mm
+lowThresholds
+upperThresholds
+
+#class {hk} {close}
