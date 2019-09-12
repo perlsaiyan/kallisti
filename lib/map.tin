@@ -60,6 +60,10 @@ event_register {mapEnterRoom} {mapEnterRoom} {mapEnterRoom %0}
 #nop -- ---------------------------------------------------------------
 #nop -- Events
 #nop -- ---------------------------------------------------------------
+#event {SESSION DISCONNECTED} {
+    #map write $ttd/map/msdp.map
+}
+
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
