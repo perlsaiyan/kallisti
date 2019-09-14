@@ -24,7 +24,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 
 #tab hkKill
-#alias {hkKill} {#untick {checkLevelsHigh};#untick {kick};_cleanupHK;gt all recall;#class hk kill}
+#alias {hkKill} {#untick {checkLevelsHigh};#untick {shihonage};_cleanupHK;#class hk kill}
 
 #alias {lostTracks} {
 	#var {huntFailCount} {0};
@@ -37,7 +37,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#var {target} {};
 	#var {nextTarget} {};
 	#var {areaName} {};
-	#var {target} {}
+	#var {target} {};
+	#var {huntFailCount} {0}
 }
 
 #nop -- Set opening attack, can be included in character's class file
@@ -55,7 +56,9 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #alias {doRegen} {
-    dismount;tether eagle;sleep;
+    dismount $mount;
+    tether $mount;
+    sleep;
 	#var {regen} {1};
 	#ticker {checkLevelsHigh} {checkLevelsHigh} {5}
 }
@@ -100,7 +103,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #nop ------------------------------------------
-#nop -- Checking thresholds
+#nop -- Checking and reporting thresholds
 #nop ------------------------------------------
 
 #nop -- do wake if we've regenned sufficiently
@@ -119,6 +122,12 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 		#if {$MSDP_OPPONENT_NUMBER==0} {doRegen}
 		}
 	}
+
+#tab thresholdReport
+#alias {thresholdReport} {
+	#echo {<ffa>Bottom thresholds set to ${HEALTH_thresholdLow}H ${MANA_thresholdLow}M ${STAMINA_thresholdLow}S};
+	#echo {<ffa>Upper thresholds set to ${HEALTH_thresholdUp}H ${MANA_thresholdUp}M ${STAMINA_thresholdUp}S}
+}
 
 
 #nop ------------------------------------------
@@ -150,10 +159,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {^[* You fail to find the tracks. *]} {
 	#math {huntFailCount} {$huntFailCount+1};
-	checkLevelsLow;
-	#if {$huntFailCount>5} {lostTracks} {
-		hunt $target
-	}
+	#if {$huntFailCount>5} {hkKill} {
+	checkLevelsLow}
 }
 
 #action {%1 is dead!  R.I.P.} {
@@ -231,7 +238,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 setOpener impale
 setRegenMode mm
-lowThresholds
-upperThresholds
+lowThresholds 65 30 20
+upperThresholds 85 90 80
 
 #class {hk} {close}
+#nop -- vim: syntax=tt
