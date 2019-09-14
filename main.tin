@@ -17,8 +17,8 @@
     } {
     #script {password} {/usr/bin/pass bhang@kallistimud.com};
     #event {SESSION CONNECTED} {
-        #read $lib/common.tin;
         #read $ttd/players/%1.tin;
+        #read $lib/common.tin;
         #read $lib/login.tin;
         #unevent {SESSION CONNECTED};
         };
