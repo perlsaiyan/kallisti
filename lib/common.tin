@@ -94,6 +94,7 @@
 
 #split 4 4
 #read $lib/msdp.tin
+#read $lib/diag.tin
 #read $lib/events.tin
 #read $lib/map.tin;
 #read $lib/meta.tin;

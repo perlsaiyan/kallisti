@@ -1,0 +1,51 @@
+#class {diagMode} {kill}
+#class {diagMode} {open}
+
+#nop -- handle diagnostic modes
+
+#nop -- ---------------------------------------------------------------
+#nop -- Variables
+#nop -- ---------------------------------------------------------------
+
+#nop -- List of different modules that include diagnostic display modes
+
+#list {_diagArgs} {create} {state} {buff} {item} {time} {azone} {bank} {postcombat} {zone} {service} {lock} {recall} {room} {events} {scav} {semicolon} {kills} {kill} {log} {stock}
+
+#nop -- ---------------------------------------------------------------
+#nop -- diag modes
+#nop -- ---------------------------------------------------------------
+
+#nop -- modes on and off
+
+#alias {diag}
+{
+
+	#list {_diagArgs} {find} {%1} {result};
+	#if { $result > 0} {
+		#if { "%2" == "on" } { #var _diags[%1] on;#echo {<fca>Diagnostic mode %1 set to on} };
+		#elseif { "%2" == "off" } { #var _diags[%1] off;#echo {<fca>Diagnostic mode %1 set to off} };
+		#else { #echo {<fca>Diagnostic mode '%1' is '$_diags[%1]'} };
+	} {
+	#if { "%1" == "" } {
+		#foreach {$_diagArgs[%*]} {_config} {#echo {<fca>Diagnostic mode $_config is $_diags[$_config]}}
+	} {
+		#echo {<fca>Invalid Diagnostic mode mode '%1'}
+	}
+	}
+}
+
+#nop -- turn all Diagnostic modes off
+
+#alias {allDiagOff} {#foreach {$_diagArgs[%*]} {_config} {diag $_config off}}
+
+allDiagOff
+
+#alias {diaLog %1 %2}
+{
+	#if {"$_diags[%1]" == "on"} {
+		#echo {<bce>DIAGNOSTIC <<ffa>%1<bce>> %2}
+	}
+}
+
+#class {diagMode} {close}
+#nop -- vim: syntax=tt
