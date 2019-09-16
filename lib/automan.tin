@@ -9,7 +9,7 @@
 
 #var autoMode off
 #var autoDelay 0
-
+#var autoSanctTime 0
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -28,8 +28,8 @@
         #nop -- diaLog buff check buffs;
         #if {@hasAffect{sanctuary} < 1} {
             #if {"$MSDP_POSITION" != "Sleeping"} {
-                pp;
                 diaLog buff Sancting;
+                resanct;
             };
         };
         #nop -- Let's check sanct/bufs;
@@ -41,6 +41,13 @@
 
 }
 
+#alias resanct {
+    #math {_test} {@epoch{} - $autoSanctTime};
+    #if {$_test > 5} {
+        pp;
+        #var autoSanctTime @epoch{};
+    };
+}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions

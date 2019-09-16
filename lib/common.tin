@@ -86,7 +86,8 @@
     }
 }
 
-#function prettyName {#format result {%n} {$name}}
+#function prettyName {#format result {%n} {$name}};
+#function epoch {#format result {%T}};
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
@@ -96,6 +97,7 @@
 #read $lib/msdp.tin
 #read $lib/diag.tin
 #read $lib/events.tin
+#read $lib/automan.tin;
 #read $lib/comms.tin;
 #read $lib/map.tin;
 #read $lib/meta.tin;
