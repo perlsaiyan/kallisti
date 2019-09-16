@@ -96,6 +96,7 @@
 #read $lib/msdp.tin
 #read $lib/diag.tin
 #read $lib/events.tin
+#read $lib/comms.tin;
 #read $lib/map.tin;
 #read $lib/meta.tin;
 #read $lib/mount.tin

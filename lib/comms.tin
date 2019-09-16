@@ -1,0 +1,14 @@
+#nop -- comms logging
+
+#class {comms} {kill}
+#class {comms} {open}
+
+#var commsLog /tmp/ram/kallisti-comm.log
+
+#action {~^\e\[1;36m<Clan{.*}} {#line log $commsLog {%0}}
+#action {~^\e\[1;36m**{.*}} {#line log $commsLog {%0}}
+#action {^You grouptell{.*}} {#line log $commsLog {%0}}
+
+#class {comms} {close}
+
+#nop -- vim: syntax=tt
