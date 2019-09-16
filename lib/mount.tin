@@ -4,15 +4,20 @@
 #nop -- ---------------------------------------------------------------
 #nop -- Configuration variables
 #nop -- ---------------------------------------------------------------
-#var mount eagle;
+#var mount hippo;
 
 #nop -- ---------------------------------------------------------------
 #nop -- Actions
 #nop -- ---------------------------------------------------------------
 
+#action {You hop on a %1's back.} {
+    syslog Setting mount to %1.;
+    #var mount %1;
+    }
+
 #action {^You try to ride a great eagle, but you fall on your butt} {
     stand;
-    mount $mount
+    mount $mount;
 }
 
 
