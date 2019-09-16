@@ -178,7 +178,6 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#var target $nextTarget
 }
 
-#action {The white aura around your body fades.} {pp}
 
 #action {Alas, you cannot go up...} {op vent u;u}
 

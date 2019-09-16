@@ -1,0 +1,62 @@
+#nop -- AUTOMAN master script
+
+#class {automan} {kill}
+#class {automan} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Configuration
+#nop -- ---------------------------------------------------------------
+
+#var autoMode off
+#var autoDelay 0
+
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+
+#nop -- This should be safe to run at any time;
+#nop -- It is the master control loop;
+#nop -- It should be tick driven;
+#alias automan {
+
+    #nop -- Handle delay, if it's zero we do logic;
+    #if {$autoDelay > 0} {
+        #math autoDelay  {$autoDelay - 1};
+    } {
+        #nop -- diaLog buff check buffs;
+        #if {@hasAffect{sanctuary} < 1} {
+            #if {"$MSDP_POSITION" != "Sleeping"} {
+                pp;
+                diaLog buff Sancting;
+            };
+        };
+        #nop -- Let's check sanct/bufs;
+        #nop -- stats;
+        #nop -- mount;
+        #nop -- fight;
+        #nop -- hunt;
+    }
+
+}
+
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+#func hasAffect {
+    #if {&MSDP_AFFECTS[%1]} {
+        #var result $MSDP_AFFECTS[%1];
+    } {
+        #var result -1;
+    }
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Ticks
+#nop -- ---------------------------------------------------------------
+#tick {automan} {#if {"$autoMode" == "on"} {automan}} {2}
+
+#class {automan} {close}
+#nop -- vim: syntax=tt
