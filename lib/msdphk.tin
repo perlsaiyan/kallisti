@@ -207,6 +207,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {You try to impale %1, but fumble your weapon!} {#2 shihonage}
 
+#action {^You suddenly find your hand empty} {wield lance}
+
 #action {^You try to ride %1, but you fall on your butt} {
     stand;
     mount $mount;
