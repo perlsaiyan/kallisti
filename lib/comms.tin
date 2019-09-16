@@ -8,6 +8,9 @@
 #action {~^\e\[1;36m<Clan{.*}} {#line log $commsLog {%0}}
 #action {~^\e\[1;36m**{.*}} {#line log $commsLog {%0}}
 #action {^You grouptell{.*}} {#line log $commsLog {%0}}
+#action {^You cchat{.*}} {#line log $commsLog {%0}}
+
+#action {~^\e\[1;35m<Gossip{.*}} {#line log $commsLog {%0}}
 
 #class {comms} {close}
 
