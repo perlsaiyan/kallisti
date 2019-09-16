@@ -115,11 +115,13 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #nop -- do regen if our hms is too low
 
-#alias {checkLevelsLow} {diaLog azoneLog Checking Levels LOW;
+#alias {checkLevelsLow} {diaLog azone Checking Levels LOW;
 	#nop %0;
-	#if {@percent{MSDP_HEALTH}>$HEALTH_thresholdLow && @percent{MSDP_MANA}>$MANA_thresholdLow && @percent{MSDP_STAMINA}>$STAMINA_thresholdLow && $MSDP_OPPONENT_NUMBER==0} {
-		$openingAttack $nextTarget} {
-		#if {$MSDP_OPPONENT_NUMBER==0} {doRegen}
+	#if {@percent{MSDP_HEALTH}>$HEALTH_thresholdLow && @percent{MSDP_MANA}>$MANA_thresholdLow && @percent{MSDP_STAMINA}>$STAMINA_thresholdLow} {
+	    diaLog azone Set up resumeHK;
+		#delay {resumeHK} {#if {$MSDP_OPPONENT_NUMBER==0} {$openingAttack $nextTarget}} {2};
+        } {
+		#delay {resumeRegen} {#if {$MSDP_OPPONENT_NUMBER==0} {doRegen}} {2};
 		}
 	}
 
@@ -205,6 +207,12 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #action {You are exhausted!} {checkLevelsLow}
 
 #action {You try to impale %1, but fumble your weapon!} {#2 shihonage}
+
+#action {^You try to ride %1, but you fall on your butt} {
+    stand;
+    mount $mount;
+    $openingAttack $target;
+} {4};
 
 
 #nop ------------------------------------------
