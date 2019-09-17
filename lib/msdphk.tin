@@ -119,7 +119,11 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#nop %0;
 	#if {@percent{MSDP_HEALTH}>$HEALTH_thresholdLow && @percent{MSDP_MANA}>$MANA_thresholdLow && @percent{MSDP_STAMINA}>$STAMINA_thresholdLow} {
 	    diaLog azone Set up resumeHK;
-		#delay {resumeHK} {#if {$MSDP_OPPONENT_NUMBER==0} {$openingAttack $nextTarget}} {2};
+        #if {$MSDP_OPPONENT_NUMBER > 0} {
+		    #delay {resumeHK} {#if {$MSDP_OPPONENT_NUMBER==0} {$openingAttack $nextTarget}} {2};
+		   } {
+            $openingAttack $nextTarget
+            };
         } {
 		#delay {resumeRegen} {#if {$MSDP_OPPONENT_NUMBER==0} {doRegen}} {2};
 		}
