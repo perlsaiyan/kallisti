@@ -1,5 +1,5 @@
-#EVENT HANDLER
-#nop -- vim: syntax=tt
+#class {events} {kill}
+#class {events} {open}
 
 #var _events {};
 #alias _event_tmp_ali #nop;
@@ -66,3 +66,7 @@
     event_eval {${_events[%1][$handler]}} {%0};
   }
 }
+
+
+#class {events} {close}
+#nop -- vim: syntax=tt
