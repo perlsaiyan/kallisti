@@ -42,10 +42,10 @@
 #alias updateMobLine {
 
     #if {&mobsInRoom[1]} {
-        #showme {Target: @mobsKWFromLong{$mobsInRoom[1]}} {-3};
+        #nop -- #showme {Target: @mobsKWFromLong{$mobsInRoom[1]}} {-3};
     };
     #else {
-        #showme {Target: None} {-3};
+        #nop -- #showme {Target: None} {-3};
     };
 
     #nop
