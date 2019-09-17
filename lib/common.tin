@@ -2,8 +2,6 @@
 #nop -- vim: syntax=tt
 
 
-#action {^#SESSION '%0' ACTIVATED.} {#buffer end;#all #var cursession %0}
-
 #var HisHer[male] {His};
 #var HisHer[female] {Her};
 #var hisher[male] {his};
@@ -44,14 +42,14 @@
 #PATHDIR          {u}  {d}  {16}
 #PATHDIR          {w}  {e}  {8}
 
-#tick {timer} {   #if { "$cursession" != "$sessionname"} {score} {#cr} } {30}
+#tick {timer} {#cr} {240}
 #tick {timeStamp} { #format {logDATE} {%t} {%Y-%m-%d %T} ; #showme <ccd>Timestamp: $logDATE} {300}
 
 #action {^Ptam the God of the Ancients gives you a purple potion of sanctuary.} {
-    #delay {pack purple potion} {put all.purple sack} {1}
+    #delay {pack purple potion} {put all.purple $container} {1}
 } {5}
 
-#alias pp {get purple sack;quaff purple}
+#alias pp {get purple $container;quaff purple}
 
 #alias {log}
 {
@@ -94,8 +92,6 @@
 #action {^You are dead!} {#var deathroom {$MSDP_ROOM_VNUM}}
 
 #split 4 4
-#read $lib/msdp.tin
-#read $lib/diag.tin
 #read $lib/events.tin
 #read $lib/automan.tin;
 #read $lib/comms.tin;
