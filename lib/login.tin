@@ -1,9 +1,0 @@
-#class {login} {kill}
-#class {login} {open}
-
-#action {^Please enter your account password} {$password[1]; #unvar password;#cr}
-#action {^Enter your account name.} {bhang}
-
-#class {login} {close}
-
-#nop -- vim: syntax=tt
