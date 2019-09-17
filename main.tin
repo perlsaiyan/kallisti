@@ -5,38 +5,46 @@
 #var barchar {-}
 #var ttd /home/tom/git/kallisti
 #var lib $ttd/lib
+#var accountName bhang
+#script {password} {/usr/bin/pass $accountName@kallistimud.com};
 
-#nop -- Player Map and Initials ---------------------------------------------
-
-#alias {global} {#all #var {%1} {%2}}
-
-#alias {sload} {
-
-    #if { "%1" == "" } {
-      #showme <cfa> Yes, but load who?
-    } {
-    #script {password} {/usr/bin/pass bhang@kallistimud.com};
-    #event {SESSION CONNECTED} {
-        #read $ttd/players/%1.tin;
-        #read $lib/common.tin;
-        #read $lib/login.tin;
-        #unevent {SESSION CONNECTED};
-        };
-    }
-    #session {k} {kallistimud.com} {4000}
-}
-
-
-
-#nop -- ---------------------------------------------------------------------
-#nop -- Events
-#nop -- ---------------------------------------------------------------------
+#session {k} {kallistimud.com} {4000}
 
 #message {ACTION} {off}
 #message {TAB} {off}
 #message {ALIAS} {off}
 #message {VARIABLE} {off}
 
-sload saiya
+#nop -- Tins we want at startup
+#read $lib/msdp.tin
+#read $lib/diag.tin
 
+diag login off
+
+#nop -- LOGIN Things
+#class {login} {kill}
+#class {login} {open}
+
+#action {^Please enter your account password} {$password[1]; #unvar password;#cr}
+#action {^Enter your account name.} {bhang}
+#action {*** PRESS ENTER ***} {
+    #split 4 4;
+    #system {tput clear};
+    #cr
+}
+
+#action {Active: %w [ Level %d %S %w } {
+    diaLog login Player %1, class %4;
+    #format curPlayer {%l} {%1};
+    #format curClass {%l} {%4};
+}
+
+#action {^Welcome to the legendary lands of Kallisti.$} {
+    #read $ttd/players/$curPlayer.tin;
+    #read $lib/class/$curClass.tin;
+    #read $lib/common.tin;
+    #class {login} {kill};
+}
+
+#class {login} {close}
 #nop -- vim: syntax=tt
