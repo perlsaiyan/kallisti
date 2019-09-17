@@ -11,6 +11,7 @@
 #action {^You cchat{.*}} {#line log $commsLog {%0}}
 
 #action {~^\e\[1;35m<Gossip{.*}} {#line log $commsLog {%0}}
+#action {^The winds whisper, '{.*}'} {#line log $commsLog {%1}};
 
 #class {comms} {close}
 
