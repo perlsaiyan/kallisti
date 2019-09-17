@@ -8,13 +8,14 @@
     #format {_line4} {Area: %-15s | Mount: %-15s | Pos: %-8s | Opponents: %-5s}
         {$MSDP_AREA_NAME} {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
 
+    #format {_line3} {H: %-4s/%-4s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX};
 
     #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%s) | Au: %-8s} 
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE} {$MSDP_EXPERIENCE_TNL}
         {$MSDP_GOLD};
 
     #showme {$_line2} {-2};
-    #showme { } {-3};
+    #showme {$_line3} {-3};
     #showme {$_line4} {-4};
     #nop
 }
