@@ -33,7 +33,6 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #alias {_cleanupHK} {
-	#var {openingAttack} {};
 	#var {target} {};
 	#var {nextTarget} {};
 	#var {areaName} {};
@@ -42,11 +41,6 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #nop -- Set opening attack, can be included in character's class file
-
-#tab setOpener
-#alias {setOpener} {
-	#var {openingAttack} {%1}
-}
 
 #nop -- Regen mode can be included in each character's class file as well
 
@@ -249,7 +243,6 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 
-setOpener impale
 setRegenMode mm
 lowThresholds 65 30 20
 upperThresholds 85 90 80

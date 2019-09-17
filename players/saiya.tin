@@ -1,14 +1,15 @@
 #nop -- Saiya's Configuration
 
-#class {saiya} {kill}
-#class {saiya} {open}
+#class {player} {kill}
+#class {player} {open}
 
-#variable {name} {saiya};
+#variable {name} {Saiya};
 #var sex[$name] male;
-#class {stasis} {close}
 
 #var openingAttack {impale};
-#var mount eagle;
+#var container starlight;
+
+#class {player} {close}
 
 #read $lib/class/ranger.tin
 

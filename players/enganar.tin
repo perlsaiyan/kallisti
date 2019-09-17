@@ -1,0 +1,17 @@
+#nop -- Enganar's Configuration
+
+#class {player} {kill}
+#class {player} {open}
+
+#nop -- Generic Player Data;
+#var {name} {Enganar};
+#var sex[$name] male;
+#var container pouch;
+
+#nop -- Fight config;
+#var openingAttack {ii};
+
+#alias ii {bash %0;kick;kick}
+
+#class {player} {close}
+#nop -- vim: syntax=tt
