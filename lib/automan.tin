@@ -43,7 +43,7 @@
 
 #alias resanct {
     #math {_test} {@epoch{} - $autoSanctTime};
-    #if {$_test > 5} {
+    #if {$_test > 10} {
         pp;
         #var autoSanctTime @epoch{};
     };
