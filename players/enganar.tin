@@ -6,12 +6,13 @@
 #nop -- Generic Player Data;
 #var {name} {Enganar};
 #var sex[$name] male;
-#var container pouch;
+#var container starlight;
 
 #nop -- Fight config;
 #var openingAttack {ii};
 
-#alias ii {bash %0;kick;kick}
+#alias ii {deathstroke %0;deathstroke}
+#alias rr {get recall $container;rec recall}
 
 #class {player} {close}
 #nop -- vim: syntax=tt
