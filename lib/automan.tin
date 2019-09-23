@@ -7,9 +7,10 @@
 #nop -- Configuration
 #nop -- ---------------------------------------------------------------
 
-#var autoMode off
+#var autoMode on
 #var autoDelay 0
 #var autoSanctTime 0
+#var autoWarcryTime 0
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -32,6 +33,12 @@
                 resanct;
             };
         };
+        #if {@hasAffect{warcry} < 1} {
+            #if {"$MSDP_POSITION" != "Sleeping"} {
+                diaLog buff Warcry;
+                rewarcry;
+            };
+        };
         #nop -- Let's check sanct/bufs;
         #nop -- stats;
         #nop -- mount;
@@ -39,6 +46,14 @@
         #nop -- hunt;
     }
 
+}
+
+#alias rewarcry {
+    #math {_test} {@epoch{} - $autoWarcryTime};
+    #if {$_test > 30} {
+        warcry;
+        #var autoWarcryTime @epoch{};
+    };
 }
 
 #alias resanct {
