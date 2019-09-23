@@ -5,13 +5,49 @@
 
 #var commsLog /tmp/ram/kallisti-comm.log
 
-#action {~^\e\[1;36m<Clan{.*}} {#line log $commsLog {%0}}
-#action {~^\e\[1;36m**{.*}} {#line log $commsLog {%0}}
-#action {^You grouptell{.*}} {#line log $commsLog {%0}}
-#action {^You cchat{.*}} {#line log $commsLog {%0}}
 
-#action {~^\e\[1;35m<Gossip{.*}} {#line log $commsLog {%0}}
-#action {^The winds whisper, '{.*}'} {#line log $commsLog {%1}};
+#alias commsLog {
+    #nop %0;
+    #line log $commsLog {%1%2};
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Group communications
+#nop -- ---------------------------------------------------------------
+#action {^You grouptell: {.*}} {
+    event_raise {commsGroup} {me} {%1};
+} {9}
+
+#action {^**%w: '%2'$} {
+    event_raise {commsGroup} {%1} {%2};
+} {9}
+
+#action {~^\e\[1;36m<Clan: %w> '{.*}'} {
+    event_raise {commsClan} {%1} {%2};
+} {9}
+
+#action {^You cchat, '{.*}'} {
+    event_raise {commsClan} {me} {%1};
+} {9}
+
+#action {^The winds whisper, '{.*}'} {
+    event_raise {commsWorld} {%1};
+} {9}
+
+#action {^<Gossip: %w> '{.*}'$} {
+    event_raise {commsGos} {%1} {%2};
+}
+
+
+#nop -- ---------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------
+
+event_register {commsGos} {logger} {commsLog {<fbf>} {G> %2: %3}}
+event_register {commsWorld} {logger} {commsLog {<fff>} {%2}}
+event_register {commsClan} {logger} {commsLog {<aff>} {C> %2: %3}}
+event_register {commsGroup} {logger} {commsLog {<bfc>} {T> %2: %3}}
+
 
 #class {comms} {close}
 
