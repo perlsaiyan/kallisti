@@ -1,0 +1,58 @@
+#class {reroll} {kill}
+#class {reroll} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Configuration variables
+#nop -- ---------------------------------------------------------------
+#var roll_str 24
+#var roll_int 0
+#var roll_wis 0
+#var roll_dex 15
+#var roll_con 0
+#var roll_luk 0
+#var roll_count 0
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+#alias reroll_test {
+    #var reroll 0;
+    #list {_message} {clear};
+    #if {$_str < $roll_str} { #var reroll 1; #list {_message} {add} {str:$_str}};
+    #if {$_int < $roll_int} { #var reroll 1; #list {_message} {add} {int:$_int}};
+    #if {$_wis < $roll_wis} { #var reroll 1; #list {_message} {add} {wis:$_wis}};
+    #if {$_dex < $roll_dex} { #var reroll 1; #list {_message} {add} {dex:$_dex}};
+    #if {$_con < $roll_con} { #var reroll 1; #list {_message} {add} {con:$_con}};
+    #if {$_luk < $roll_luk} { #var reroll 1; #list {_message} {add} {luk:$_luk}};
+
+    #if { $reroll == 0 } {
+        diaLog reroll How does this look, roll $roll_count?;
+    } {
+        diaLog reroll [$roll_count] reroll this char: $_message;
+        reroll;
+    }
+
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#act {New base stats: Str %d, Int %d, Wis %d, Dex %d, Con %d, Luk %d} {
+    #math {roll_count} {$roll_count + 1};
+    #var _str %1;
+    #var _int %2;
+    #var _wis %3;
+    #var _dex %4;
+    #var _con %5;
+    #var _luk %6;
+
+    reroll_test;
+}
+
+
+#class {reroll} {close}
+
+
+#nop -- vim: syntax=tt

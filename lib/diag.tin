@@ -9,7 +9,7 @@
 
 #nop -- List of different modules that include diagnostic display modes
 
-#list {_diagArgs} {create} {state} {buff} {item} {time} {azone} {bank} {postcombat} {zone} {service} {lock} {recall} {room} {events} {scav} {semicolon} {kills} {kill} {log} {stock} {login}
+#list {_diagArgs} {create} {state} {buff} {item} {time} {azone} {bank} {postcombat} {zone} {service} {lock} {recall} {room} {events} {scav} {semicolon} {kills} {kill} {log} {stock} {login} {reroll}
 
 #nop -- ---------------------------------------------------------------
 #nop -- diag modes
