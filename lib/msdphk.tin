@@ -24,7 +24,13 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 
 #tab hkKill
-#alias {hkKill} {#untick {checkLevelsHigh};#untick {shihonage};_cleanupHK;#class hk kill}
+#alias {hkKill} {
+    gt dbg: run of $target complete;
+    #untick {checkLevelsHigh};
+    #untick {shihonage};
+    _cleanupHK;
+    #class hk kill
+}
 
 #alias {lostTracks} {
 	#var {huntFailCount} {0};
@@ -170,6 +176,9 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #action {No target found by the name of '%1.'} {
 	hk $nextTarget
 }
+#action {Nobody here by that name ('%1').} {
+    hk $nextTarget
+}
 
 #action {You start searching for tracks but then realize your target is right here!} {
 	$openingAttack $target;
@@ -205,7 +214,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {You try to impale %1, but fumble your weapon!} {#2 shihonage}
 
-#action {^You suddenly find your hand empty} {wield lance}
+#action {^You suddenly find your hand empty} {wield $primary_weapon}
 
 #action {^You try to ride %1, but you fall on your butt} {
     stand;
@@ -244,7 +253,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 30 20
+lowThresholds 65 30 40
 upperThresholds 85 90 80
 
 #class {hk} {close}
