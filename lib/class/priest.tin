@@ -1,0 +1,12 @@
+#nop -- This is a sample file to show how to set up classes for Kallisti.
+#nop -- They are automatically loaded at startup.
+
+#class {class} {kill}
+#class {class} {open}
+
+
+#al hh {cast 'heal' %0}
+
+#class {class} {close}
+
+#nop -- vim: syntax=tt

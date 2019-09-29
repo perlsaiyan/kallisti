@@ -1,0 +1,9 @@
+#class {class} {kill}
+#class {class} {open}
+
+#al harm {cast 'harm' %0} {5}
+#al heal {cast 'heal' %0} {5}
+
+#class {class} {close}
+
+#nop -- vim: syntax=tt
