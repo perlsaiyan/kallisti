@@ -2,7 +2,6 @@
 #nop vars
 #nop --
 
-#var {openingAttack} {impale}
 #var {target} {null}
 
 #nop --
