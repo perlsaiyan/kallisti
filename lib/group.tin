@@ -1,0 +1,113 @@
+#class {group} {kill}
+#class {group} {open}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Configuration variables
+#nop -- ---------------------------------------------------------------
+#var groupLoaded 1;
+#var GROUP_LEADER {};
+
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain};
+
+#nop -- ---------------------------------------------------------------
+#nop -- Aliases
+#nop -- ---------------------------------------------------------------
+
+#alias groupCommand {
+    #if {@groupIsFriend{%1}} {
+        #if {"%2" == "all recall"} {recall};
+        #if {"%2" == "stand"} {stand;mount dragonne};
+        #if {"%2" == "sit"} {sit};
+        #if {"%2" == "fol self"} {fol self};
+        #if {"%2" == "ehk protector"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack ii;
+            hk protector;
+        };
+        #if {"%2" == "ehk ice"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack charge;
+            hk ice;
+        };
+        #if {"%2" == "ehk diamond"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack charge;
+            hk diamond;
+        };
+        #if {"%2" == "ehk barb"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack ii;
+            hk barb;
+        };
+        #if {"%2" == "ehk melk"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack ii;
+            hk melk;
+        };
+        #if {"%2" == "ehk boulder"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack ii;
+            hk boulder;
+        };
+        #if {"%2" == "ehk guard"} {
+            #read $lib/msdphk.tin;
+            #var openingAttack ii;
+            hk guard;
+        };
+        #if {"%2" == "heal"} {
+            heal %1
+        };
+
+    } {
+        #nop -- Ignore command from non-friend;
+    }
+}
+
+
+#nop -- ---------------------------------------------------------------
+#nop -- Actions
+#nop -- ---------------------------------------------------------------
+
+#action {^You now follow %1.} {
+    #var GROUP_LEADER %1;
+    diaLog group Setting group leader to %1.;
+    #read $lib/follower.tin;
+}
+
+#action {^You stop following %1.} {
+    #var GROUP_LEADER {};
+    #class follower kill;
+    diaLog group Unloading follower module.;
+}
+
+#action {^**Chaoran: 'Hunting >%1< with opener >%2<.'$} {
+    #line oneshot #tick {chaobumper} {gt hk %1 %2} {30}
+} {8};
+
+#action {^**Chaoran: 'all mob <%1> clear.'$} {
+    #untick {chaobumper};
+} {8};
+
+#action {^Chaoran beckons you to follow.} {fol chaoran}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------
+event_register {commsGroup} {groupCommand} {groupCommand {%2} {%3}}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+#function groupIsFriend {#list {groupFriends} {find} {%1} {result}}
+
+#function groupIsGrouped {
+    #var result 0;
+    #loop {1} {&MSDP_GROUP[]} {index} {
+        #if { "$MSDP_GROUP[$index][name]" == "%1" } { #var result 1; }
+    }
+}
+
+#class {group} {close}
+
+
+#nop -- vim: syntax=tt

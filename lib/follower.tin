@@ -1,0 +1,18 @@
+#class {follower} {kill}
+#class {follower} {open}
+
+#nop -- actions
+
+#action {^%w enters %2$} {
+    diaLog group %1 entered %2;
+    #var _portal %2;
+    #replace {_portal} {%w } {};
+    #replace {_portal} {.} {};
+    #if {"%1" == "$GROUP_LEADER"} {
+        diaLog group attempt to enter $_portal;
+        enter $_portal;
+    }
+}
+
+#class {follower} {close}
+#nop -- vim: syntax=tt
