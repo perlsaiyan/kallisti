@@ -4,13 +4,23 @@
 #nop -- ---------------------------------------------------------------
 #nop -- Configuration variables
 #nop -- ---------------------------------------------------------------
-#var roll_str 24
-#var roll_int 0
-#var roll_wis 0
-#var roll_dex 15
-#var roll_con 0
-#var roll_luk 0
+
+#showme {This is set up currently to roll a Paragon Bonused Eldar Priest}
+#showme {character.  Make sure that the roll_%* values are what you expect.}
+
+#nop -- Of these, it should add up to less than 62
+#var roll_str 8
+#var roll_int 15
+#var roll_wis 25
+#var roll_dex 5
+#var roll_con 7
+
+#nop -- Bonus luck factor
+#var roll_luk 13
+
+#var roll_sum 62
 #var roll_count 0
+#var max_roll 100000
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -26,10 +36,17 @@
     #if {$_con < $roll_con} { #var reroll 1; #list {_message} {add} {con:$_con}};
     #if {$_luk < $roll_luk} { #var reroll 1; #list {_message} {add} {luk:$_luk}};
 
+    #math {_sum} {$_str + $_int + $_wis + $_dex + $_con};
+
+    #nop -- Some emergency cutoff stuff;
+    #if {$roll_count > $max_roll} {#var reroll 0};
+
+    #nop -- Reroll or Stop?;
     #if { $reroll == 0 } {
         diaLog reroll How does this look, roll $roll_count?;
+        #system {play ~/sounds/stock_payout.wav &};
     } {
-        diaLog reroll [$roll_count] reroll this char: $_message;
+        diaLog reroll $roll_count: this char: $_message - sum:$_sum;
         reroll;
     }
 
