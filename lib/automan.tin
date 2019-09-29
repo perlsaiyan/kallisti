@@ -58,8 +58,9 @@
 
 #alias resanct {
     #math {_test} {@epoch{} - $autoSanctTime};
-    #if {$_test > 10} {
+    #if {$_test > 20} {
         pp;
+        #nop -- gt sanc;
         #var autoSanctTime @epoch{};
     };
 }
