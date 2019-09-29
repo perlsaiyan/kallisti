@@ -1,0 +1,51 @@
+#class {autoheal} {kill}
+#class {autoheal} {open}
+
+#tick {autoheal} {autoheal} {2};
+#tick {autodamage} {autodamage} {2};
+#untick autodamage;
+
+#alias autoheal {
+    #if { @pct{$MSDP_HEALTH;$MSDP_HEALTH_MAX} < 85 } {
+        #if {(@epoch{} - $last_heal) > 2} {
+            heal;
+            #var last_heal @epoch{};
+        }
+    } {
+
+        #foreach *MSDP_GROUP[%*] {_tmp} {
+            #if {$MSDP_GROUP[$_tmp][health] < 80 } {
+                #if {(@epoch{} - $last_heal) > 2} {
+                    heal $MSDP_GROUP[$_tmp][name];
+                }
+            };
+            #if {$MSDP_GROUP[$_tmp][stamina] < 35 } {
+                #if {$MSDP_GROUP[$_tmp][name] == "Chaoran"} {
+                    #if {$MSDP_MANA > 300} {
+                        refresh $MSDP_GROUP[$_tmp][name];
+                    }
+                }
+            };
+        };
+    }
+}
+
+#alias autodamage {
+        #nop -- temporary damage hack;
+        #if { "$MSDP_POSITION" == "Fighting" } {
+            #if { @pct{$MSDP_MANA;$MSDP_MANA_MAX} > 30} {
+                harm
+            }
+        }
+}
+
+
+#func pct {
+ #math result { %1 * 100.0 / %2 }
+}
+
+
+
+
+#class {autoheal} {close}
+#nop -- vim: syntax=tt
