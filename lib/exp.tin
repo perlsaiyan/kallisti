@@ -1,0 +1,37 @@
+#class {exp} {kill}
+#class {exp} {open}
+
+#variable {expRate} {0}
+#variable {minsToLevel} {0}
+#variable {startExp} {$MSDP_EXPERIENCE}
+#format expStartTime {%T}
+
+#tab reloadExp
+#alias {reloadExp} {
+  #class exp kill;
+  #read $lib/exp.tin;
+}
+
+#alias {expCounter} {
+		#math expGainz {$MSDP_EXPERIENCE-$startExp};
+		#format expNowTime {%T};
+      	#math expElapsedTime {$expNowTime - $expStartTime};
+      	#math expPerSec {$expGainz/$expElapsedTime};
+      	#math expMins {$expPerSec*60}
+}
+
+event_register expUpdate expCounter {expCounter}
+
+#event {VARIABLE UPDATE MSDP_EXPERIENCE} {event_raise {expUpdate} {expCounter}}
+
+#action {^* * * You now have enough experience to gain a level! * * *} {
+    #math result {$MSDP_LEVEL + 1};
+    #system {$ttd/bin/slack.sh $name I have enough experience for level $result. &}
+};
+
+#action {^---+  Congratulations, you are now level %d!  +--} {
+    #system {$ttd/bin/slack.sh $name "Woot, level %1!" &}
+}
+
+#class {exp} {close}
+#nop -- vim: syntax=tt
