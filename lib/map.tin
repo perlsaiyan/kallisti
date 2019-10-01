@@ -42,20 +42,10 @@
     #map map 40 40 overwrite $mapFile;
 }
 
-#alias mapEnterRoom {
-    #nop
-}
-
-#nop -- ---------------------------------------------------------------
 #nop -- Actions
 #nop -- ---------------------------------------------------------------
 
-#action {~^\e\[1;35m%1%s\e} {
-    event_raise mapEnterRoom {%1}.
-}
 
-
-event_register {mapEnterRoom} {mapEnterRoom} {mapEnterRoom %0}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
