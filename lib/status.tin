@@ -1,12 +1,27 @@
 #class {status} {kill}
 #class {status} {open}
 
+#nop -- Configuration Variables
 
+#var spb1 {\e[48;2;95;129;157m};
+#var spf1 {<fff>};
+
+#var spb2 {\e[48;2;165;66;66m};
+#var spf2 {<fff>};
+
+event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
+#alias areaUpdate {
+    diaLog status Update area to %1;
+    #format {_line1} {${spb1}${spf1}Area: %-24s} {%1};
+    #showme {$_line1} {2} {1}
+}
+
+event_register {statusUpdate} {status bottom} {statusBottom}
 #alias statusBottom {
 
 
-    #format {_line4} {Area: %-15s | Mount: %-15s | Pos: %-8s | Opponents: %-5s}
-        {$MSDP_AREA_NAME} {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
+    #format {_line4} {Mount: %-15s | Pos: %-8s | Opponents: %-5s}
+        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
 
     #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
@@ -22,8 +37,15 @@
     #nop
 }
 
+#event {VARIABLE UPDATE expMins} {
+    #format {_line} {${spb1}${spf1}XP/Min: %-20s} {%1};
+    #showme {$_line} {3} {1}
+};
 
-event_register {statusUpdate} {statusBottom} {statusBottom}
+#format {_line1} {${spb2}${spf2}Name: %s (%s %s, %s) |} {$MSDP_CHARACTER_NAME}
+        {$MSDP_RACE} {$MSDP_CLASS} {$MSDP_LEVEL};
+#showme {$_line1} {1};
+
 
 #tick {status line} {event_raise statusUpdate 1} {1}
 
