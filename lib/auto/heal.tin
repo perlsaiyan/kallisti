@@ -19,8 +19,8 @@
                     heal $MSDP_GROUP[$_tmp][name];
                 }
             };
-            #if {$MSDP_GROUP[$_tmp][stamina] < 35 } {
-                #if {$MSDP_GROUP[$_tmp][name] == "Chaoran"} {
+            #if {$MSDP_GROUP[$_tmp][stamina] < 25 } {
+                #if {"$MSDP_GROUP[$_tmp][name]" == "Chaoran"} {
                     #if {$MSDP_MANA > 300} {
                         refresh $MSDP_GROUP[$_tmp][name];
                     }
