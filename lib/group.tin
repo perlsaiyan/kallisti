@@ -81,12 +81,15 @@
 }
 
 #action {^**Chaoran: 'Hunting >%1< with opener >%2<.'$} {
-    #line oneshot #tick {chaobumper} {gt hk %1 %2} {30}
+    #line oneshot #tick {chaobumper} {gt hk %1 %2} {60}
 } {8};
 
 #action {^**Chaoran: 'all mob <%1> clear.'$} {
     #untick {chaobumper};
 } {8};
+
+#action {^**Chaoran: 'And away we go!'$} { #read $lib/exp.tin; }
+#action {^**Chaoran: 'stop'$} { #class chaoran kill; }
 
 #action {^Chaoran beckons you to follow.} {fol chaoran}
 
