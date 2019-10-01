@@ -15,12 +15,19 @@
 #alias {expCounter} {
 		#math expGainz {$MSDP_EXPERIENCE-$startExp};
 		#format expNowTime {%T};
-      	#math expElapsedTime {$expNowTime - $expStartTime};
-      	#math expPerSec {$expGainz/$expElapsedTime};
-      	#math expMins {$expPerSec*60}
+        #math expElapsedTime {$expNowTime - $expStartTime};
+        #math expPerSec {$expGainz/$expElapsedTime};
+        #math expMins {$expPerSec*60}
+}
+
+#alias {expAnnounceHeroPoints} {
+    #line oneshot #tick {announce hero points} {
+        #system {$ttd/bin/slack.sh $name I now have %1 hero points!}
+    } {30};
 }
 
 event_register expUpdate expCounter {expCounter}
+event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoints {%2}}
 
 #event {VARIABLE UPDATE MSDP_EXPERIENCE} {event_raise {expUpdate} {expCounter}}
 

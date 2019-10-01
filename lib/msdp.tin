@@ -68,7 +68,7 @@
         #case {"ROOM_VNUM"}
         {
             mapRoom;
-        }
+        };
 	}
 }
 
@@ -85,6 +85,9 @@
 	#nop {MSDP_CONFIGURE sound,1};
 	#variable {PROTOCOL[MSDP]} {1}
 }
+
+#EVENT {VARIABLE UPDATE MSDP_AREA_NAME} {event_raise {variable MSDP_AREA_NAME} {%1}};
+#EVENT {VARIABLE UPDATE MSDP_HERO_POINTS} {event_raise {variable MSDP_HERO_POINTS} {%1}};
 
 #VARIABLE         {DO}  {ý}
 #VARIABLE         {DONT}  {þ}
