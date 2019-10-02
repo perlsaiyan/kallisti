@@ -7,7 +7,7 @@
 #var groupLoaded 1;
 #var GROUP_LEADER {};
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -16,6 +16,9 @@
 #alias groupCommand {
     #if {@groupIsFriend{%1}} {
         #if {"%2" == "all recall"} {recall};
+        #if {"%2" == "qw"} {recall};
+        #if {"%2" == "fire"} {ff group};
+        #if {"%2" == "vig"} {vig group};
         #if {"%2" == "stand"} {stand;mount dragonne};
         #if {"%2" == "sit"} {sit};
         #if {"%2" == "fol self"} {fol self};
