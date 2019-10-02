@@ -36,7 +36,21 @@
 
 #action {^<Gossip: %w> '{.*}'$} {
     event_raise {commsGos} {%1} {%2};
-}
+} {9}
+
+#action {^<Gossip: %w (%w)> '{.*}'$} {
+    event_raise {commsGos} {%1 (%2)} {%3};
+} {8}
+
+#action {^%w (%w) tells you, '{.*}'} {
+    event_raise {commsTell} {%1 (%2)} {%3};
+} {8}
+#action {^%w tells you, '{.*}'} {
+    event_raise {commsTell} {%1 (%2)} {%3};
+} {8}
+#action {^You tell {.*}, '{.*}'} {
+    event_raise {commsTell} {me (to %1)} {%2};
+} {9}
 
 
 #nop -- ---------------------------------------------------------------
@@ -47,7 +61,7 @@ event_register {commsGos} {logger} {commsLog {<fbf>} {G> %2: %3}}
 event_register {commsWorld} {logger} {commsLog {<fff>} {%2}}
 event_register {commsClan} {logger} {commsLog {<aff>} {C> %2: %3}}
 event_register {commsGroup} {logger} {commsLog {<bfc>} {T> %2: %3}}
-
+event_register {commsTell} {logger} {commsLog {<fab>} {>> %2: %3}}
 
 #class {comms} {close}
 
