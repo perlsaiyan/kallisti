@@ -180,6 +180,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
     hk $nextTarget
 }
 
+#action {^They aren't here.$} { hk $nextTarget } {9}
+
 #action {You start searching for tracks but then realize your target is right here!} {
 	$openingAttack $target;
 	#var target $nextTarget
@@ -238,14 +240,14 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 
 #event {VARIABLE UPDATE MSDP_OPPONENT_NUMBER} {
-	diaLog azone Updating opponent number;
+	diaLog msdp Updating opponent number;
 	#if {$MSDP_OPPONENT_NUMBER>1} {
 		#ticker {kick} {kick} {5}} {
 		#untick {kick}
 		}
 	}
 #event {VARIABLE UPDATE MSDP_STAMINA} {
-	diaLog azone Updating MSDP_STAMINA;
+	diaLog msdp Updating MSDP_STAMINA;
 	#if {$MSDP_OPPONENT_NUMBER==0  && @percent($MSDP_STAMINA)<$STAMINA_thresholdLow} {
 		doRegen
 	}
@@ -253,8 +255,16 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 30 40
+lowThresholds 65 15 25
 upperThresholds 85 90 80
 
 #class {hk} {close}
+
+#EVENT {CLASS DESTROYED hk} {
+    diaLog azone Untick doregen;
+    #untick doregen;
+    diaLog azone Untick checkLevelsHigh;
+    #untick checkLevelsHigh;
+}
+
 #nop -- vim: syntax=tt
