@@ -15,8 +15,12 @@
 
 #tab metaReport
 #alias {metaReport} {
-	#echo {<g23>Total exp Meta'd: <efc>$metaExpTotal};
-	#echo {<g23>Total gold Meta'd: <fea>$metaTotalGold}
+
+    #format {_line1} {<g23> Total exp Meta'd: <efc>%g} {$metaExpTotal};
+    #format {_line2} {<g23>Total gold Meta'd: <fea>%-15g} {$metaTotalGold};
+    #echo $_line1;
+    #echo $_line2;
 }
 
 #class {meta} {close}
+#nop -- vim: syntax=tt
