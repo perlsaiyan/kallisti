@@ -27,7 +27,7 @@
         #math autoDelay  {$autoDelay - 1};
     } {
         #nop -- diaLog buff check buffs;
-        #if {@hasAffect{sanctuary} < 1} {
+        #if {@hasAffect{sanctuary} < 2} {
             #if {"$MSDP_POSITION" != "Sleeping"} {
                 diaLog buff Sancting;
                 resanct;
