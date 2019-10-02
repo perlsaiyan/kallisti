@@ -4,6 +4,17 @@
 #al harm {cast 'harm' %0} {5}
 #al heal {cast 'heal' %0} {5}
 
+#al cv {
+
+    #if { $last_heal < @epoch{} } {
+        #math {last_heal} {@epoch{} + 6}
+    } {
+        #math {last_heal} {$last_heal + 6}
+    }
+
+    emote is -+= CONVERTING =+-;
+    convert
+}
 #class {class} {close}
 
 #nop -- vim: syntax=tt
