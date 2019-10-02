@@ -27,6 +27,8 @@
 }
 
 event_register expUpdate expCounter {expCounter}
+event_register {exp levelup} {exp tin reload} {#line oneshot #tick {exp reload} {#read $lib/exp.tin} {10}}
+
 event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoints {%2}}
 
 #event {VARIABLE UPDATE MSDP_EXPERIENCE} {event_raise {expUpdate} {expCounter}}
@@ -36,7 +38,9 @@ event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoi
     #system {$ttd/bin/slack.sh $name I have enough experience for level $result. &}
 };
 
-#action {^---+  Congratulations, you are now level %d!  +--} {
+#action {^--+  Congratulations, you are now level %d!  +--$} {
+    event_raise {exp levelup} {%1}
+    diaLog exp Level %1 reached;
     #system {$ttd/bin/slack.sh $name "Woot, level %1!" &}
 }
 
