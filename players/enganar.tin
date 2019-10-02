@@ -7,6 +7,8 @@
 #var {name} {Enganar};
 #var sex[$name] male;
 #var container starlight;
+#var primary_weapon sword;
+
 
 #nop -- Fight config;
 #var openingAttack {ii};
