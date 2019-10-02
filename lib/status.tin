@@ -27,7 +27,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX};
 
-    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%s) | Au: %-8s} 
+    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%g TNL) | Au: %-8g} 
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE} {$MSDP_EXPERIENCE_TNL}
         {$MSDP_GOLD};
 
@@ -42,12 +42,17 @@ event_register {statusUpdate} {status bottom} {statusBottom}
     #showme {$_line} {3} {1}
 };
 
-#format {_line1} {${spb2}${spf2}Name: %s (%s %s, %s) |} {$MSDP_CHARACTER_NAME}
+#format {_line1} {${spb2}${spf2}Name: %s (%n %s, %s) |} {$MSDP_CHARACTER_NAME}
         {$MSDP_RACE} {$MSDP_CLASS} {$MSDP_LEVEL};
 #showme {$_line1} {1};
 
 
 #tick {status line} {event_raise statusUpdate 1} {1}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Startup
+#nop -- ---------------------------------------------------------------
+areaUpdate {$MSDP_AREA_NAME}
 
 #class {status} {close}
 #nop -- vim: syntax=tt
