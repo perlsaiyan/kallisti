@@ -2,6 +2,8 @@
 #class {autoheal} {open}
 
 #tick {autoheal} {autoheal} {2};
+#tick {autotrue} {autotrue} {1};
+
 #tick {autodamage} {autodamage} {4};
 #untick autodamage;
 
@@ -20,11 +22,9 @@
                 }
             };
             #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
-                #if {$MSDP_GROUP[$_tmp][name] == "Pif"} {
                     #if {$MSDP_MANA > 300} {
                         refresh $MSDP_GROUP[$_tmp][name];
                     }
-                }
             };
         };
     }
@@ -39,6 +39,16 @@
         }
 }
 
+#alias autotrue {
+        #if {@hasAffect{true seeing} < 1} {
+            #if {"$MSDP_POSITION" != "Fighting"} {
+				#if {(@epoch{} - $last_true) > 10} {
+	            	true;
+            		#var last_true @epoch{};
+	    		};
+			};
+        };
+}
 
 #func pct {
  #math result { %1 * 100.0 / %2 }
