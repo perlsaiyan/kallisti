@@ -7,7 +7,7 @@
 #var groupLoaded 1;
 #var GROUP_LEADER {};
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -60,6 +60,9 @@
         #if {"%2" == "heal"} {
             heal %1
         };
+        #if {"%2" == "i gained 69 exp from someones mom"} {
+            gt glad she could use what i taught her
+        };
 
     } {
         #nop -- Ignore command from non-friend;
@@ -94,7 +97,7 @@
 #action {^**Chaoran: 'And away we go!'$} { #read $lib/exp.tin; }
 #action {^**Chaoran: 'stop'$} { #class chaoran kill; }
 
-#action {^Chaoran beckons you to follow.} {fol chaoran}
+#action {^{Chaoran|Stabitha} beckons you to follow.} {fol %1}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
