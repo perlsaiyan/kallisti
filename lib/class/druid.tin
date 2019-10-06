@@ -7,9 +7,9 @@
 #al cv {
 
     #if { $last_heal < @epoch{} } {
-        #math {last_heal} {@epoch{} + 6}
+        #math {last_heal} {@epoch{} + 7}
     } {
-        #math {last_heal} {$last_heal + 6}
+        #math {last_heal} {$last_heal + 7}
     }
 
     emote is -+= CONVERTING =+-;
