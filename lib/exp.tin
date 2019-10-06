@@ -27,7 +27,7 @@
 }
 
 event_register expUpdate expCounter {expCounter}
-event_register {exp levelup} {exp tin reload} {#line oneshot #tick {exp reload} {#read $lib/exp.tin} {10}}
+event_register {exp levelup} {exp tin reload} {#line oneshot #tick {exp reload} {#read $lib/exp.tin;#read $lib/status.tin} {10}}
 
 event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoints {%2}}
 
