@@ -1,0 +1,9 @@
+#class {inventory} {kill}
+#class {inventory} {open}
+
+#al pg {get %1 $container}
+#al pi {look in $container}
+#al pp {put %1 $container}
+
+#class {inventory} {close}
+#nop -- vim: syntax=tt
