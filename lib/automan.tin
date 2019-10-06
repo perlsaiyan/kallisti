@@ -59,11 +59,11 @@
 #alias resanct {
     #math {_test} {@epoch{} - $autoSanctTime};
     #if {$_test > 20} {
-        pp;
-        #nop -- gt sanc;
+        sanct;
         #var autoSanctTime @epoch{};
     };
 }
+#al sanct {pg purple;quaff purple}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
