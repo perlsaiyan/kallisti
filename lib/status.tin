@@ -9,25 +9,20 @@
 #var spb2 {\e[48;2;165;66;66m};
 #var spf2 {<fff>};
 
-event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
-#alias areaUpdate {
-    diaLog status Update area to %1;
-    #format {_line1} {${spb1}${spf1}Area: %-24s} {%1};
-    #showme {$_line1} {2} {1}
-}
 
 event_register {statusUpdate} {status bottom} {statusBottom}
 #alias statusBottom {
 
 
-    #format {_line4} {Mount: %-15s | Pos: %-8s | Opponents: %-5s}
+    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s}
+        {$MSDP_PC_IN_ZONE}
         {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
 
     #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX};
 
-    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%g TNL) | Au: %-8g} 
+    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8g (%g TNL) | Au: %-8g} 
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE} {$MSDP_EXPERIENCE_TNL}
         {$MSDP_GOLD};
 
@@ -37,10 +32,18 @@ event_register {statusUpdate} {status bottom} {statusBottom}
     #nop
 }
 
+
 #event {VARIABLE UPDATE expMins} {
-    #format {_line} {${spb1}${spf1}XP/Min: %-20s} {%1};
-    #showme {$_line} {3} {1}
+    #draw <B579><fff> tile 3 1 3 30 Xp/Min: %1
 };
+
+event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
+#alias areaUpdate {
+    diaLog status Update area to %1;
+    #format {_line1} {Area: %-24s} {%1};
+    #draw <B579><fff> tile 2 1 2 30 $_line1;
+    syslog DBG: Transition from $MSDP_AREA_NAME to %1 at $MSDP_ROOM_VNUM;
+}
 
 #format {_line1} {${spb2}${spf2}Name: %s (%n %s, %s) |} {$MSDP_CHARACTER_NAME}
         {$MSDP_RACE} {$MSDP_CLASS} {$MSDP_LEVEL};
