@@ -1,22 +1,41 @@
 #!/bin/bash
 
-CHANNEL="#legends"
-USERNAME=$1
-shift
+PARAMS=""
+while (( "$#" )); do
+  case "$1" in
+    -c|--channel)
+      CHANNEL=$2
+      shift 2
+      ;;
+    -n|--name)
+      USERNAME=$2
+      shift 2
+      ;;
+    -e|--emoji)
+      EMOJI=":$2:"
+      shift 2
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
 MSG=$*
+PATHDIR=`dirname $0`
+HOOK=`grep legends ${PATHDIR}/hooks | cut -d: -f2-`
 
-case ${USERNAME} in
-    Pif)
-        EMOJI=":evergreen_tree:"
-        ;;
-    *)
-        EMOJI=":ghost:"
-        ;;
-esac
+PAYLOAD="payload={\"channel\": \"#$CHANNEL\", \"username\": \"$USERNAME\", \"text\": \"$MSG\", \"icon_emoji\": \"$EMOJI\"}"
 
-PAYLOAD="payload={\"channel\": \"$CHANNEL\", \"username\": \"$USERNAME\", \"text\": \"$MSG\", \"icon_emoji\": \"$EMOJI\"}"
-HOOK=https://hooks.slack.com/services/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
-
-curl -X POST --data-urlencode "$PAYLOAD" "$HOOK"
+curl -s -X POST --data-urlencode "$PAYLOAD" "$HOOK" > /dev/null
 
 
