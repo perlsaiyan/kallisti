@@ -3,6 +3,7 @@
 
 #variable {expRate} {0}
 #variable {minsToLevel} {0}
+#variable expMins 0;
 #variable {startExp} {$MSDP_EXPERIENCE}
 #format expStartTime {%T}
 
@@ -13,7 +14,8 @@
 }
 
 #alias {expCounter} {
-		#math expGainz {$MSDP_EXPERIENCE-$startExp};
+        diaLog exp expCounter %2/$MSDP_EXPERIENCE;
+		#math expGainz {%2-$startExp};
 		#format expNowTime {%T};
         #math expElapsedTime {$expNowTime - $expStartTime};
         #math expPerSec {$expGainz/$expElapsedTime};
@@ -22,27 +24,29 @@
 
 #alias {expAnnounceHeroPoints} {
     #line oneshot #tick {announce hero points} {
-        #system {$ttd/bin/slack.sh $name I now have %1 hero points!}
+        slackMessage {I now have %1 hero points}
     } {30};
 }
 
-event_register expUpdate expCounter {expCounter}
-event_register {exp levelup} {exp tin reload} {#line oneshot #tick {exp reload} {#read $lib/exp.tin;#read $lib/status.tin} {10}}
-
+event_register expUpdate expCounter {expCounter %2}
+event_register {exp levelup} {exp tin reload} {#line oneshot #tick {exp reload} {reloadExp} {10}}
 event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoints {%2}}
 
-#event {VARIABLE UPDATE MSDP_EXPERIENCE} {event_raise {expUpdate} {expCounter}}
+#event {VARIABLE UPDATE MSDP_EXPERIENCE} {event_raise {expUpdate} {expCounter %1}}
+#event {VARIABLE UPDATE expMins} {#draw <B579><fff> tile 3 1 3 30 Xp/Min: %1};
 
 #action {^* * * You now have enough experience to gain a level! * * *} {
     #math result {$MSDP_LEVEL + 1};
-    #system {$ttd/bin/slack.sh $name I have enough experience for level $result. &}
+    slackMessage {I have enough experience for level $result.}
 };
 
 #action {^--+  Congratulations, you are now level %d!  +--$} {
     event_raise {exp levelup} {%1}
     diaLog exp Level %1 reached;
-    #system {$ttd/bin/slack.sh $name "Woot, level %1!" &}
+    slackMessage {Woot, level %1}
 }
+
+expCounter startup $MSDP_EXPERIENCE
 
 #class {exp} {close}
 #nop -- vim: syntax=tt

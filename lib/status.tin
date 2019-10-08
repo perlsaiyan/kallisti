@@ -33,10 +33,6 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 }
 
 
-#event {VARIABLE UPDATE expMins} {
-    #draw <B579><fff> tile 3 1 3 30 Xp/Min: %1
-};
-
 event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
 #alias areaUpdate {
     diaLog status Update area to %1;

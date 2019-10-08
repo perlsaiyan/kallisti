@@ -89,10 +89,7 @@
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
-#action {^You are dead!} {
-    #var deathroom {$MSDP_ROOM_VNUM};
-    #system {$ttd/bin/slack.sh $name I have died at VNUM $MSDP_ROOM_VNUM in $MSDP_AREA_NAME. &}
-}
+#action {^You are dead!} {#var deathroom $MSDP_ROOM_VNUM; slackDeath}
 
 #var SPELL_LOCK 0
 
@@ -101,11 +98,13 @@
 #read $lib/exp.tin;
 #read $lib/automan.tin;
 #read $lib/comms.tin;
+#read $lib/group.tin;
 #read $lib/inventory.tin;
 #read $lib/map.tin;
 #read $lib/meta.tin;
 #read $lib/mount.tin
 #read $lib/scavenge.tin
+#read $lib/slack.tin;
 #read $lib/stock.tin
 #read $lib/status.tin
 #read $lib/mobs.tin
