@@ -1,0 +1,13 @@
+#class {slack} {kill}
+#class {slack} {open}
+
+#alias slackDeath {
+    #local msg {Untimely! I died in $MSDP_AREA_NAME at $MSDP_ROOM_NAME - $MSDP_ROOM_VNUM.};
+
+    #system {$ttd/bin/slack.sh -c legends -n $name -e face_with_head_bandage -- $msg &};
+}
+
+#alias slackMessage {#system {$ttd/bin/slack.sh -c legend -n $name -- %1 &}}
+
+#class {slack} {close}
+#nop -- vim: syntax=tt
