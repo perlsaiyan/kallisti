@@ -3,65 +3,68 @@
 #class {comms} {kill}
 #class {comms} {open}
 
-#var commsLog /tmp/ram/kallisti-comm.log
+#var chat[rows] 10;
 
 
-#alias commsLog {
-    #nop %0;
-    #line log $commsLog {%1%2};
+#alias {update_chat} {
+        diaLog comms update_chat for %0;
+        #if {&chat[log][] >= $chat[rows]} {
+                #list chat[log] del 1
+        };
+        #list chat[log] ins -1 {%0};
+
+        draw_comms
 }
+
 
 #nop -- ---------------------------------------------------------------
 #nop -- Group communications
 #nop -- ---------------------------------------------------------------
-#action {^You grouptell: {.*}} {
-    event_raise {commsGroup} {me} {%1};
-} {9}
-
-#action {^**%w: '%2'$} {
-    event_raise {commsGroup} {%1} {%2};
-} {9}
+#action {~^\e[1;36mYou grouptell: {.*}} {
+    event_raise {commsGroup} {$name} {%1} {%0};
+} {8}
+#action {~^\e[1;36m**%w: '%2'\e[0m$} {
+   diaLog comms %0 by %1;
+   event_raise {commsGroup} {%1} {%2} {%0};
+} {8}
 
 #action {~^\e\[1;36m<Clan: %w> '{.*}'} {
-    event_raise {commsClan} {%1} {%2};
+    diaLog comms %0 by %1;
+    event_raise {commsClan} {%1} {%2} {%0};
+} {8}
+#action {~^\e\[1;36mYou cchat, '{.*}'} {
+    diaLog comms %0 by %1;
+    event_raise {commsClan} {$name} {%1} {%0};
 } {9}
 
-#action {^You cchat, '{.*}'} {
-    event_raise {commsClan} {me} {%1};
-} {9}
+#action {~^\e[1;35m<Gossip: %w> '{.*}'\e[0m$} {
+    event_raise {commsGos} {%1} {%2} {%0};
+} {8}
+#action {~^\e[1;35m<Gossip: %w (%w)> '{.*}'\e[0m$} {
+    event_raise {commsGos} {%1 (%2)} {%3} {%0};
+} {8}
+
+
+#action {~^\e[1;36m%w (%w) tells you, '{.*}'\e[0m$} {
+    event_raise {commsTell} {%1 (%2)} {%3} {%0};
+} {8}
+#action {~^\e[1;36mYou tell {.*}, '{.*}'\e[0m$} {
+    event_raise {commsTell} {me (to %1)} {%2} {%0};
+} {8}
 
 #action {^The winds whisper, '{.*}'} {
-    event_raise {commsWorld} {%1};
-} {9}
-
-#action {^<Gossip: %w> '{.*}'$} {
-    event_raise {commsGos} {%1} {%2};
-} {9}
-
-#action {^<Gossip: %w (%w)> '{.*}'$} {
-    event_raise {commsGos} {%1 (%2)} {%3};
-} {8}
-
-#action {^%w (%w) tells you, '{.*}'} {
-    event_raise {commsTell} {%1 (%2)} {%3};
-} {8}
-#action {^%w tells you, '{.*}'} {
-    event_raise {commsTell} {%1 (%2)} {%3};
-} {8}
-#action {^You tell {.*}, '{.*}'} {
-    event_raise {commsTell} {me (to %1)} {%2};
+    event_raise {commsWorld} {%1} {%0};
 } {9}
 
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
 #nop -- ---------------------------------------------------------------
-
-event_register {commsGos} {logger} {commsLog {<fbf>} {G> %2: %3}}
-event_register {commsWorld} {logger} {commsLog {<fff>} {%2}}
-event_register {commsClan} {logger} {commsLog {<aff>} {C> %2: %3}}
-event_register {commsGroup} {logger} {commsLog {<bfc>} {T> %2: %3}}
-event_register {commsTell} {logger} {commsLog {<fab>} {>> %2: %3}}
+event_register {commsGroup} {chatwindow} {update_chat %4};
+event_register {commsClan}  {chatwindow} {update_chat %4};
+event_register {commsGos}   {chatwindow} {update_chat %4};
+event_register {commsTell}  {chatwindow} {update_chat %4};
+event_register {commsWorld} {chatwindow} {update_chat %3};
 
 #class {comms} {close}
 
