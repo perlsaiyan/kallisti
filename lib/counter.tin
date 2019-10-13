@@ -1,0 +1,17 @@
+#class {counter} {kill}
+#class {counter} {open}
+
+#var killcounter[]
+
+#action {^Your blood freezes as you hear %1's death cry.} {
+    #var _ktarg %1;
+    #buffer get _freeze -1 -1;
+    #regex $_freeze[1] {^{You receive your reward|Assimilation}} {
+        #math killcounter[$_ktarg] {$killcounter[$_ktarg] + 1};
+    } {
+        syslog not my kill $_freeze
+    }
+}
+
+#class {counter} {close}
+#nop -- vim: syntax=tt
