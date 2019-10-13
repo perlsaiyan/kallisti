@@ -37,8 +37,7 @@ event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
 #alias areaUpdate {
     diaLog status Update area to %1;
     #format {_line1} {Area: %-24s} {%1};
-    #draw <B579><fff> tile 2 1 2 30 $_line1;
-    syslog DBG: Transition from $MSDP_AREA_NAME to %1 at $MSDP_ROOM_VNUM;
+    draw_info 18 {<B579><fff>} {$_line1}
 }
 
 #format {_line1} {${spb2}${spf2}Name: %s (%n %s, %s) |} {$MSDP_CHARACTER_NAME}
