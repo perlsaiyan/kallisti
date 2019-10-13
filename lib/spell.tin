@@ -1,0 +1,56 @@
+#class {spell queue} {kill}
+#class {spell queue} {open}
+
+#list spellqueue create;
+#var spellLock 0;
+
+
+#alias spellAdd {
+    #list spellqueue find {%1 %2} {sindex};
+    #if {$sindex} {
+        diaLog spell Not adding "%1 %2" as it is already in list at position $sindex;
+    }   {
+        diaLog spell Adding spell %1 on %2 to queue;
+        #list spellqueue add {%1 %2}
+    };
+
+}
+
+#alias spellRunner {
+    #if {&spellqueue[]} {
+        diaLog spell Have &spellqueue[] spells in queue;
+        #list spellqueue delete 1;
+    };
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Functions
+#nop -- ---------------------------------------------------------------
+
+#func spellDelay {
+    #switch {"%1"} {
+        #case {"heal"} #var result 1;
+        #default #var result 0;
+    }
+    #if {!$result} {#var result 2; diaLog spell Unknown delay factor for %1}
+}
+
+#func width { #format result {%C} }
+#func max { #if {%1 > %2} {#var result %1} {#var result %2} }
+
+#nop -- ---------------------------------------------------------------
+#nop -- Events
+#nop -- ---------------------------------------------------------------
+#tick {spellqueue display} {
+     #draw <BF0C674><aaa> tile 4 1 4 30 Spell Queue: &spellqueue[]
+} {.2}
+
+#tick {spell queue runner} {spellRunner} {5};
+
+#nop -- ---------------------------------------------------------------
+#nop -- Startup
+#nop -- ---------------------------------------------------------------
+#draw <BF0C674><aaa> tile 4 1 4 @width{};
+
+#class {spell queue} {close}
+#nop -- vim: syntax=tt
