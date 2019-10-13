@@ -4,7 +4,6 @@
 #tick {auto shapechange} {autoshapechange} {1};
 
 #var last_shapechange 0
-#var pref_shapechange frost
 
 #alias autoshapechange {
         #if {@hasAffect{shapechange} < 1} {
