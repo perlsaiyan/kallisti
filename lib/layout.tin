@@ -1,0 +1,35 @@
+#func term_width { #format result {%C} }
+
+#var right_panel 40
+#var chat_rows 10
+#math chat_right {$right_panel + 1}
+#var bottom_panel 3
+#math map_left {@term_width{} - ${right_panel} + 2}
+
+#math map_height 17
+#math {divider} {${map_left} + 1}
+
+#split ${chat_rows} ${bottom_panel} 0 ${right_panel}
+#map offset 1 ${map_left} ${map_height} @term_width{}
+
+
+#draw <B373b41> tile 1 -${right_panel} -2 @term_width{};
+#draw <B373b41> tile -4 1 -2 @term_width{} spell queues\nzone and room information\nhealth information;
+#draw <B282A2E><fff> line 1 -${right_panel} -2 -${right_panel}
+#draw <B282A2E><fff> left line 18 -${right_panel} -2 -1 Character and Group Info
+
+#alias draw_comms {
+    #line sub {var;esc} #draw <B373b41> {tile} 1 1 $chat_rows -${chat_right} $chat[log][1..-1];
+}
+
+#alias draw_info {#draw %2 tile %1 $map_left %1 -1 %3;}
+
+#event {VARIABLE UPDATE expMins} {draw_info 19 {<B579><fff>} {XP/Min: %1}};
+
+draw_comms
+
+#event {SCREEN RESIZE} { #read $lib/layout.tin };
+
+#nop -- #read $lib/display/group.tin;
+
+#nop -- vim: syntax=tt

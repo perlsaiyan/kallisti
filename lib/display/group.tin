@@ -1,0 +1,43 @@
+#class {layout group} {kill}
+#class {layout group} {open}
+
+#event {VARIABLE UPDATE MSDP_GROUP} {#delay {update group tile} {group_parse} {0.01}}
+
+#alias {group_parse} {
+
+    #list group_tile_text create;
+
+    #foreach *MSDP_GROUP[%*] {_idx} {
+        #if {"$MSDP_GROUP[$_idx][name]" === "$name" } { #continue };
+
+        #format _line {<ffff>%-5s %-10s %-3s %-3s %-3s <ffff>%-4s}
+            {@withMe{$_idx}[$MSDP_GROUP[$_idx][class]]}
+            {$MSDP_GROUP[$_idx][name]}
+            {@colorPct{$MSDP_GROUP[$_idx][health]}}
+            {@colorPct{$MSDP_GROUP[$_idx][mana]}}
+            {@colorPct{$MSDP_GROUP[$_idx][stamina]}}
+            {$MSDP_GROUP[$_idx][flags]};
+            #list group_tile_text add {{$_line}};
+    }
+
+    #line sub {var} #draw {<B579>} {tile} 24 $map_left 29 -1 $group_tile_text[1..6];
+}
+
+#func {withMe} {
+    #if {$MSDP_GROUP[%1][with_you] == 1} {
+        #var result <ffff>
+    } {
+        #var result <fbbb>
+    }
+}
+
+#func {colorPct} {
+    #if { %1 > 95 } { #var result <f68f473>%1};
+    #elseif { %1 > 80 } { #var result <f3ae722>%1};
+    #elseif { %1 > 60 } { #var result <fdcf24b>%1};
+    #elseif { %1 > 40 } { #var result <feca826>%1};
+    #elseif { %1 > 20 } { #var result <fec3d26>%1};
+    #elseif { %1 <=20 } { #var result <fec2b41>%1};
+}
+#class {layout group} {close}
+#nop -- vim: syntax=tt

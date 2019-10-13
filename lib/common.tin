@@ -86,6 +86,7 @@
 
 #function prettyName {#format result {%n} {$name}};
 #function epoch {#format result {%T}};
+#function term_width {#format result {%C}}
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 
@@ -99,7 +100,7 @@
 #read $lib/automan.tin;
 #read $lib/comms.tin;
 #read $lib/group.tin;
-#read $lib/inventory.tin;
+#read $lib/inv.tin;
 #read $lib/map.tin;
 #read $lib/meta.tin;
 #read $lib/mount.tin
@@ -108,6 +109,7 @@
 #read $lib/stock.tin
 #read $lib/status.tin
 #read $lib/mobs.tin
+#read $lib/layout.tin
 
 
 
