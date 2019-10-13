@@ -28,7 +28,7 @@
 #alias event_remove_handler
 {
 
-  #foreach {${_events[]}} {sublist}
+  #foreach {*{_events[]}} {sublist}
   {
     #unvar _events[$sublist][%1];
     #if {"${_events[$sublist]}" == ""} {#unvar _events[$sublist]};
@@ -61,7 +61,7 @@
 
 #alias event_raise
 {
-  #foreach {${_events[%1][]}} {handler}
+  #foreach {*{_events[%1][]}} {handler}
   {
     event_eval {${_events[%1][$handler]}} {%0};
   }
