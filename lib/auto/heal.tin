@@ -23,7 +23,11 @@
             };
             #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
                     #if {$MSDP_MANA > 300} {
-                        refresh $MSDP_GROUP[$_tmp][name];
+                        #if {@refreshBlacklist{$MSDP_GROUP[$_tmp][name]}} {
+                            #nop
+                        } {
+                            refresh $MSDP_GROUP[$_tmp][name];
+                        }
                     }
             };
         };
@@ -48,6 +52,14 @@
 	    		};
 			};
         };
+        #if {@hasAffect{vigor} < 1} {
+            #if {"$MSDP_POSITION" != "Fighting"} {
+				#if {(@epoch{} - $last_true) > 10} {
+	            	vigor group;
+            		#var last_true @epoch{};
+	    		};
+			};
+        };
 }
 
 #func pct {
@@ -55,6 +67,7 @@
 }
 
 
+#function refreshBlacklist {#list {refreshBlack} {find} {%1} {result}}
 
 
 #class {autoheal} {close}
