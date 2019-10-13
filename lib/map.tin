@@ -26,7 +26,7 @@
 	#map set roomterrain $MSDP_ROOM_TERRAIN;
 	#map set roomcolor <178>;
 	#nop Create unmapped exits and color unexplored rooms red.;
-	#foreach {$MSDP_ROOM_EXITS[]} {EXIT}
+	#foreach {*MSDP_ROOM_EXITS[]} {EXIT}
 	{
 		#map get {roomexits} {EXIT_LIST};
 		#if {&EXIT_LIST[$EXIT] == 0}
