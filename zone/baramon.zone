@@ -1,0 +1,74 @@
+#class {zone} {kill}
+#class {zone} {open}
+
+#act {**Chaoran: 'Hunting >fire< with opener >charge<.'} {ffire group}
+#act {^Chaoran screams insanely and charges into Diamond} {specattack diamond}
+#act {^Chaoran impales Dark Halfling} {specattack dark}
+#act {^Chaoran screams insanely and charges into Ice Elemental} {specattack ice}
+#act {^Chaoran impales A BoulderMan in his chest} {specattack boulder}
+
+
+#tick {safety} {#if {"$MSDP_AREA_NAME" != "Baramon Ingrol"} {#class hk kill;#class zone kill}} {.1};
+
+#action {You lost concentration casting 'flamestrike'} {fst $target}
+
+#tick {bumper} {
+    #if {$regen == 0} {
+        #if {$hk == 1} {
+            look
+        } {
+            #echo {bumper!};fst $target
+        }
+    }
+} {120};
+
+event_register {ehk complete} {baramon next} {baramonNext %2}
+
+#alias baramonNext {
+    #switch {"%1"} {
+        #case "protector" {baramonAttack diamond};
+        #case "diamond" {baramonAttack ice};
+        #case "ice" {baramonAttack barb};
+        #case "barb" {baramonAttack melk};
+        #case "melk" {baramonAttack guard};
+        #case "guard" {baramonAttack boulder};
+        #case "boulder" {baramonAttack fire};
+        #case "fire" {baramonAttack herm};
+        #case "herm" {baramonAttack dark};
+        #case "dark" {#tick {repop check} {hunt protector} {10}};
+        #default {syslog Unknown entry for next %1};
+    };
+}
+
+#alias safequake {
+    #if {$MSDP_PC_IN_ZONE == 0} { quake } { fst %1};
+};
+
+#alias {baramonAttack} {
+    #read $lib/msdphk.tin;
+    #if {"%1" == "guard"} {
+        #var openingAttack fst;
+    } {
+        #var openingAttack fst;
+    };
+    hk %1
+}
+
+#act {^[* You see your target's tracks} {
+    #untick {repop check};
+    #read $lib/msdphk.tin;
+    hk protector;
+} {9}
+
+#alias specattack {#if {$MSDP_MANA  > 1000} {fst %1};}
+
+gt Overloading Baramon zone accelerators;
+#echo {Type run_baramon to start.}
+
+#tab run_baramon;
+#alias run_baramon { baramonAttack protector }
+
+#class {zone} {close}
+#nop -- vim: syntax=tt
+
+#event {CLASS DESTROYED zone} {#untick {repop check}}
