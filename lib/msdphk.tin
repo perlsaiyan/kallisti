@@ -25,11 +25,12 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #tab hkKill
 #alias {hkKill} {
-    gt dbg: run of $target complete;
     #untick {checkLevelsHigh};
     #untick {shihonage};
+    #local _nextguy $target;
     _cleanupHK;
-    #class hk kill
+    #class hk kill;
+    event_raise {ehk complete} $_nextguy;
 }
 
 #alias {lostTracks} {
@@ -68,9 +69,11 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	stand;
     mount $mount;
 	$openingAttack $nextTarget;
+    #var regen 0;
 	look;
 	#untick {checkLevelsHigh}
 }
+
 
 #nop -- Set thresholds for regen - top and bottom. Lower defaults to 30, upper to 90 with no argument, in the order HMS
 
@@ -144,6 +147,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#var {target} {%1};
 	#var {hk} {1};
 	#var {nextTarget} {%1};
+    #var regen 0;
 	hunt %1
 }
 
@@ -153,7 +157,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {^[* You see your target's tracks leading %1. *]} {
 	#if {$hk==1} {%1}
-}
+} {5}
 
 #action {^[* You found your target! *]} {
 	#if {$hk==1} {
@@ -178,6 +182,9 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 #action {Nobody here by that name ('%1').} {
     hk $nextTarget
+}
+#action {^You can't poke someone who's not here!} {
+	hk $nextTarget
 }
 
 #action {^They aren't here.$} { hk $nextTarget } {9}
@@ -205,10 +212,9 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	down
 }
 
-#action {The %1 to the %2 seems to be locked.} {un %1 %2;%2}
+#action {The %1 to the %2 seems to be locked.} {un %1 %2;open %1 %2;%2}
 
 
-#action {^You impale %1 in {his|her|its} chest - %1 screams in pain. (%2 damage)} {kick}
 
 #action {A powerful wind flows through the tunnels, sweeping you along with it.} {hk $target}
 
@@ -241,11 +247,9 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #event {VARIABLE UPDATE MSDP_OPPONENT_NUMBER} {
 	diaLog msdp Updating opponent number;
-	#if {$MSDP_OPPONENT_NUMBER>1} {
-		#ticker {kick} {kick} {5}} {
-		#untick {kick}
-		}
-	}
+	#if {$MSDP_OPPONENT_NUMBER>1} { #nop };
+}
+
 #event {VARIABLE UPDATE MSDP_STAMINA} {
 	diaLog msdp Updating MSDP_STAMINA;
 	#if {$MSDP_OPPONENT_NUMBER==0  && @percent($MSDP_STAMINA)<$STAMINA_thresholdLow} {
@@ -255,8 +259,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 15 25
-upperThresholds 85 90 80
+lowThresholds 65 20 25
+upperThresholds 85 85 80
 
 #class {hk} {close}
 
