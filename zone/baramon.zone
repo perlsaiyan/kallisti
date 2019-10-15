@@ -12,30 +12,25 @@
 
 #action {You lost concentration casting 'flamestrike'} {fst $target}
 
-#tick {bumper} {
-    #if {$regen == 0} {
-        #if {$hk == 1} {
-            look
-        } {
-            #echo {bumper!};fst $target
-        }
-    }
-} {120};
 
 event_register {ehk complete} {baramon next} {baramonNext %2}
 
 #alias baramonNext {
     #switch {"%1"} {
-        #case "protector" {baramonAttack diamond};
-        #case "diamond" {baramonAttack ice};
+        #case "protector" {baramonAttack diamond fst};
+        #case "diamond" {baramonAttack ice fst};
         #case "ice" {baramonAttack barb};
         #case "barb" {baramonAttack melk};
-        #case "melk" {baramonAttack guard};
+        #case "melk" {baramonAttack boulder};
         #case "guard" {baramonAttack boulder};
-        #case "boulder" {baramonAttack fire};
+        #case "boulder" {baramonAttack fire fst};
         #case "fire" {baramonAttack herm};
         #case "herm" {baramonAttack dark};
-        #case "dark" {#tick {repop check} {hunt protector} {10}};
+        #case "dark" {
+            #map run 36202;
+            #tick {repop check} {hunt protector} {10};
+            gt Chill and wait for repop I guess;
+        };
         #default {syslog Unknown entry for next %1};
     };
 }
@@ -46,19 +41,32 @@ event_register {ehk complete} {baramon next} {baramonNext %2}
 
 #alias {baramonAttack} {
     #read $lib/msdphk.tin;
-    #if {"%1" == "guard"} {
-        #var openingAttack fst;
+    #if {"%2" == ""} {
+        #var openingAttack kill
     } {
-        #var openingAttack fst;
+        #var openingAttack %2
     };
     hk %1
 }
+
+#act {^You start searching for tracks but then realize} {
+    #untick {repop check};
+    #read $lib/msdphk.tin;
+    hk protector;
+} {9}
 
 #act {^[* You see your target's tracks} {
     #untick {repop check};
     #read $lib/msdphk.tin;
     hk protector;
 } {9}
+
+#act {^Fire Elemental is hovering here} {
+    #if {"$target" !== "fire" } {hk fire}
+}
+
+#act {^%w starts following you.} { group all }
+#act {^You're too busy fighting to be messing with} {#delay {grouper} {group all} {1}}
 
 #alias specattack {#if {$MSDP_MANA  > 1000} {fst %1};}
 
