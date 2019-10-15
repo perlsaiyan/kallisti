@@ -2,16 +2,19 @@
 #class {counter} {open}
 
 #var killcounter[]
+#var poscounter[]
 
 #action {^Your blood freezes as you hear %1's death cry.} {
     #var _ktarg %1;
     #buffer get _freeze -1 -1;
-    #regex $_freeze[1] {^{You receive your reward|Assimilation}} {
+    #regex $_freeze[1] {^{You receive your reward|Assimilation|-->  +1 new mob defe}} {
         #math killcounter[$_ktarg] {$killcounter[$_ktarg] + 1};
-    } {
-        syslog not my kill $_freeze
     }
 }
+
+#alias time_in_pos {#math poscounter[$MSDP_POSITION] { $poscounter[$MSDP_POSITION] + 1 }}
+
+#EVENT {SECOND} {time_in_pos}
 
 #class {counter} {close}
 #nop -- vim: syntax=tt
