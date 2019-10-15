@@ -20,35 +20,32 @@
 #nop -- ---------------------------------------------------------------
 #nop -- Group communications
 #nop -- ---------------------------------------------------------------
-#action {~^\e[1;36mYou grouptell: {.*}} {
+#action {^You grouptell: {.*}} {
     event_raise {commsGroup} {$name} {%1} {%0};
 } {8}
-#action {~^\e[1;36m**%w: '%2'\e[0m$} {
-   diaLog comms %0 by %1;
+#action {^**%w: '%2'$} {
    event_raise {commsGroup} {%1} {%2} {%0};
 } {8}
 
-#action {~^\e\[1;36m<Clan: %w> '{.*}'} {
-    diaLog comms %0 by %1;
+#action {^<Clan: %w> '{.*}'} {
     event_raise {commsClan} {%1} {%2} {%0};
 } {8}
-#action {~^\e\[1;36mYou cchat, '{.*}'} {
-    diaLog comms %0 by %1;
+#action {^You cchat, '{.*}'} {
     event_raise {commsClan} {$name} {%1} {%0};
 } {9}
 
-#action {~^\e[1;35m<Gossip: %w> '{.*}'\e[0m$} {
+#action {^<Gossip: %w> '{.*}'$} {
     event_raise {commsGos} {%1} {%2} {%0};
 } {8}
-#action {~^\e[1;35m<Gossip: %w (%w)> '{.*}'\e[0m$} {
+#action {^<Gossip: %w (%w)> '{.*}'$} {
     event_raise {commsGos} {%1 (%2)} {%3} {%0};
 } {8}
 
 
-#action {~^\e[1;36m%w (%w) tells you, '{.*}'\e[0m$} {
+#action {^%w (%w) tells you, '{.*}'$} {
     event_raise {commsTell} {%1 (%2)} {%3} {%0};
 } {8}
-#action {~^\e[1;36mYou tell {.*}, '{.*}'\e[0m$} {
+#action {^You tell {.*}, '{.*}'$} {
     event_raise {commsTell} {me (to %1)} {%2} {%0};
 } {8}
 
@@ -60,11 +57,11 @@
 #nop -- ---------------------------------------------------------------
 #nop -- Events
 #nop -- ---------------------------------------------------------------
-event_register {commsGroup} {chatwindow} {update_chat %4};
-event_register {commsClan}  {chatwindow} {update_chat %4};
-event_register {commsGos}   {chatwindow} {update_chat %4};
-event_register {commsTell}  {chatwindow} {update_chat %4};
-event_register {commsWorld} {chatwindow} {update_chat %3};
+event_register {commsGroup} {chatwindow} {update_chat <f25d5f9>%4};
+event_register {commsClan}  {chatwindow} {update_chat <f2ff925>%4};
+event_register {commsGos}   {chatwindow} {update_chat <fce25f9>%4};
+event_register {commsTell}  {chatwindow} {update_chat <ff98825>%4};
+event_register {commsWorld} {chatwindow} {update_chat <fe5e4e3>%3};
 
 #class {comms} {close}
 
