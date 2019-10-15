@@ -16,7 +16,7 @@ F 583
 
 G 0
 
-I 36147
+I 36141
 
 L {ASCII NESW LINE} {NO EXITS} {x}
 L {ASCII NESW LINE} {N} {o}
@@ -10228,7 +10228,13 @@ R { 3130} {0} {<178>} {A Side Street} { } {} {Midgaard City} {} {[0\;37mCity } 
 E { 3179} {e} {e} {2} {0} {} {1.000}
 E { 3104} {w} {w} {8} {0} {} {1.000}
 
+R { 3131} {0} {} {} { } {} {} {} {} {} {1.000}
+E {14231} {d} {d} {32} {0} {} {1.000}
+
 R { 3132} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+
+R { 3133} {0} {} {} { } {} {} {} {} {} {1.000}
+E {38931} {d} {d} {32} {0} {} {1.000}
 
 R { 3134} {0} {<178>} {Inside the Southern Gate of Midgaard} { } {} {Midgaard City} {} {[0\;37mCity } {} {1.000}
 E {  189} {e} {e} {2} {0} {} {1.000}
@@ -18072,6 +18078,10 @@ E {14243} {e} {e} {2} {0} {} {1.000}
 E {14223} {s} {s} {4} {0} {} {1.000}
 E {14245} {w} {w} {8} {0} {} {1.000}
 
+R {14225} {0} {<178>} {The Flaming Birch Room} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {14269} {d} {d} {32} {0} {} {1.000}
+E {14230} {u} {u} {16} {0} {} {1.000}
+
 R {14226} {0} {<178>} {Within the Ebony Elm} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
 E {14256} {d} {d} {32} {0} {} {1.000}
 
@@ -18083,6 +18093,14 @@ E {14215} {d} {d} {32} {0} {} {1.000}
 
 R {14229} {0} {<178>} {The Sanctuary Within the Flaming Birch} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
 E {14244} {d} {d} {32} {0} {} {1.000}
+
+R {14230} {0} {<178>} {The Ebony Elm Room} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {14225} {d} {d} {32} {0} {} {1.000}
+E {14231} {u} {u} {16} {0} {} {1.000}
+
+R {14231} {0} {<178>} {The Solid Maple Room} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {14230} {d} {d} {32} {0} {} {1.000}
+E { 3131} {u} {u} {16} {0} {} {1.000}
 
 R {14232} {0} {<178>} {In the Branches of the Great Oak} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
 E {14201} {d} {d} {32} {0} {} {1.000}
@@ -18102,6 +18120,9 @@ R {14236} {0} {<118>} {} { } {} {} {} {} {} {1.000}
 
 R {14237} {0} {<178>} {On Top of the Canopy} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
 E {14232} {d} {d} {32} {0} {} {1.000}
+
+R {14240} {0} {<178>} {The Sanctuary of the Great Oak} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {14231} {d} {d} {32} {0} {} {1.000}
 
 R {14243} {0} {<178>} {Deep Within the Roots} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
 E {14244} {s} {s} {4} {0} {} {1.000}
@@ -18208,7 +18229,20 @@ R {14268} {0} {<178>} {Even Deeper Within the Roots} { } {} {Druidwell} {} {[0\
 E {14267} {n} {n} {1} {0} {} {1.000}
 E {14259} {s} {s} {4} {0} {} {1.000}
 
-R {14271} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {14269} {0} {<178>} {The Tall Pine Room} { } {} {Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {14225} {u} {u} {16} {0} {} {1.000}
+E {14268} {w} {w} {8} {0} {} {1.000}
+
+R {14270} {0} {<178>} {The Edge of the Forest} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
+E {14271} {s} {s} {4} {0} {} {1.000}
+E {14281} {u} {u} {16} {0} {} {1.000}
+
+R {14271} {0} {<178>} {The Edge of the Forest} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
+E {14207} {e} {e} {2} {0} {} {1.000}
+E {14270} {n} {n} {1} {0} {} {1.000}
+E {14272} {s} {s} {4} {0} {} {1.000}
+
+R {14272} {0} {<118>} {} { } {} {} {} {} {} {1.000}
 
 R {14278} {0} {<118>} {} { } {} {} {} {} {} {1.000}
 
@@ -18220,6 +18254,25 @@ E {14204} {w} {w} {8} {0} {} {1.000}
 R {14280} {0} {<178>} {The Edge of the Forest} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
 E {14279} {s} {s} {4} {0} {} {1.000}
 E {14287} {u} {u} {16} {0} {} {1.000}
+
+R {14281} {0} {<178>} {The Branches of a Mighty Elm} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
+E {14270} {d} {d} {32} {0} {} {1.000}
+E {14283} {e} {e} {2} {0} {} {1.000}
+E {14282} {n} {n} {1} {0} {} {1.000}
+E {14284} {s} {s} {4} {0} {} {1.000}
+E {14286} {u} {u} {16} {0} {} {1.000}
+E {14285} {w} {w} {8} {0} {} {1.000}
+
+R {14282} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+
+R {14283} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+
+R {14284} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+
+R {14285} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+
+R {14286} {0} {<178>} {The Top of a Great Elm} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
+E {14281} {d} {d} {32} {0} {} {1.000}
 
 R {14287} {0} {<178>} {The Branches of a Large Birch} { } {} {Druidwell} {} {[0\;32mForest } {} {1.000}
 E {14280} {d} {d} {32} {0} {} {1.000}
@@ -24851,11 +24904,16 @@ E {27009} {e} {e} {2} {0} {} {1.000}
 E {27006} {s} {s} {4} {0} {} {1.000}
 E {27008} {w} {w} {8} {0} {} {1.000}
 
-R {27008} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27008} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27007} {e} {e} {2} {0} {} {1.000}
 
-R {27009} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27009} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27010} {n} {n} {1} {0} {} {1.000}
+E {27007} {w} {w} {8} {0} {} {1.000}
 
-R {27010} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27010} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27011} {d} {d} {32} {0} {} {1.000}
+E {27009} {s} {s} {4} {0} {} {1.000}
 
 R {27011} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
 E {27012} {n} {n} {1} {0} {} {1.000}
@@ -24866,7 +24924,24 @@ E {27018} {n} {n} {1} {0} {} {1.000}
 E {27011} {s} {s} {4} {0} {} {1.000}
 E {27013} {w} {w} {8} {0} {} {1.000}
 
-R {27013} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27013} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27012} {e} {e} {2} {0} {} {1.000}
+E {27014} {w} {w} {8} {0} {} {1.000}
+
+R {27014} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27013} {e} {e} {2} {0} {} {1.000}
+E {27015} {n} {n} {1} {0} {} {1.000}
+
+R {27015} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27016} {n} {n} {1} {0} {} {1.000}
+E {27014} {s} {s} {4} {0} {} {1.000}
+
+R {27016} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27017} {e} {e} {2} {0} {} {1.000}
+E {27015} {s} {s} {4} {0} {} {1.000}
+
+R {27017} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27016} {w} {w} {8} {0} {} {1.000}
 
 R {27018} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
 E {27019} {e} {e} {2} {0} {} {1.000}
@@ -24877,13 +24952,328 @@ E {27021} {d} {d} {32} {0} {} {1.000}
 E {27020} {e} {e} {2} {0} {} {1.000}
 E {27018} {w} {w} {8} {0} {} {1.000}
 
-R {27020} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27020} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27019} {w} {w} {8} {0} {} {1.000}
 
 R {27021} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
 E {27022} {n} {n} {1} {0} {} {1.000}
 E {27019} {u} {u} {16} {0} {} {1.000}
 
-R {27022} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {27022} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27024} {e} {e} {2} {0} {} {1.000}
+E {27021} {s} {s} {4} {0} {} {1.000}
+E {27023} {w} {w} {8} {0} {} {1.000}
+
+R {27023} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27022} {e} {e} {2} {0} {} {1.000}
+
+R {27024} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27025} {e} {e} {2} {0} {} {1.000}
+E {27022} {w} {w} {8} {0} {} {1.000}
+
+R {27025} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27026} {s} {s} {4} {0} {} {1.000}
+E {27024} {w} {w} {8} {0} {} {1.000}
+
+R {27026} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27027} {e} {e} {2} {0} {} {1.000}
+E {27025} {n} {n} {1} {0} {} {1.000}
+
+R {27027} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27028} {e} {e} {2} {0} {} {1.000}
+E {27029} {s} {s} {4} {0} {} {1.000}
+E {27026} {w} {w} {8} {0} {} {1.000}
+
+R {27028} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27027} {w} {w} {8} {0} {} {1.000}
+
+R {27029} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27027} {n} {n} {1} {0} {} {1.000}
+
+R {27030} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27031} {n} {n} {1} {0} {} {1.000}
+
+R {27031} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27033} {e} {e} {2} {0} {} {1.000}
+E {27034} {n} {n} {1} {0} {} {1.000}
+E {27030} {s} {s} {4} {0} {} {1.000}
+E {27032} {w} {w} {8} {0} {} {1.000}
+
+R {27032} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27031} {e} {e} {2} {0} {} {1.000}
+
+R {27033} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27039} {d} {d} {32} {0} {} {1.000}
+E {27031} {w} {w} {8} {0} {} {1.000}
+
+R {27034} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27035} {n} {n} {1} {0} {} {1.000}
+E {27031} {s} {s} {4} {0} {} {1.000}
+
+R {27035} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27038} {n} {n} {1} {0} {} {1.000}
+E {27034} {s} {s} {4} {0} {} {1.000}
+E {27036} {w} {w} {8} {0} {} {1.000}
+
+R {27036} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27035} {e} {e} {2} {0} {} {1.000}
+E {27037} {n} {n} {1} {0} {} {1.000}
+
+R {27037} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27038} {e} {e} {2} {0} {} {1.000}
+E {27036} {s} {s} {4} {0} {} {1.000}
+
+R {27038} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27035} {s} {s} {4} {0} {} {1.000}
+E {27037} {w} {w} {8} {0} {} {1.000}
+
+R {27039} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27040} {e} {e} {2} {0} {} {1.000}
+E {27033} {u} {u} {16} {0} {} {1.000}
+
+R {27040} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27041} {e} {e} {2} {0} {} {1.000}
+E {27049} {n} {n} {1} {0} {} {1.000}
+E {27039} {w} {w} {8} {0} {} {1.000}
+
+R {27041} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27047} {n} {n} {1} {0} {} {1.000}
+E {27042} {s} {s} {4} {0} {} {1.000}
+E {27040} {w} {w} {8} {0} {} {1.000}
+
+R {27042} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27041} {n} {n} {1} {0} {} {1.000}
+E {27043} {s} {s} {4} {0} {} {1.000}
+
+R {27043} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27042} {n} {n} {1} {0} {} {1.000}
+E {27044} {w} {w} {8} {0} {} {1.000}
+
+R {27044} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27043} {e} {e} {2} {0} {} {1.000}
+E {27045} {s} {s} {4} {0} {} {1.000}
+
+R {27045} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27044} {n} {n} {1} {0} {} {1.000}
+E {27046} {w} {w} {8} {0} {} {1.000}
+
+R {27046} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27045} {e} {e} {2} {0} {} {1.000}
+
+R {27047} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27048} {e} {e} {2} {0} {} {1.000}
+E {27051} {n} {n} {1} {0} {} {1.000}
+E {27041} {s} {s} {4} {0} {} {1.000}
+
+R {27048} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27002} {u} {u} {16} {0} {} {1.000}
+E {27047} {w} {w} {8} {0} {} {1.000}
+
+R {27049} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27050} {n} {n} {1} {0} {} {1.000}
+E {27040} {s} {s} {4} {0} {} {1.000}
+
+R {27050} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27051} {e} {e} {2} {0} {} {1.000}
+E {27049} {s} {s} {4} {0} {} {1.000}
+
+R {27051} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27052} {d} {d} {32} {0} {} {1.000}
+E {27047} {s} {s} {4} {0} {} {1.000}
+E {27050} {w} {w} {8} {0} {} {1.000}
+
+R {27052} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27053} {e} {e} {2} {0} {} {1.000}
+E {27051} {u} {u} {16} {0} {} {1.000}
+
+R {27053} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27054} {e} {e} {2} {0} {} {1.000}
+E {27052} {w} {w} {8} {0} {} {1.000}
+
+R {27054} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27055} {s} {s} {4} {0} {} {1.000}
+E {27053} {w} {w} {8} {0} {} {1.000}
+
+R {27055} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27054} {n} {n} {1} {0} {} {1.000}
+
+R {27056} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27057} {n} {n} {1} {0} {} {1.000}
+
+R {27057} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27060} {n} {n} {1} {0} {} {1.000}
+E {27056} {s} {s} {4} {0} {} {1.000}
+E {27058} {w} {w} {8} {0} {} {1.000}
+
+R {27058} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27057} {e} {e} {2} {0} {} {1.000}
+E {27059} {n} {n} {1} {0} {} {1.000}
+
+R {27059} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27060} {e} {e} {2} {0} {} {1.000}
+E {27058} {s} {s} {4} {0} {} {1.000}
+
+R {27060} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27061} {n} {n} {1} {0} {} {1.000}
+E {27057} {s} {s} {4} {0} {} {1.000}
+E {27059} {w} {w} {8} {0} {} {1.000}
+
+R {27061} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27063} {e} {e} {2} {0} {} {1.000}
+E {27062} {n} {n} {1} {0} {} {1.000}
+E {27060} {s} {s} {4} {0} {} {1.000}
+
+R {27062} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27064} {e} {e} {2} {0} {} {1.000}
+E {27061} {s} {s} {4} {0} {} {1.000}
+E {27002} {u} {u} {16} {0} {} {1.000}
+
+R {27063} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27064} {n} {n} {1} {0} {} {1.000}
+E {27066} {u} {u} {16} {0} {} {1.000}
+E {27061} {w} {w} {8} {0} {} {1.000}
+
+R {27064} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27065} {n} {n} {1} {0} {} {1.000}
+E {27063} {s} {s} {4} {0} {} {1.000}
+E {27062} {w} {w} {8} {0} {} {1.000}
+
+R {27065} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27064} {s} {s} {4} {0} {} {1.000}
+
+R {27066} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27063} {d} {d} {32} {0} {} {1.000}
+E {27067} {n} {n} {1} {0} {} {1.000}
+
+R {27067} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27068} {e} {e} {2} {0} {} {1.000}
+E {27066} {s} {s} {4} {0} {} {1.000}
+
+R {27068} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27069} {n} {n} {1} {0} {} {1.000}
+E {27067} {w} {w} {8} {0} {} {1.000}
+
+R {27069} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27070} {e} {e} {2} {0} {} {1.000}
+E {27068} {s} {s} {4} {0} {} {1.000}
+
+R {27070} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27073} {e} {e} {2} {0} {} {1.000}
+E {27071} {n} {n} {1} {0} {} {1.000}
+E {27069} {w} {w} {8} {0} {} {1.000}
+
+R {27071} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27072} {e} {e} {2} {0} {} {1.000}
+E {27070} {s} {s} {4} {0} {} {1.000}
+
+R {27072} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27071} {w} {w} {8} {0} {} {1.000}
+
+R {27073} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27074} {s} {s} {4} {0} {} {1.000}
+E {27070} {w} {w} {8} {0} {} {1.000}
+
+R {27074} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27075} {e} {e} {2} {0} {} {1.000}
+E {27073} {n} {n} {1} {0} {} {1.000}
+
+R {27075} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27076} {s} {s} {4} {0} {} {1.000}
+E {27074} {w} {w} {8} {0} {} {1.000}
+
+R {27076} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27075} {n} {n} {1} {0} {} {1.000}
+
+R {27077} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27078} {e} {e} {2} {0} {} {1.000}
+
+R {27078} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27083} {e} {e} {2} {0} {} {1.000}
+E {27079} {s} {s} {4} {0} {} {1.000}
+E {27077} {w} {w} {8} {0} {} {1.000}
+
+R {27079} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27082} {e} {e} {2} {0} {} {1.000}
+E {27078} {n} {n} {1} {0} {} {1.000}
+E {27080} {s} {s} {4} {0} {} {1.000}
+
+R {27080} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27079} {n} {n} {1} {0} {} {1.000}
+
+R {27081} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27082} {n} {n} {1} {0} {} {1.000}
+
+R {27082} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27084} {e} {e} {2} {0} {} {1.000}
+E {27083} {n} {n} {1} {0} {} {1.000}
+E {27081} {s} {s} {4} {0} {} {1.000}
+E {27079} {w} {w} {8} {0} {} {1.000}
+
+R {27083} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27082} {s} {s} {4} {0} {} {1.000}
+E {27078} {w} {w} {8} {0} {} {1.000}
+
+R {27084} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27085} {d} {d} {32} {0} {} {1.000}
+E {27082} {w} {w} {8} {0} {} {1.000}
+
+R {27085} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27086} {s} {s} {4} {0} {} {1.000}
+E {27084} {u} {u} {16} {0} {} {1.000}
+
+R {27086} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27090} {e} {e} {2} {0} {} {1.000}
+E {27085} {n} {n} {1} {0} {} {1.000}
+E {27087} {s} {s} {4} {0} {} {1.000}
+
+R {27087} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27086} {n} {n} {1} {0} {} {1.000}
+E {27088} {w} {w} {8} {0} {} {1.000}
+
+R {27088} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27087} {e} {e} {2} {0} {} {1.000}
+
+R {27089} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27090} {s} {s} {4} {0} {} {1.000}
+
+R {27090} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27091} {e} {e} {2} {0} {} {1.000}
+E {27089} {n} {n} {1} {0} {} {1.000}
+E {27086} {w} {w} {8} {0} {} {1.000}
+
+R {27091} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27092} {s} {s} {4} {0} {} {1.000}
+E {27090} {w} {w} {8} {0} {} {1.000}
+
+R {27092} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27093} {e} {e} {2} {0} {} {1.000}
+E {27091} {n} {n} {1} {0} {} {1.000}
+E {27094} {s} {s} {4} {0} {} {1.000}
+
+R {27093} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27002} {u} {u} {16} {0} {} {1.000}
+E {27092} {w} {w} {8} {0} {} {1.000}
+
+R {27094} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27092} {n} {n} {1} {0} {} {1.000}
+E {27096} {s} {s} {4} {0} {} {1.000}
+E {27095} {w} {w} {8} {0} {} {1.000}
+
+R {27095} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27094} {e} {e} {2} {0} {} {1.000}
+
+R {27096} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27094} {n} {n} {1} {0} {} {1.000}
+E {27097} {w} {w} {8} {0} {} {1.000}
+
+R {27097} {0} {<178>} {An Immense Chamber of the Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27096} {e} {e} {2} {0} {} {1.000}
+
+R {27098} {0} {<178>} {The Sapphire Caverns} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27099} {d} {d} {32} {0} {} {1.000}
+
+R {27099} {0} {<178>} {The Keeper of Autumn} { } {} {Sapphire Caverns of Autumn} {} {[0\;33mUnderground } {} {1.000}
+E {27098} {u} {u} {16} {0} {} {1.000}
 
 R {27100} {0} {<178>} {Within the Span of the Seasons} { } {} {Sithicus Village} {} {[0\;32mForest } {} {1.000}
 E {27192} {d} {d} {32} {0} {} {1.000}
@@ -24953,6 +25343,8 @@ E {27113} {w} {w} {8} {0} {} {1.000}
 
 R {27115} {0} {<178>} {Among the Autumn Leaves} { } {} {Sithicus Village} {} {[0\;32mForest } {} {1.000}
 E {27110} {s} {s} {4} {0} {} {1.000}
+
+R {27116} {0} {<178>} {The Chamber of the Keeper of Seasons} { } {} {Sithicus Village} {} {[0\;32mForest } {} {1.000}
 
 R {27117} {0} {<178>} {Among the Autumn Leaves} { } {} {Sithicus Village} {} {[0\;32mForest } {} {1.000}
 E {27107} {d} {d} {32} {0} {} {1.000}
@@ -29345,6 +29737,9 @@ E {36216} {n} {n} {1} {0} {} {1.000}
 R {36220} {0} {<178>} {[0\;37mI[1\;30mnside A [1\;33mC[0\;33mave[0m} { } {} {Baramon Ingrol} {} {[0\;37mInside } {} {1.000}
 E {36206} {n} {n} {1} {0} {} {1.000}
 
+R {36221} {0} {<178>} {[0\;37mI[1\;30mnside A [1\;33mC[0\;33mave[0m} { } {} {Baramon Ingrol} {} {[0\;37mInside } {} {1.000}
+E {36214} {w} {w} {8} {0} {} {1.000}
+
 R {36222} {0} {<178>} {[1\;30mT[1\;37mowards T[1\;30mhe Four[0m} { } {} {Baramon Ingrol} {} {[0\;37mInside } {} {1.000}
 E {36223} {n} {n} {1} {0} {} {1.000}
 E {36186} {s} {s} {4} {0} {} {1.000}
@@ -31165,16 +31560,29 @@ E {38943} {e} {e} {2} {0} {} {1.000}
 E {38923} {s} {s} {4} {0} {} {1.000}
 E {38945} {w} {w} {8} {0} {} {1.000}
 
-R {38925} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {38925} {0} {<178>} {The Flaming Birch Room} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38969} {d} {d} {32} {0} {} {1.000}
+E {38930} {u} {u} {16} {0} {} {1.000}
 
-R {38926} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {38926} {0} {<178>} {Within the Ebony Elm} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38956} {d} {d} {32} {0} {} {1.000}
 
-R {38927} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {38927} {0} {<178>} {The Sanctuary of the Great Maple} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38964} {d} {d} {32} {0} {} {1.000}
 
-R {38928} {0} {<118>} {} { } {} {} {} {} {} {1.000}
+R {38928} {0} {<178>} {The Sanctuary of the Mighty Pine} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38915} {d} {d} {32} {0} {} {1.000}
 
 R {38929} {0} {<178>} {The Sanctuary Within the Flaming Birch} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
 E {38944} {d} {d} {32} {0} {} {1.000}
+
+R {38930} {0} {<178>} {The Ebony Elm Room} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38925} {d} {d} {32} {0} {} {1.000}
+E {38931} {u} {u} {16} {0} {} {1.000}
+
+R {38931} {0} {<178>} {The Solid Maple Room} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38930} {d} {d} {32} {0} {} {1.000}
+E { 3133} {u} {u} {16} {0} {} {1.000}
 
 R {38932} {0} {<178>} {In the Branches of the Great Oak} { } {} {Bot Druidwell} {} {[0\;32mForest } {} {1.000}
 E {38901} {d} {d} {32} {0} {} {1.000}
@@ -31194,6 +31602,9 @@ R {38936} {0} {<118>} {} { } {} {} {} {} {} {1.000}
 
 R {38937} {0} {<178>} {On Top of the Canopy} { } {} {Bot Druidwell} {} {[0\;32mForest } {} {1.000}
 E {38932} {d} {d} {32} {0} {} {1.000}
+
+R {38940} {0} {<178>} {The Sanctuary of the Great Oak} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
+E {38931} {d} {d} {32} {0} {} {1.000}
 
 R {38943} {0} {<178>} {Deep Within the Roots} { } {} {Bot Druidwell} {} {[0\;33mUnderground } {} {1.000}
 E {38944} {s} {s} {4} {0} {} {1.000}
