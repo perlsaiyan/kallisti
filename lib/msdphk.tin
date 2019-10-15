@@ -6,6 +6,7 @@
 #nop ------------------------------------------
 
 #list {hms} {create} {HEALTH;MANA;STAMINA}
+#var hkResumeInterval 30
 
 #nop ------------------------------------------
 #nop -- Events
@@ -26,7 +27,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #tab hkKill
 #alias {hkKill} {
     #untick {checkLevelsHigh};
-    #untick {shihonage};
+    #untick {hk resume};
     #local _nextguy $target;
     _cleanupHK;
     #class hk kill;
@@ -57,6 +58,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #alias {doRegen} {
+    #untick {hk resume};
     dismount $mount;
     tether $mount;
     sleep;
@@ -148,7 +150,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#var {hk} {1};
 	#var {nextTarget} {%1};
     #var regen 0;
-	hunt %1
+    #line oneshot #tick {hk resume} {hk %1} {$hkResumeInterval};
+	hunt %1;
 }
 
 #nop ------------------------------------------
@@ -197,10 +200,10 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {Alas, you cannot go up...} {op vent u;u}
 
-#action {The %1 to the %2 seems to be closed.} {
+#action {^The %1 to the %2 seems to be closed.} {
 	op %1 %2;
-	%2
 }
+#action {^You open the %w to the %w.} {%2};
 
 #action {The %1 above seems to be closed.} {
 	op %1 up;
@@ -212,15 +215,13 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	down
 }
 
-#action {The %1 to the %2 seems to be locked.} {un %1 %2;open %1 %2;%2}
+#action {The %1 to the %2 seems to be locked.} {un %1 %2;open %1 %2}
 
 
 
 #action {A powerful wind flows through the tunnels, sweeping you along with it.} {hk $target}
 
 #action {You are exhausted!} {checkLevelsLow}
-
-#action {You try to impale %1, but fumble your weapon!} {#2 shihonage}
 
 #action {^You suddenly find your hand empty} {wield $primary_weapon}
 
