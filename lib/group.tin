@@ -20,6 +20,7 @@
         #if {"%2" == "fire"} {ff group};
         #if {"%2" == "vig"} {vig group};
         #if {"%2" == "stand"} {stand;mount dragonne};
+        #if {"%2" == "group all"} {group all};
         #if {"%2" == "sit"} {sit};
         #if {"%2" == "fol self"} {fol self};
         #if {"%2" == "cure"} {cure %1};
@@ -57,7 +58,7 @@
 #action {^**Chaoran: 'And away we go!'$} { #read $lib/exp.tin; }
 #action {^**Chaoran: 'stop'$} { #class chaoran kill; }
 
-#action {^{Chaoran|Stabitha} beckons you to follow.} {fol %1}
+#action {^{Chaoran|Stabitha} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events

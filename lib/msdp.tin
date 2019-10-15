@@ -88,6 +88,7 @@
 
 #EVENT {VARIABLE UPDATE MSDP_AREA_NAME} {event_raise {variable MSDP_AREA_NAME} {%1}};
 #EVENT {VARIABLE UPDATE MSDP_HERO_POINTS} {event_raise {variable MSDP_HERO_POINTS} {%1}};
+#EVENT {VARIABLE UPDATE MSDP_GROUP} {event_raise {variable MSDP_GROUP} {null}};
 
 #VARIABLE         {DO}  {ý}
 #VARIABLE         {DONT}  {þ}

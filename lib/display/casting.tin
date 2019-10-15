@@ -1,0 +1,20 @@
+#class {layout casting} kill
+#class {layout casting} open
+
+#EVENT {VARIABLE UPDATE spellqueue} {#delay {update casting tile} {casting_block} {0.01} }
+
+#alias {casting_block} {
+
+    #format _line {Priority: %d     Heal: %d     Any: %d\n  Combat: %d      NCO: %d}
+        &spellqueue[priority][]
+        &spellqueue[heal][]
+        &spellqueue[any][]
+        &spellqueue[combat][]
+        &spellqueue[nco][];
+    #draw <Bf0d5a1><aaa> tile 30 $map_left 30 -1 {Spell Queues};
+    #draw <BF0C674><aaa> tile 31 $map_left 32 -1 $_line;
+}
+
+
+#class {layout casting} close
+#nop -- vim: syntax=tt

@@ -96,6 +96,7 @@
 
 #split 4 4
 #read $lib/events.tin
+#read $lib/functions.tin
 #read $lib/exp.tin;
 #read $lib/automan.tin;
 #read $lib/comms.tin;

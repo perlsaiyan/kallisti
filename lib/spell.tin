@@ -1,56 +1,116 @@
 #class {spell queue} {kill}
 #class {spell queue} {open}
 
-#list spellqueue create;
 #var spellLock 0;
 
+#list spellValidPositions create Flying Fighting Standing;
 
 #alias spellAdd {
-    #list spellqueue find {%1 %2} {sindex};
+    #list spellqueue[%1] find {%2} {sindex};
     #if {$sindex} {
-        diaLog spell Not adding "%1 %2" as it is already in list at position $sindex;
+        diaLog spell Not adding "%2" as it is already in list at position $sindex;
     }   {
-        diaLog spell Adding spell %1 on %2 to queue;
-        #list spellqueue add {%1 %2}
+        diaLog spell Adding spell "%2" to %1 queue;
+        #list spellqueue[%1] add {%2}
     };
 
 }
 
 #alias spellRunner {
-    #if {&spellqueue[]} {
-        diaLog spell Have &spellqueue[] spells in queue;
-        #list spellqueue delete 1;
-    };
+    #if { @mpoch{} > $spellLock} {
+        #if {&spellqueue[priority][]} {
+            #if {@spell_can_cast{}} {
+                diaLog spell Casting $spellqueue[priority][1];
+                spell_cast_actual $spellqueue[priority][1];
+                #list spellqueue[priority] delete 1;
+                casting_block;
+                #break
+            };
+        };
+        #if {&spellqueue[heal][]} {
+            #if {@spell_can_cast{}} {
+                diaLog spell Casting $spellqueue[heal][1];
+                spell_cast_actual $spellqueue[heal][1];
+                #list spellqueue[heal] delete 1;
+                casting_block;
+                #break
+            };
+        };
+        #if {&spellqueue[any][]} {
+            #if {@spell_can_cast{}} {
+                diaLog spell Casting $spellqueue[any][1];
+                spell_cast_actual $spellqueue[any][1];
+                #list spellqueue[any] delete 1;
+                casting_block;
+                #break
+            };
+        };
+        #if {&spellqueue[combat][]} {
+            #if {"$MSDP_POSITION" == "Fighting"} {
+                #if {@spell_can_cast{}} {
+                    diaLog spell Casting $spellqueue[combat][1];
+                    spell_cast_actual $spellqueue[combat][1];
+                    #list spellqueue[combat] delete 1;
+                    casting_block;
+                    #break
+                };
+            } {
+                diaLog spell Not in combat, clearing spell queue;
+                #list spellqueue[combat] clear;
+            }
+        };
+        #if {&spellqueue[nco][]} {
+            #if {"$MSDP_POSITION" != "Fighting"} {
+                #if {@spell_can_cast{}} {
+                    diaLog spell Casting $spellqueue[nco][1];
+                    spell_cast_actual $spellqueue[nco][1];
+                    #list spellqueue[nco] delete 1;
+                    casting_block;
+                    #break
+                };
+            };
+        };
+    }
 }
+
+#alias spell_cast_actual {
+    #list spellParts create %0;
+    #math spellLock { @max{$spellLock;@mpoch{}} + @spellDelay{$spellParts[1]}};
+    diaLog cast %0;
+    %0
+}
+
+#function {spell_can_cast} {
+    #var result 1;
+    #list spellValidPositions find {$MSDP_POSITION} {check};
+    #if {$check == 0} { #var result 0};
+    #regex $PLAYER_FLAGS {-Knees-} { #var result 0 };
+    #regex $PLAYER_FLAGS {>BASH<}  { #var result 0 };
+}
+
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
 #nop -- ---------------------------------------------------------------
 
+#nop -- Spell delays are in 1000ths of a second;
 #func spellDelay {
     #switch {"%1"} {
-        #case {"heal"} #var result 1;
-        #default #var result 0;
+        #case {"heal"} #var result 1500;
+        #default {
+            #var result 2000;
+            diaLog spell Unknown delay for %1, using $result ms
+            };
     }
-    #if {!$result} {#var result 2; diaLog spell Unknown delay factor for %1}
 }
 
 #func width { #format result {%C} }
 #func max { #if {%1 > %2} {#var result %1} {#var result %2} }
 
 #nop -- ---------------------------------------------------------------
-#nop -- Events
+#nop -- Ticks
 #nop -- ---------------------------------------------------------------
-#tick {spellqueue display} {
-     #draw <BF0C674><aaa> tile 4 1 4 30 Spell Queue: &spellqueue[]
-} {.2}
-
-#tick {spell queue runner} {spellRunner} {5};
-
-#nop -- ---------------------------------------------------------------
-#nop -- Startup
-#nop -- ---------------------------------------------------------------
-#draw <BF0C674><aaa> tile 4 1 4 @width{};
+#tick {spell queue runner} {spellRunner} {0.1};
 
 #class {spell queue} {close}
 #nop -- vim: syntax=tt

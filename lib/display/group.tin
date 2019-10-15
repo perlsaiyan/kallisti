@@ -1,14 +1,14 @@
 #class {layout group} {kill}
 #class {layout group} {open}
 
-#event {VARIABLE UPDATE MSDP_GROUP} {#delay {update group tile} {group_parse} {0.01}}
+event_register {variable MSDP_GROUP} {display group} {#delay {update group tile} {group_parse} {0.01}}
 
 #alias {group_parse} {
 
     #list group_tile_text create;
 
     #foreach *MSDP_GROUP[%*] {_idx} {
-        #if {"$MSDP_GROUP[$_idx][name]" === "$name" } { #continue };
+#nop --        #if {"$MSDP_GROUP[$_idx][name]" === "$name" } { #continue };
 
         #format _line {<ffff>%-5s %-10s %-3s %-3s %-3s <ffff>%-4s}
             {@withMe{$_idx}[$MSDP_GROUP[$_idx][class]]}

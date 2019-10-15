@@ -1,0 +1,13 @@
+#class functions kill
+#class functions open
+
+#func increment { #math result {%1 + 1} }
+#func max { #if {%1 > %2} {#var result %1} {#var result %2} }
+
+#func mpoch {
+    #format result {%U};
+    #math result { $result / 1000 };
+}
+
+#class functions close
+#nop -- vim: syntax=tt

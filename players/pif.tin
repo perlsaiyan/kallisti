@@ -8,8 +8,8 @@
 #var sex[$name] male;
 #var container backpack;
 
-#nop -- Fight config;
-#var openingAttack {ii};
+#nop -- Grab prompt;
+#action {^< Pif | {.*} | {.*} >} {#var PLAYER_FLAGS {%2}};
 
 #alias rr {recall} {2}
 
