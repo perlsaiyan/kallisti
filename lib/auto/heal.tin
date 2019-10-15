@@ -6,7 +6,7 @@
 #tick {autodamage} {autodamage} {4};
 #untick autodamage;
 
-event_register {variable MSDP_GROUP} {autoheal} {autoheal};
+event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.1}};
 
 #alias autoheal {
     #nop %0;
@@ -17,6 +17,7 @@ event_register {variable MSDP_GROUP} {autoheal} {autoheal};
             #if {$MSDP_GROUP[$_tmp][health] < 80 } {
                     #if {$MSDP_GROUP[$_tmp][with_you] == 1} {
                         #nop -- heal $MSDP_GROUP[$_tmp][name];
+                        diaLog spell $MSDP_GROUP[$_tmp][name] at $MSDP_GROUP[$_tmp][health];
                         spellAdd heal {heal $MSDP_GROUP[$_tmp][name]};
                     }
             }
@@ -59,15 +60,45 @@ event_register {variable MSDP_GROUP} {autoheal} {autoheal};
     #foreach *MSDP_GROUP[%*] {_idx} {
         #if {"$MSDP_GROUP[$_idx][name]" == "%1"} {
             #var $MSDP_GROUP[$_idx][health] %3;
+            diaLog spell updated health for $_idx to %3;
             #break
         }
     }
 }
 
+#act {^Your wounds begin to close. (%d healed)$} {
+    diaLog spell selfheal for %1;
+    #foreach *MSDP_GROUP[%*] {_idx} {
+        #if {"$MSDP_GROUP[$_idx][name]" == "$name"} {
+            diaLog spell old health at $MSDP_GROUP[$_idx][health];
+            #math _result {(($MSDP_HEALTH) * 100) / $MSDP_HEALTH_MAX};
+            #var $MSDP_GROUP[$_idx][health] $_result;
+            diaLog spell updated health for $_idx to $_result;
+            #break
+        }
+    }
+}
+
+#act {^A feeling of energy fills you, fighting off the weariness you felt only a moment ago. (%d refreshed)$} {
+    diaLog spell selfrefresh for %1;
+    #foreach *MSDP_GROUP[%*] {_idx} {
+        #if {"$MSDP_GROUP[$_idx][name]" == "$name"} {
+            diaLog spell old stam at $MSDP_GROUP[$_idx][stamina];
+            #math _result {(($MSDP_STAMINA) * 100) / $MSDP_STAMINA_MAX};
+            #var $MSDP_GROUP[$_idx][stamina] $_result;
+            diaLog spell updated stam for $_idx to $_result;
+            #break
+        }
+    }
+}
+
+
 #act {^You tap into the vital energy around you and use it to refresh %w's weary body. (%d refreshed, now at \%%d)$} {
     #foreach *MSDP_GROUP[%*] {_idx} {
         #if {"$MSDP_GROUP[$_idx][name]" == "%1"} {
+            diaLog spell old stam at $MSDP_GROUP[$_idx][stamina];
             #var $MSDP_GROUP[$_idx][stamina] %3;
+            diaLog spell updated stam for $_idx to %3;
             #break
         }
     }
