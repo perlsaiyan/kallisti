@@ -49,7 +49,6 @@
     #delay {pack purple potion} {put all.purple $container} {1}
 } {5}
 
-#alias pp {get purple $container;quaff purple}
 
 #alias {log}
 {
@@ -85,7 +84,6 @@
 }
 
 #function prettyName {#format result {%n} {$name}};
-#function epoch {#format result {%T}};
 #function term_width {#format result {%C}}
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
@@ -109,7 +107,6 @@
 #read $lib/slack.tin;
 #read $lib/stock.tin
 #read $lib/status.tin
-#read $lib/mobs.tin
 #read $lib/layout.tin
 
 

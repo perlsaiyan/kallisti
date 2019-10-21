@@ -1,13 +1,23 @@
 #class functions kill
 #class functions open
 
+
+#nop -- Math Functions;
 #func increment { #math result {%1 + 1} }
 #func max { #if {%1 > %2} {#var result %1} {#var result %2} }
+
+
+#nop -- Time Functions;
+#function epoch {#format result {%T}};
 
 #func mpoch {
     #format result {%U};
     #math result { $result / 1000 };
 }
+
+#nop -- VT100/terminal functions;
+#function term_width {#format result {%C}}
+
 
 #class functions close
 #nop -- vim: syntax=tt
