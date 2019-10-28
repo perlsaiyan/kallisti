@@ -23,10 +23,19 @@
         #if {"%2" == "group all"} {group all};
         #if {"%2" == "sit"} {sit};
         #if {"%2" == "fol self"} {fol self};
+        #if {"%2" == "dismount"} {dismount};
         #if {"%2" == "cure"} {cure %1};
-        #if {"%2" == "eyes"} {true %1};
+        #if {"%2" == "eyes nagra"} {spellAdd nco {true nagra}};
+        #if {"%2" == "eyes"} {spellAdd nco {true %1}};
+        #if {"%2" == "cv" } {convert};
+        #if {"%2" == "cash" } {give $MSDP_GOLD chaoran};
+        #if {"%2" == "stop"} {
+            #class {zone} kill;
+            #class {hk} kill;
+            gt yep, done
+        };
         #if {"%2" == "heal"} {
-            heal %1
+            spellAdd heal {heal %1};
         };
         #if {"%2" == "evac"} {
             qp
@@ -54,9 +63,6 @@
     diaLog group Unloading follower module.;
 }
 
-
-#action {^**Chaoran: 'And away we go!'$} { #read $lib/exp.tin; }
-#action {^**Chaoran: 'stop'$} { #class chaoran kill; }
 
 #action {^{Chaoran|Stabitha} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
 

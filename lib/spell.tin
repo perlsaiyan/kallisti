@@ -11,7 +11,8 @@
         diaLog spell Not adding "%2" as it is already in list at position $sindex;
     }   {
         diaLog spell Adding spell "%2" to %1 queue;
-        #list spellqueue[%1] add {%2}
+        #list spellqueue[%1] add {%2};
+        casting_block
     };
 
 }
@@ -96,7 +97,9 @@
 #nop -- Spell delays are in 1000ths of a second;
 #func spellDelay {
     #switch {"%1"} {
-        #case {"heal"} #var result 1500;
+        #case {"heal"} #var result 2000;
+        #case {"convert"} #var result 12000;
+        #case {"shapechange"} #var result 4000;
         #default {
             #var result 2000;
             diaLog spell Unknown delay for %1, using $result ms
@@ -110,7 +113,7 @@
 #nop -- ---------------------------------------------------------------
 #nop -- Ticks
 #nop -- ---------------------------------------------------------------
-#tick {spell queue runner} {spellRunner} {0.1};
+#tick {spell queue runner} {spellRunner} {0.2};
 
 #class {spell queue} {close}
 #nop -- vim: syntax=tt
