@@ -104,8 +104,6 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
     }
 }
 
-#func pct {#math result { %1 * 100.0 / %2 }}
-
 
 #function refreshBlacklist {#list {refreshBlack} {find} {%1} {result}}
 
