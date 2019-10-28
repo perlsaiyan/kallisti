@@ -16,5 +16,7 @@
 #alias ii {deathstroke %0;deathstroke}
 #alias rr {get recall $container;rec recall}
 
+#action {^A fine backsword flies from your grasp.} {wield backsword}
+
 #class {player} {close}
 #nop -- vim: syntax=tt
