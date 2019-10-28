@@ -15,6 +15,8 @@
     #math result { $result / 1000 };
 }
 
+#func pct {#math result { %1 * 100.0 / %2 }}
+
 #nop -- VT100/terminal functions;
 #function term_width {#format result {%C}}
 
