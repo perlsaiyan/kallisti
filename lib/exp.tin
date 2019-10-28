@@ -19,7 +19,7 @@
 		#format expNowTime {%T};
         #math expElapsedTime {$expNowTime - $expStartTime};
         #math expPerSec {$expGainz/$expElapsedTime};
-        #math expMins {$expPerSec*60}
+        #math expMins {$expPerSec * 60}
 }
 
 #alias {expAnnounceHeroPoints} {
