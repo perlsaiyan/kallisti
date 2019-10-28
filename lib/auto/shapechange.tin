@@ -1,29 +1,14 @@
 #class {auto shapechange} {kill}
 #class {auto shapechange} {open}
 
-#tick {auto shapechange} {autoshapechange} {1};
+#tick {auto shapechange} {autoshapechange} {30};
 
-#var last_shapechange 0
 
 #alias autoshapechange {
         #if {@hasAffect{shapechange} < 1} {
-            #if {"$MSDP_POSITION" != "Fighting"} {
-                #if {@isStanding{} == 1} {
-                    #if {@epoch{} - $last_shapechange > 5} {
-                        shapechange $pref_shapechange;
-                        #var last_shapechange @epoch{};
-                    };
-                };
-	        };
+            spellAdd nco {shapechange $pref_shapechange}
 		};
 };
-
-
-#func isStanding {
-    #var result 0;
-    #if {"$MSDP_POSITION" == "Standing"} {#var result 1}
-    #if {"$MSDP_POSITION" == "Flying"} {#var result 1}
-}
 
 
 #class {auto shapechange} {close}
