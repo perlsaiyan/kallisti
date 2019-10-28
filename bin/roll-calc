@@ -1,0 +1,18 @@
+#!/bin/bash
+shopt -s expand_aliases
+
+function decolor () {
+    sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
+}
+
+LOGFILE=$1
+
+for STAT in Str Int Wis Dex Con Luk;
+do
+
+    MAX=`grep "New base stats" ${LOGFILE} | decolor |  sed "s/.* ${STAT} //" | sed 's/,.*//' | max`
+    MIN=`grep "New base stats" ${LOGFILE} | decolor |  sed "s/.* ${STAT} //" | sed 's/,.*//' | min`
+    echo "${STAT}: ${MIN} - ${MAX}"
+done
+
+
