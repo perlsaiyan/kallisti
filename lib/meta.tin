@@ -1,6 +1,27 @@
 #class {meta} {kill}
 #class {meta} {open}
 
+#var metaXPCost {}
+#var metaAUCost {}
+
+#var metaHero {}
+
+#var metaHitAvg[Druid] 3.94652406417112
+#var metaManaAvg[Druid] 4.93300248138958
+#var metaStaminaAvg[Druid] 4.06597222222222
+
+#var metaHitAvg[Paladin] 5.73333333333333
+#var metaManaAvg[Paladin] 3
+#var metaStaminaAvg[Paladin] 5
+
+#var metaHeroHit[Druid] 1.85
+#var metaHeroMana[Druid] 1.9
+#var metaHeroStamina[Druid] 0.9
+
+#var metaHeroHit[Paladin] 2.5
+#var metaHeroMana[Paladin] 1.5
+#var metaHeroStamina[Paladin] 1.3
+
 #action {meta'd %1 to %2, cost = %3xp, %4gp} {
 	#math {metaExpTotal} {$metaExpTotal+%3};
 	#math {metaTotalGold} {$metaTotalGold+%4}
@@ -20,6 +41,47 @@
     #format {_line2} {<g23>Total gold Meta'd: <fea>%-15g} {$metaTotalGold};
     #echo $_line1;
     #echo $_line2;
+}
+
+#nop -- ---------------------------------------------------------------
+#nop -- Autometa functions
+#nop -- ---------------------------------------------------------------
+
+#act {^HitPoints             : {\d+} exp & {\d+} coins : Current {\d+}$} {
+    #var metaXPCost[hp] %1; #var metaAUCost[hp] %2;
+    #math {metaHero[hp]} { $metaXPCost[hp] / ($metaHeroHit[$MSDP_CLASS] * $metaHitAvg[$MSDP_CLASS])};
+    #format {_tmp} {%.2d} $metaHero[hp];
+    #showme %0 ($_tmp/heropoint);
+    #line gag
+    }
+
+#act {^ManaPoints            : {\d+} exp & {\d+} coins : Current {\d+}$} {
+    #var metaXPCost[mana] %1; #var metaAUCost[mana] %2;
+    #math {metaHero[mana]} {$metaXPCost[mana] / ($metaHeroMana[$MSDP_CLASS] * $metaManaAvg[$MSDP_CLASS])};
+    #format {_tmp} {%.2d} $metaHero[mana];
+    #showme %0 ($_tmp/heropoint);
+    #line gag
+    }
+
+#act {^Stamina               : {\d+} exp & {\d+} coins : Current {\d+}$} {
+    #var metaXPCost[stam] %1; #var metaAUCost[stam] %2;
+    #math {metaHero[stam]} {$metaXPCost[stam] / ($metaHeroStamina[$MSDP_CLASS] * $metaStaminaAvg[$MSDP_CLASS])};
+    #format {_tmp} {%.2d} $metaHero[stam];
+    #showme %0 ($_tmp/heropoint);
+    #line gag
+    }
+
+#act {^You currently have {\d+} maxstat meta sessions available to raise your maximum stat limit.} {
+    #if { ($metaHero[hp] < $metaHero[stam]) & ($metaHero[hp] < $metaHero[mana])} {
+        #showme <f81a2b3>Meta HP for the most heros per experience point
+    };
+    #elseif { ($metaHero[mana] < $metaHero[hp]) & ($metaHero[mana] < $metaHero[stam])} {
+        #showme <f81a2b3>Meta MANA for the most heros per experience point
+    };
+    #elseif { ($metaHero[stam] < $metaHero[hp]) & ($metaHero[stam] < $metaHero[mana])} {
+        #showme <f81a2b3>Meta STAMINA for the most heros per experience point
+    };
+    #else {#showme <f81a2b3>Unable to provide meta advice, set class vars in meta.tin}
 }
 
 #class {meta} {close}
