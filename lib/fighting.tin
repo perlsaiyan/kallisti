@@ -5,5 +5,7 @@
     wield $primary_weapon
 }
 
+#act {^You need to ADVANCE to reach your opponent with melee attacks.} {advance}
+
 #class {fighting} {close}
 #nop -- vim: syntax=tt
