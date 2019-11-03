@@ -68,6 +68,7 @@
         #case {"ROOM_VNUM"}
         {
             mapRoom;
+            event_raise {map enter room} $MSDP_ROOM_VNUM;
         };
 	}
 }
