@@ -260,8 +260,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 20 25
-upperThresholds 85 85 80
+lowThresholds 65 0 25
+upperThresholds 85 5 80
 
 #class {hk} {close}
 
