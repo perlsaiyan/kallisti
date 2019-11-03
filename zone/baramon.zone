@@ -1,11 +1,6 @@
 #class {zone} {kill}
 #class {zone} {open}
 
-#act {**Chaoran: 'Hunting >fire< with opener >charge<.'} {ffire group}
-#act {^Chaoran screams insanely and charges into Diamond} {specattack diamond}
-#act {^Chaoran impales Dark Halfling} {specattack dark}
-#act {^Chaoran screams insanely and charges into Ice Elemental} {specattack ice}
-#act {^Chaoran impales A BoulderMan in his chest} {specattack boulder}
 
 
 #tick {safety} {#if {"$MSDP_AREA_NAME" != "Baramon Ingrol"} {#class hk kill;#class zone kill}} {.1};
@@ -13,7 +8,50 @@
 #action {You lost concentration casting 'flamestrike'} {fst $target}
 
 
-event_register {ehk complete} {baramon next} {baramonNext %2}
+event_register {ehk complete} {baramon next} {baramonNextHrum %2}
+
+#alias baramonNextSoloEng {
+    #switch {"%1"} {
+        #case "protector" {baramonAttack diamond charge};
+        #case "diamond" {baramonAttack ice charge};
+        #case "ice" {baramonAttack boulder charge};
+        #case "boulder" {baramonAttack hermit charge};
+        #case "hermit" {
+            #var target protector; #var nextTarget protector;
+            #tick {repop check} {hunt protector} {10};
+            #showme <cca>Chill and wait for repop I guess;
+        };
+        #case "fire" {baramonAttack dark charge};
+        #case "dark" {
+            #map run 36202;
+            #var target protector; #var nextTarget protector;
+            #tick {repop check} {hunt protector} {10};
+            #showme <cca>Chill and wait for repop I guess;
+        };
+        #case "squirrel" { baramonAttack bear charge};
+        #default {syslog Unknown entry for next %1};
+    };
+}
+
+#alias baramonNextHrum {
+    #switch {"%1"} {
+        #case "protector" {baramonAttack diamond charge};
+        #case "diamond" {baramonAttack ice charge};
+        #case "ice" {baramonAttack barb charge};
+        #case "barb" {baramonAttack melk charge};
+        #case "melk" {baramonAttack boulder};
+        #case "boulder" {baramonAttack herm charge};
+        #case "fire" {baramonAttack herm};
+        #case "dark" {baramonAttack dark};
+        #case "herm" {
+            #map run 36202;
+            #var target protector; #var nextTarget protector;
+            #tick {repop check} {hunt protector} {10};
+            gt Chill and wait for repop I guess;
+        };
+        #default {syslog Unknown entry for next %1};
+    };
+}
 
 #alias baramonNext {
     #switch {"%1"} {
@@ -23,11 +61,12 @@ event_register {ehk complete} {baramon next} {baramonNext %2}
         #case "barb" {baramonAttack melk};
         #case "melk" {baramonAttack boulder};
         #case "guard" {baramonAttack boulder};
-        #case "boulder" {baramonAttack fire fst};
+        #case "boulder" {ffire group;baramonAttack fire fst};
         #case "fire" {baramonAttack herm};
         #case "herm" {baramonAttack dark};
         #case "dark" {
             #map run 36202;
+            #var target protector; #var nextTarget protector;
             #tick {repop check} {hunt protector} {10};
             gt Chill and wait for repop I guess;
         };
@@ -51,30 +90,29 @@ event_register {ehk complete} {baramon next} {baramonNext %2}
 
 #act {^You start searching for tracks but then realize} {
     #untick {repop check};
-    #read $lib/msdphk.tin;
-    hk protector;
+    run_baramon
 } {9}
 
 #act {^[* You see your target's tracks} {
     #untick {repop check};
-    #read $lib/msdphk.tin;
-    hk protector;
+    run_baramon
 } {9}
 
-#act {^Fire Elemental is hovering here} {
-    #if {"$target" !== "fire" } {hk fire}
-}
 
 #act {^%w starts following you.} { group all }
 #act {^You're too busy fighting to be messing with} {#delay {grouper} {group all} {1}}
 
 #alias specattack {#if {$MSDP_MANA  > 1000} {fst %1};}
 
-gt Overloading Baramon zone accelerators;
+#showme <ccb>Overloading Baramon zone accelerators;
 #echo {Type run_baramon to start.}
 
 #tab run_baramon;
 #alias run_baramon { baramonAttack protector }
+
+#tab run_baramon_hard;
+#alias run_baramon_hard {#untick {repop check};baramonAttack fire charge}
+
 
 #class {zone} {close}
 #nop -- vim: syntax=tt
