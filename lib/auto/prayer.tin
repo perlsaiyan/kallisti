@@ -1,0 +1,12 @@
+#class {auto prayer} {kill}
+#class {auto prayer} {open}
+
+#tick {auto prayer} {autoPrayer} {4}
+
+#alias autoPrayer {#if {@hasAffect{prayer} < 1} {spellAdd nco prayer}}
+
+#action {^You feel the need to renew your prayers to God.$} {spellAdd nco prayer}
+#action {^You feel the protection of God.$} {#var MSDP_AFFECTS[prayer] 2}
+
+#class {auto prayer} {close}
+#nop -- vim: syntax=tt
