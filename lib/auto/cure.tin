@@ -1,8 +1,18 @@
 #class {auto cure} {kill}
 #class {auto cure} {open}
 
-#TICKER {check gouge temporary} {#if {@hasAffect{gouge} > 0} {diaLog spell curing gouge; spellAdd priority {cure}}} {1.5}
-#TICKER {check blind temporary} {#if {@hasAffect{blindness} > 0} {diaLog spell curing blindness; spellAdd priority {cure}}} {1.5}
+#tick {auto cure} {autoCurables} {1}
+
+#alias autoCurables {
+    #var cureNeeded 0;
+
+    #if {@hasAffect{gouge} > 0} {#var cureNeeded 1};
+    #if {@hasAffect{blindness} > 0} {#var cureNeeded 1};
+    #if {@hasAffect{curse} > 0} {#var cureNeeded 1};
+
+    #if {$cureNeeded > 0} { spellAdd priority cure }
+}
+
 
 #class {auto cure} {close}
 #nop -- vim: syntax=tt
