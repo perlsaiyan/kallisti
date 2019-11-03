@@ -98,10 +98,12 @@
 #read $lib/exp.tin;
 #read $lib/automan.tin;
 #read $lib/comms.tin;
+#read $lib/fighting.tin;
 #read $lib/group.tin;
 #read $lib/inv.tin;
 #read $lib/map.tin;
 #read $lib/meta.tin;
+#read $lib/mobs.tin;
 #read $lib/mount.tin
 #read $lib/scavenge.tin
 #read $lib/slack.tin;

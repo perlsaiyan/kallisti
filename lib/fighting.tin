@@ -1,0 +1,9 @@
+#class {fighting} {kill}
+#class {fighting} {open}
+
+#act {^You suddenly find your hand empty as} {
+    wield $primary_weapon
+}
+
+#class {fighting} {close}
+#nop -- vim: syntax=tt
