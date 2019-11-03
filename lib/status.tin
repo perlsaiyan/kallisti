@@ -14,9 +14,12 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 #alias statusBottom {
 
 
-    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s}
+    #math {herpgoalpct} { $MSDP_HERO_POINTS / ($herpgoal * 1.0)};
+
+    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s | %s}
         {$MSDP_PC_IN_ZONE}
-        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
+        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
+        {@display_progress{$herpgoalpct;$MSDP_HERO_POINTS / $herpgoal Hero Points;30;<aaa><CBC>}};
 
     #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
@@ -37,12 +40,8 @@ event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
 #alias areaUpdate {
     diaLog status Update area to %1;
     #format {_line1} {Area: %-24s} {%1};
-    draw_info 18 {<B579><fff>} {$_line1}
+    draw_info 33 {<B579><fff>} {$_line1}
 }
-
-#format {_line1} {${spb2}${spf2}Name: %s (%n %s, %s) |} {$MSDP_CHARACTER_NAME}
-        {$MSDP_RACE} {$MSDP_CLASS} {$MSDP_LEVEL};
-#showme {$_line1} {1};
 
 
 #tick {status line} {event_raise statusUpdate 1} {1}
