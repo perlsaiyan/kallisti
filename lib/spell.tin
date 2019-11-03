@@ -3,7 +3,7 @@
 
 #var spellLock 0;
 
-#list spellValidPositions create Flying Fighting Standing;
+#list spellValidPositions create Flying Fighting Mounted Standing;
 
 #alias spellAdd {
     #list spellqueue[%1] find {%2} {sindex};
