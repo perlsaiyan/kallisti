@@ -1,0 +1,43 @@
+#nop -- Hrum's Configuration
+
+#class {player} {kill}
+#class {player} {open}
+
+#nop -- Generic Player Data;
+#var {name} {Hrum};
+#var sex[$name] male;
+#var container starlight;
+#var pref_shapechange werewolf;
+#var herpgoal 9000
+
+#nop -- Grab prompt;
+#action {^< Hrum | {.*} | {.*} >} {#var PLAYER_FLAGS {%2}};
+
+#alias rr {recall} {2}
+
+#alias metamode {
+    #al sanct {#nop};
+    #class {auto prayer} {kill}
+}
+
+#alias playmode {
+    #read $ttd/players/hrum.tin;
+    #read $lib/exp.tin
+}
+
+#alias sanct {pg purple;quaff purple}
+
+#var primary_weapon backsword
+#var secondary_weapon ethereal
+
+#class {player} {close}
+
+
+#read $lib/class/paladin.tin
+#read $lib/auto/prayer.tin
+#read $lib/auto/shapechange.tin
+
+log off
+log on
+
+#nop -- vim: syntax=tt
