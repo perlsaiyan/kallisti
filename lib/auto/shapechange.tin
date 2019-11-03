@@ -6,7 +6,11 @@
 
 #alias autoshapechange {
         #if {@hasAffect{shapechange} < 1} {
-            spellAdd nco {shapechange $pref_shapechange}
+            #if {"$pref_shapechange" == "werewolf"} {
+                spellAdd nco {werewolf}
+            } {
+                spellAdd nco {shapechange $pref_shapechange}
+            };
 		};
 };
 
