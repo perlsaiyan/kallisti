@@ -7,6 +7,7 @@
 #var {name} {Pif};
 #var sex[$name] male;
 #var container backpack;
+#var herpgoal 14000
 
 #nop -- Grab prompt;
 #action {^< Pif | {.*} | {.*} >} {#var PLAYER_FLAGS {%2}};
@@ -24,9 +25,9 @@
 #alias warcry {#nop}
 
 #alias load_secondary {
-    #read $lib/class/druid.tin
-    #read $lib/auto/heal.tin
-    #read $lib/auto/shapechange.tin
+    #read $lib/class/druid.tin;
+    #read $lib/auto/heal.tin;
+    #read $lib/auto/shapechange.tin;
     #read $lib/auto/cure.tin
 }
 #var pref_shapechange frost
