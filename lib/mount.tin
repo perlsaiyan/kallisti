@@ -11,9 +11,12 @@
 #nop -- ---------------------------------------------------------------
 
 #action {You hop on a %1's back.} {
-    syslog Setting mount to %1.;
-    #var mount %1;
+    #switch {"%1"} {
+        #case {"war pegasus"} {#var mount pegasus};
+        #default {#var mount %1};
     }
+    syslog Setting mount to $mount.;
+}
 
 #action {^You try to ride a great eagle, but you fall on your butt} {
     stand;
