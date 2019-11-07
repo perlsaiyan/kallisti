@@ -7,22 +7,23 @@ diag reroll on;
 #nop -- Configuration variables
 #nop -- ---------------------------------------------------------------
 
-#showme {This is set up currently to roll a Paragon Bonused Werewolf Fighter}
+#showme {This is set up currently to roll a Paragon Bonused Centaur Priest}
 #showme {character.  Make sure that the roll_%* values are what you expect.}
 
 #nop -- Of these, it should add up to less than 62 (for Minotaur Fighter)
 #nop -- 68 for Werewolf Fighter (with paragon bonuses)
+#nop -- 73 for Centaur Prophet (with paragon bonuses)
 
-#var roll_str 24
-#var roll_int 7
-#var roll_wis 7
-#var roll_dex 14
+#var roll_str 0
+#var roll_int 0
+#var roll_wis 25
+#var roll_dex 0
 #var roll_con 0
 
 #nop -- Bonus luck factor
-#var roll_luk 0
+#var roll_luk 13
 
-#var roll_sum 68
+#var roll_sum 73
 #var roll_count 0
 #var max_roll 100000
 
