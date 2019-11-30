@@ -11,9 +11,10 @@
         #switch {"$MSDP_CLASS"} {
             #case {"Wizard"} {doHasteSpell};
         }
-    }
+    };
 
-    #if {@hasAffect{shapechange} < 1} {doShapechange}
+    #if {@hasAffect{shapechange} < 1} {doShapechange};
+    #if {@hasAffect{sanctuary} < 2} {doShapechange}
 }
 
 #alias doHasteSpell {
