@@ -7,7 +7,7 @@
 #var groupLoaded 1;
 #var GROUP_LEADER {};
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {me};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -29,6 +29,9 @@
         #if {"%2" == "eyes"} {spellAdd nco {true %1}};
         #if {"%2" == "cv" } {convert};
         #if {"%2" == "cash" } {give $MSDP_GOLD chaoran};
+        #if {"%2" == "tnl" } {gt @hNum{$MSDP_EXPERIENCE} experience, @hNum{$MSDP_EXPERIENCE_TNL} TNL};
+        #if {"%2" == "sunray guard"} {sunray guard};
+        #if {"%2" == "baramon"} {#read $ttd/zone/baramon.zone;run_baramon};
         #if {"%2" == "stop"} {
             #class {zone} kill;
             #class {hk} kill;
@@ -64,7 +67,7 @@
 }
 
 
-#action {^{Chaoran|Stabitha} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
+#action {^{SaintAjora|Chaoran|Anatta} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
@@ -80,6 +83,16 @@ event_register {commsGroup} {groupCommand} {groupCommand {%2} {%3}}
     #var result 0;
     #loop {1} {&MSDP_GROUP[]} {index} {
         #if { "$MSDP_GROUP[$index][name]" == "%1" } { #var result 1; }
+    }
+}
+
+#function groupIsPresent {
+    #var result 0;
+    #loop {1} {&MSDP_GROUP[]} {index} {
+        #if { ("$MSDP_GROUP[$index][name]" == "%1" ) &&
+              ($MSDP_GROUP[$index][with_you] == 1 ) } {
+                #var result 1;
+        }
     }
 }
 
