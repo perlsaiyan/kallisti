@@ -27,12 +27,6 @@
         #math autoDelay  {$autoDelay - 1};
     } {
         #nop -- diaLog buff check buffs;
-        #if {@hasAffect{sanctuary} < 2} {
-            #if {"$MSDP_POSITION" != "Sleeping"} {
-                diaLog buff Sancting;
-                resanct;
-            };
-        };
         #if {@hasAffect{warcry} < 1} {
             #if {"$MSDP_POSITION" != "Sleeping"} {
                 diaLog buff Warcry;
@@ -56,14 +50,6 @@
     };
 }
 
-#alias resanct {
-    #math {_test} {@epoch{} - $autoSanctTime};
-    #if {$_test > 20} {
-        sanct;
-        #var autoSanctTime @epoch{};
-    };
-}
-#al sanct {pg purple;quaff purple}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Functions

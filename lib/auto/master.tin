@@ -3,6 +3,8 @@
 
 #tick {auto bufs} {autoBuf} {4}
 
+#var sanctMethod potion
+
 #alias autoBuf {
     #if {@hasAffect{haste} < 1} {
         #switch {"$MSDP_CLASS"} {
@@ -19,6 +21,15 @@
     }
 }
 
+#alias doSanctuary {
+
+    #switch {"$sanctMethod"} {
+        #case {"potion"} {spellAdd nco {sanctPotion}};
+        #case {"gsanc"} {spellAdd nco {gt gsanc}};
+    }
+}
+
+#alias sanctPotion {pg purple;quaff purple};
 
 #class autobuf close
 #nop -- vim: syntax=tt
