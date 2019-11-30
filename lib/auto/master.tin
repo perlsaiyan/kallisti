@@ -14,7 +14,7 @@
     };
 
     #if {@hasAffect{shapechange} < 1} {doShapechange};
-    #if {@hasAffect{sanctuary} < 2} {doShapechange}
+    #if {@hasAffect{sanctuary} < 2} {doSanctuary}
 }
 
 #alias doHasteSpell {
