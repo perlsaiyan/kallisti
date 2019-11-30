@@ -1,7 +1,7 @@
 #class {auto shapechange} {kill}
 #class {auto shapechange} {open}
 
-#tick {auto shapechange} {autoshapechange} {30};
+#tick {auto shapechange} {autoshapechange} {10};
 
 
 #alias autoshapechange {
