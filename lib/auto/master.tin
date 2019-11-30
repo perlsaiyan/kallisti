@@ -6,11 +6,14 @@
 #var sanctMethod potion
 
 #alias autoBuf {
+
     #if {@hasAffect{haste} < 1} {
         #switch {"$MSDP_CLASS"} {
             #case {"Wizard"} {doHasteSpell};
         }
     }
+
+    #if {@hasAffect{shapechange} < 1} {doShapechange}
 }
 
 #alias doHasteSpell {
@@ -30,6 +33,15 @@
 }
 
 #alias sanctPotion {pg purple;quaff purple};
+
+#alias doShapechange {
+    #if {"$pref_shapechange" == "werewolf"} {
+        spellAdd nco {werewolf}
+    } {
+        spellAdd nco {shapechange $pref_shapechange}
+    };
+};
+
 
 #class autobuf close
 #nop -- vim: syntax=tt
