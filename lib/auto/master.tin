@@ -3,7 +3,7 @@
 
 #tick {auto bufs} {autoBuf} {4}
 
-#var sanctMethod potion
+#var sanctMethod auto
 
 #alias autoBuf {
 
@@ -30,7 +30,15 @@
     #switch {"$sanctMethod"} {
         #case {"potion"} {spellAdd nco {sanctPotion}};
         #case {"gsanc"} {spellAdd nco {gt gsanc}};
+        #default {spellAdd nco {doSmartSanct}};
     }
+}
+
+#alias doSmartSanct {
+
+    #if {@groupIsPresent{Donal} == 1 } {spellAdd nco {gt gsanc}};
+    #else {sanctPotion};
+
 }
 
 #alias sanctPotion {pg purple;quaff purple};
