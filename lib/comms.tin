@@ -37,12 +37,12 @@
 #action {^<Gossip: %w> '{.*}'$} {
     event_raise {commsGos} {%1} {%2} {%0};
 } {8}
-#action {^<Gossip: %w (%w)> '{.*}'$} {
+#action {^<Gossip: %w ({.*})> '{.*}'$} {
     event_raise {commsGos} {%1 (%2)} {%3} {%0};
 } {8}
 
 
-#action {^%w (%w) tells you, '{.*}'$} {
+#action {^%w ({.*}) tells you, '{.*}'$} {
     event_raise {commsTell} {%1 (%2)} {%3} {%0};
 } {8}
 #action {^You tell {.*}, '{.*}'$} {
