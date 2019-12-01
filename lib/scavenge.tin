@@ -18,8 +18,10 @@
 #action {^An enormous mountain of gold coins is lying here.} {scavengeGold} {5}
 #action {^An absolutely colossal mountain of gold coins is lying here.} {scavengeGold} {5}
 
+#action {^A magical shard lies here.$} {get shard}
+
 #alias {scavengeGold} {
-    #if { "$autoScavenge" == "on" } {get all.coins};
+    #if { "$autoScavenge" == "on" } {#line oneshot #tick {pickups} {get all.coins} {.05}};
 }
 
 #class {scavenge} {close}
