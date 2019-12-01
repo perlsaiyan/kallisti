@@ -16,11 +16,11 @@
     #var _s @abs{%1};
     #if {$_s > 1000000} {
         #math result { %1 / 1000000.00 };
-        #var result ${result} M
+        #var result ${result}m
     };
     #elseif {$_s > 1000} {
         #math result { %1 / 1000.0 };
-        #var result ${result} K
+        #var result ${result}k
     };
 }
 
@@ -79,6 +79,25 @@
     #RETURN $display;
 }
 
+#function is_group_fighting {
+
+    #foreach *MSDP_GROUP[%*] {_idx} {
+        #if {"$MSDP_GROUP[$_idx][position]" == "Fighting"} { #return 1 }
+    };
+    #return 0
+}
+
+#func hasAffect {
+    #if {&MSDP_AFFECTS[%1]} {
+        #var result $MSDP_AFFECTS[%1];
+    } {
+        #var result -1;
+    }
+}
+
+
+#function next_level {#math result {$MSDP_LEVEL + 1}}
+#function pretty_tnl {#format result {%g} {$MSDP_EXPERIENCE_TNL}}
 
 #nop -- VT100/terminal functions;
 #function term_width {#format result {%C}}

@@ -4,6 +4,8 @@
 #tick {auto bufs} {autoBuf} {4}
 
 #var sanctMethod auto
+#var lastSanct 0; #var sanctDelay 15;
+#var lastWarcry 0
 
 #alias autoBuf {
 
@@ -13,8 +15,13 @@
         }
     };
 
+    #if {@hasAffect{warcry} < 1} {doWarcry}
     #if {@hasAffect{shapechange} < 1} {doShapechange};
     #if {@hasAffect{sanctuary} < 2} {doSanctuary}
+}
+
+#alias doWarcry {
+    #if { "$MSDP_CLASS" == "Barbarian" } { spellAdd any {warcry} }
 }
 
 #alias doHasteSpell {
@@ -27,10 +34,15 @@
 
 #alias doSanctuary {
 
-    #switch {"$sanctMethod"} {
-        #case {"potion"} {spellAdd nco {sanctPotion}};
-        #case {"gsanc"} {spellAdd nco {gt gsanc}};
-        #default {spellAdd nco {doSmartSanct}};
+    #if { (@epoch{} - $sanctDelay ) > $lastSanct } {
+        #switch {"$sanctMethod"} {
+            #case {"potion"} {spellAdd nco {sanctPotion}};
+            #case {"gsanc"} {spellAdd nco {gt gsanc}};
+            #default {spellAdd nco {doSmartSanct}};
+        }
+        #var lastSanct @epoch{}
+    } {
+        diaLog buff Not rerequesting sanct for $sanctDelay seconds.
     }
 }
 
