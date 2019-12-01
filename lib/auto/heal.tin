@@ -5,7 +5,8 @@
 
 #tick {autodamage} {autodamage} {4};
 #untick autodamage;
-
+#var refreshManaThreshold 300
+#var healpct 80
 event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.1}};
 
 #alias autoheal {
@@ -14,7 +15,10 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
             spellAdd priority heal;
     } {
         #foreach *MSDP_GROUP[%*] {_tmp} {
-            #if {$MSDP_GROUP[$_tmp][health] < 80 } {
+            #if {"$MSDP_GROUP[$_tmp][class]" == "MOB"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "Klein"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "the death knight"} {#continue};
+            #if {$MSDP_GROUP[$_tmp][health] < $healpct } {
                     #if {$MSDP_GROUP[$_tmp][with_you] == 1} {
                         #nop -- heal $MSDP_GROUP[$_tmp][name];
                         diaLog spell $MSDP_GROUP[$_tmp][name] at $MSDP_GROUP[$_tmp][health];
@@ -22,7 +26,7 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
                     }
             }
             #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
-                    #if {$MSDP_MANA > 300} {
+                    #if {$MSDP_MANA > $refreshManaThreshold} {
                         #if {@refreshBlacklist{$MSDP_GROUP[$_tmp][name]}} {
                             #nop
                         } {
@@ -49,10 +53,6 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
 #alias autotrue {
         #if {@hasAffect{true seeing} < 1} {
                 spellAdd nco {true};
-        };
-        #if {@hasAffect{vigor} < 1} {
-                #nop -- vigor group;
-                spellAdd nco {vigor group};
         };
 }
 

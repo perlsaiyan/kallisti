@@ -15,9 +15,10 @@
         }
     };
 
-    #if {@hasAffect{warcry} < 1} {doWarcry}
+    #if {@hasAffect{warcry} < 1} {doWarcry};
     #if {@hasAffect{shapechange} < 1} {doShapechange};
-    #if {@hasAffect{sanctuary} < 2} {doSanctuary}
+    #if {@hasAffect{sanctuary} < 2} {doSanctuary};
+    #if {@hasAffect{vigor} < 2} {doVigor};
 }
 
 #alias doWarcry {
@@ -29,6 +30,14 @@
         #if {$MSDP_MANA > 160} {spellAdd nco {haste group}}
     } {
         #if {$MSDP_MANA > 40}  {spellAdd nco {haste}}
+    }
+}
+
+#alias doVigor {
+    #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+        #if {$MSDP_MANA > 160} {spellAdd nco {vigor group}}
+    } {
+        #if {$MSDP_MANA > 40}  {spellAdd nco {vigor}}
     }
 }
 
