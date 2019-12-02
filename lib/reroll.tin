@@ -13,15 +13,16 @@ diag reroll on;
 #nop -- Of these, it should add up to less than 62 (for Minotaur Fighter)
 #nop -- 68 for Werewolf Fighter (with paragon bonuses)
 #nop -- 73 for Centaur Prophet (with paragon bonuses)
+#nop -- 71 for Gnome Mage (with paragon bonuses)
 
-#var roll_str 0
-#var roll_int 0
-#var roll_wis 25
-#var roll_dex 0
-#var roll_con 0
+#var roll_str 7
+#var roll_int 23
+#var roll_wis 18
+#var roll_dex 9
+#var roll_con 7
 
 #nop -- Bonus luck factor
-#var roll_luk 13
+#var roll_luk 18
 
 #var roll_sum 73
 #var roll_count 0
@@ -49,7 +50,7 @@ diag reroll on;
     #nop -- Reroll or Stop?;
     #if { $reroll == 0 } {
         diaLog reroll How does this look, roll $roll_count?;
-        #system {play ~/sounds/stock_payout.wav &};
+        #system {play -q ~/sounds/stock_payout.wav >/dev/null 2>&1 &};
     } {
         diaLog reroll $roll_count: this char: $_message - sum:$_sum;
         reroll;
