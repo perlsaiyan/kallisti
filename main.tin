@@ -6,6 +6,8 @@
 #var ttd /home/tom/git/kallisti
 #var lib $ttd/lib
 #var accountName bhang
+#var herpgoal 9000
+
 #script {password} {/usr/bin/pass $accountName@kallistimud.com};
 
 #session {k} {kallistimud.com} {4000}
@@ -43,21 +45,24 @@ diag login off
 
 #action {^Welcome to the legendary lands of Kallisti.$} {
     #read $ttd/players/$curPlayer.tin;
-    #read $lib/class/$curClass.tin;
     #read $lib/common.tin;
+    load_secondary;
     #class {login} {kill};
 }
 
 
 #action {^Reconnecting.$} {
     #line oneshot #tick {launch char} {
-        #read $ttd/players/$MSDP_CHARACTER_NAME.tin;
-        #read $lib/class/$MSDP_CLASS.tin;
+        #format {_tmp} {%l} {$MSDP_CHARACTER_NAME};
+        #read $ttd/players/${_tmp}.tin;
         #read $lib/common.tin;
+        load_secondary;
         #class {login} {kill};
     } {5};
     #echo {Please wait about 5 seconds to load stuff from MSDP.}
 }
+
+#al load_secondary {#nop};
 
 #class {login} {close}
 #nop -- vim: syntax=tt
