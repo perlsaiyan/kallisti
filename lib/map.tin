@@ -10,7 +10,7 @@
 
 #map create 100000;
 #map flag nofollow;
-#map flag vtmap off;
+#map flag vtmap on;
 #map flag static;
 #map flag blockgraphics on;
 #map read $ttd/map/msdp.map
@@ -23,7 +23,7 @@
 	#map goto {$MSDP_ROOM_VNUM} {dig};
 	#map set roomarea $MSDP_AREA_NAME;
 	#map set roomname $MSDP_ROOM_NAME;
-	#map set roomterrain $MSDP_ROOM_TERRAIN;
+	#map set roomterrain @cleanTerrain{$MSDP_ROOM_TERRAIN};
 	#map set roomcolor <178>;
 	#nop Create unmapped exits and color unexplored rooms red.;
 	#foreach {*MSDP_ROOM_EXITS[]} {EXIT}
@@ -32,20 +32,25 @@
 		#if {&EXIT_LIST[$EXIT] == 0}
 		{
 			#map get {roomvnum} {EXIT_VNUM} {$MSDP_ROOM_EXITS[$EXIT]};
-			#map dig {@dA{$EXIT}} {$MSDP_ROOM_EXITS[$EXIT]};
+			#if {"$MSDP_ROOM_EXITS[$EXIT]" != "?"} {
+			    #map dig {@dA{$EXIT}} {$MSDP_ROOM_EXITS[$EXIT]};
+			}
 			#if {$EXIT_VNUM == 0}
 			{
 				#map set {roomcolor} {<118>} {$MSDP_ROOM_EXITS[$EXIT]}
 			}
 		}
 	}
-    #map map 40 40 overwrite $mapFile;
+    #nop -- #map map 40 40 overwrite $mapFile;
 }
 
+#nop -- ---------------------------------------------------------------
 #nop -- Actions
 #nop -- ---------------------------------------------------------------
 
-
+#action {~^\e[1;35m} {
+    #echo {VNUM: $MSDP_ROOM_VNUM AREA: $MSDP_AREA_NAME}
+} {9}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
@@ -67,6 +72,12 @@
     #elseif {"%1" == "down"} {#var result d};
     #else {#var result %1};
 }
+
+#function cleanTerrain {
+    #format {_tmp} {%p} {%1};
+	#line sub var #line strip #var result $_tmp;
+}
+
 #class {map} {close}
 
 #nop -- vim: syntax=tt
