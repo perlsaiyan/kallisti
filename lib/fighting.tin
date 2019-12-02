@@ -2,6 +2,8 @@
 #class {fighting} {open}
 
 #act {^You suddenly find your hand empty as} {
+    syslog DISARMED AT $MSDP_ROOM_VNUM;
+    get $primary_weapon;
     wield $primary_weapon
 }
 
