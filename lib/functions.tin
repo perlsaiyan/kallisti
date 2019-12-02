@@ -100,7 +100,7 @@
 #function pretty_tnl {#format result {%g} {$MSDP_EXPERIENCE_TNL}}
 
 #nop -- VT100/terminal functions;
-#function term_width {#format result {%C}}
+#function term_width {#screen get cols result}
 
 
 #class functions close
