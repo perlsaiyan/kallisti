@@ -3,7 +3,32 @@
 
 #tick {auto prayer} {autoPrayer} {4}
 
-#alias autoPrayer {#if {@hasAffect{prayer} < 1} {spellAdd nco prayer}}
+#var canpray 1;
+
+#alias autoPrayer {
+    #if {@hasAffect{prayer} < 1} {
+        #if {$MSDP_ALIGNMENT > 349} {
+            spellAdd nco prayer;
+            #var canpray 1
+        } {
+            #math aligntmp { ( $MSDP_ALIGNMENT + 1000 ) / 2000.00 };
+            #if { $MSDP_ALIGNMENT > 350 } {
+                #var aligncolor <b81a2be>
+            };
+            #elseif { $MSDP_ALGINMENT < -350 } {
+                #var aligncolor <bcc6666>
+            };
+            #else {
+                #var aligncolor <b707880>
+            };
+            #if {$canpray == 1} {
+                #echo {Unable to pray due to alignment.};
+                #echo {@display_progress{$aligntmp;Alignment [$MSDP_ALIGNMENT];30;$aligncolor}};
+                #var canpray 0;
+            }
+        }
+    }
+}
 
 #action {^You feel the need to renew your prayers to God.$} {spellAdd nco prayer}
 #action {^You feel the protection of God.$} {#var MSDP_AFFECTS[prayer] 2}
