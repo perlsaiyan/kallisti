@@ -4,7 +4,15 @@
 #al harm {cast 'harm' %0} {5}
 #al heal {cast 'heal' %0} {5}
 
-#al cv {spellAdd nco {convert}}
+#al cv {
+    emote &yCONVERTING&-- please stand by;
+    spellAdd priority {convert}
+}
+
+#al hh {
+    spellAdd priority {heal group};
+    #list spellqueue[heal] {clear}
+}
 
 #class {class} {close}
 

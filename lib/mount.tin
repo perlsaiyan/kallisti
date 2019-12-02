@@ -10,7 +10,7 @@
 #nop -- Actions
 #nop -- ---------------------------------------------------------------
 
-#action {You hop on a %1's back.} {
+#action {^You hop on a %1's back.} {
     #switch {"%1"} {
         #case {"war pegasus"} {#var mount pegasus};
         #default {#var mount %1};
