@@ -1,5 +1,3 @@
-#func term_width { #format result {%C} }
-
 #var right_panel 40
 #var chat_rows 10
 #math chat_right {$right_panel + 1}
