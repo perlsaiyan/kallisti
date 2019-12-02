@@ -1,6 +1,8 @@
 #class {layout group} {kill}
 #class {layout group} {open}
 
+#var displayMobs 0
+
 event_register {variable MSDP_GROUP} {display group} {#delay {update group tile} {group_parse} {0.01}}
 
 #alias {group_parse} {
@@ -10,14 +12,14 @@ event_register {variable MSDP_GROUP} {display group} {#delay {update group tile}
     #foreach *MSDP_GROUP[%*] {_idx} {
 #nop --        #if {"$MSDP_GROUP[$_idx][name]" === "$name" } { #continue };
 
-        #format _line {<ffff>%-5s %-10s %-3s %-3s %-3s <ffff>%-4s}
+        #format _line {<ffff>%-5s %-10.9s %-3s %-3s %-3s <ffff>%-4s}
             {@withMe{$_idx}[$MSDP_GROUP[$_idx][class]]}
             {$MSDP_GROUP[$_idx][name]}
             {@colorPct{$MSDP_GROUP[$_idx][health]}}
             {@colorPct{$MSDP_GROUP[$_idx][mana]}}
             {@colorPct{$MSDP_GROUP[$_idx][stamina]}}
             {$MSDP_GROUP[$_idx][flags]};
-            #list group_tile_text add {{$_line}};
+             #list group_tile_text add {{$_line}};
     }
 
     #draw <B788C9F><f000> tile 23 $map_left 23 -1 {Group Info (&MSDP_GROUP[] members)};
