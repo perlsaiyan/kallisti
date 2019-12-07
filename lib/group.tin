@@ -5,7 +5,6 @@
 #nop -- Configuration variables
 #nop -- ---------------------------------------------------------------
 #var groupLoaded 1;
-#var GROUP_LEADER {};
 
 #list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta};
 
@@ -49,6 +48,17 @@
     }
 }
 
+#alias groupNewFollower {
+    #if {@groupIsFriend{%1}} {
+        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 0) } {
+            #if {&groupAmILeader{}} {spellAdd {nco} {group %1}} {point $GROUP_LEADER}
+        } {
+            spellAdd {nco} {group $name;group %1}
+        }
+    } {
+        #if {! @groupAmILeader{}} {point $GROUP_LEADER}
+    }
+}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Actions
@@ -66,8 +76,13 @@
     diaLog group Unloading follower module.;
 }
 
+#action {^%w starts following you.$} {event_raise {new follower} {%1}}
+
+event_register {new follower} {group new follower} {groupNewFollower %2}
 
 #action {^{SaintAjora|Chaoran|Anatta} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
+
+#action {^%w (Goliath) tells you, ':{.*}'$} {%2} {5}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
@@ -95,6 +110,25 @@ event_register {commsGroup} {groupCommand} {groupCommand {%2} {%3}}
         }
     }
 }
+
+#function groupLeader {
+    #var result {};
+    #loop {1} {&MSDP_GROUP[]} {index} {
+        #if {$MSDP_GROUP[$index][is_leader] == 1} {#return $MSDP_GROUP[$index][name]}
+    }
+}
+
+#function groupAmILeader {
+    #var result 0;
+    #loop {1} {&MSDP_GROUP[]} {index} {
+        #if { "$MSDP_GROUP[$index][name]" == "$name" } {
+            #if {$MSDP_GROUP[$index][is_leader] == 1} { #return 1 }
+        }
+    }
+    #return 0
+}
+
+#var GROUP_LEADER @groupLeader{};
 
 #class {group} {close}
 
