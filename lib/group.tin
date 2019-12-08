@@ -51,12 +51,12 @@
 #alias groupNewFollower {
     #if {@groupIsFriend{%1}} {
         #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 0) } {
-            #if {&groupAmILeader{}} {spellAdd {nco} {group %1}} {point $GROUP_LEADER}
+            #if {@groupAmILeader{}} {spellAdd {nco} {group %1}} {point @groupLeader{}}
         } {
             spellAdd {nco} {group $name;group %1}
         }
     } {
-        #if {! @groupAmILeader{}} {point $GROUP_LEADER}
+        #if {! @groupAmILeader{}} {point @groupLeader{}}
     }
 }
 
