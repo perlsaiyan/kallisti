@@ -84,12 +84,13 @@
 }
 
 #function prettyName {#format result {%n} {$name}};
-#function term_width {#format result {%C}}
 
 #alias {syslog} {#echo {<CCA>SYSLOG: %0}}
 #alias {gc} {get all all.corpse}
+#alias {db} {spellAdd nco {gt spirit;gt blades}};
 
 #action {^You are dead!} {#var deathroom $MSDP_ROOM_VNUM; slackDeath}
+
 
 #split 4 4
 #read $lib/events.tin

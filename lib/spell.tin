@@ -108,8 +108,6 @@
     }
 }
 
-#func width { #format result {%C} }
-#func max { #if {%1 > %2} {#var result %1} {#var result %2} }
 
 #nop -- ---------------------------------------------------------------
 #nop -- Ticks
