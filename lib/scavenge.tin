@@ -19,6 +19,12 @@
 #action {^An absolutely colossal mountain of gold coins is lying here.} {scavengeGold} {5}
 
 #action {^A magical shard lies here.$} {get shard}
+#action {^A pile of valued desoy bits lie here.} {#line oneshot #tick {desoy bits} {get all.bits} {.01}}
+#action {^A pile of valued desoy fragments lies here.} {#line oneshot #tick {desoy frags} {get all.fragments} {.01}}
+#action {^A magnificent valued gem lies here intact.} {#line oneshot #tick {desoy gem} {get all.gem} {.01}}
+#action {^A pile of valued desoy shards lies here.} {#line oneshot #tick {desoy shard} {get all.shard} {.01}}
+
+#action {A {.*} box with a {.*} ribbon lays here.} {get box}
 
 #alias {scavengeGold} {
     #if { "$autoScavenge" == "on" } {#line oneshot #tick {pickups} {get all.coins} {.05}};
