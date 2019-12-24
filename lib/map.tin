@@ -15,6 +15,10 @@
 #map flag blockgraphics on;
 #map read $ttd/map/msdp.map
 
+#map terrain {Forest} {<228>⟑} DENSE WIDE
+#map terrain {Field} {<128>·} DENSE WIDE
+#map terrain {Desert} {<cca>·} DENSE NARROW
+
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
 #nop -- ---------------------------------------------------------------
