@@ -91,6 +91,9 @@
 
 #action {^You are dead!} {#var deathroom $MSDP_ROOM_VNUM; slackDeath}
 
+#action {flies from your grasp} {get $primary_weapon;wield $primary_weapon}
+
+#action {^$} {event_raise {blank line} {blank line}}
 
 #split 4 4
 #read $lib/events.tin
