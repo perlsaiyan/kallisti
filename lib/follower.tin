@@ -6,13 +6,33 @@
 #action {^%w enters %2$} {
     diaLog group %1 entered %2;
     #var _portal %2;
-    #replace {_portal} {%w } {};
-    #replace {_portal} {.} {};
-    #if {"%1" == "$GROUP_LEADER"} {
-        diaLog group attempt to enter $_portal;
-        enter $_portal;
+    #switch {"%2"} {
+        #case {"an earthen-tone portal."} {#var _portal {portal}};
+        #case {"a glowing blue-flame portal."} {#var _portal {portal}};
+        #default {
+            #replace {_portal} {%w } {};
+            #replace {_portal} {.} {};
+            #if {"%1" == "$GROUP_LEADER"} {
+                diaLog group attempt to enter $_portal;
+            }
+        }
     }
+    enter $_portal;
 }
 
+#action {^%w turns %2$} {
+
+    #var _portal %2;
+    #switch {"%2"} {
+        #default {
+            #replace {_portal} {%w } {};
+            #replace {_portal} {.} {};
+        };
+    }
+
+    #if {"%1" == "@groupLeader{}"} {
+        turn $_portal;
+    }
+}
 #class {follower} {close}
 #nop -- vim: syntax=tt
