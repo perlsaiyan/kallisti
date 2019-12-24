@@ -1,8 +1,6 @@
 #class {autoheal} {kill}
 #class {autoheal} {open}
 
-#tick {autotrue} {autotrue} {10};
-
 #tick {autodamage} {autodamage} {4};
 #untick autodamage;
 #var refreshManaThreshold 300
@@ -18,6 +16,11 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
             #if {"$MSDP_GROUP[$_tmp][class]" == "MOB"} {#continue};
             #if {"$MSDP_GROUP[$_tmp][name]" == "Klein"} {#continue};
             #if {"$MSDP_GROUP[$_tmp][name]" == "the death knight"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "a knight"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "the mandolin player"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian legionary"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian elder"} {#continue};
+            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian gendarme"} {#continue};
             #if {$MSDP_GROUP[$_tmp][health] < $healpct } {
                     #if {$MSDP_GROUP[$_tmp][with_you] == 1} {
                         #nop -- heal $MSDP_GROUP[$_tmp][name];
@@ -25,7 +28,7 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
                         spellAdd heal {heal $MSDP_GROUP[$_tmp][name]};
                     }
             }
-            #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
+            #if {$MSDP_GROUP[$_tmp][stamina] < 30 } {
                     #if {$MSDP_MANA > $refreshManaThreshold} {
                         #if {@refreshBlacklist{$MSDP_GROUP[$_tmp][name]}} {
                             #nop
@@ -50,11 +53,6 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
         }
 }
 
-#alias autotrue {
-        #if {@hasAffect{true seeing} < 1} {
-                spellAdd nco {true};
-        };
-}
 
 #act {^You heal %w's wounds. (%d healed, now at \%%d)$} {
     #foreach *MSDP_GROUP[%*] {_idx} {

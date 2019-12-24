@@ -5,6 +5,10 @@
 
 #var sanctMethod auto
 #var lastSanct 0; #var sanctDelay 15;
+#var lastGuardian 0; #var guardianDelay 15;
+#var lastBlade 0; #var bladeDelay 15;
+#var lastDArmor 0; #var darmorDelay 15;
+#var lastVig 0;
 #var lastWarcry 0
 
 #alias autoBuf {
@@ -16,9 +20,23 @@
     };
 
     #if {@hasAffect{warcry} < 1} {doWarcry};
-    #if {@hasAffect{shapechange} < 1} {doShapechange};
+    #if {@hasAffect{true seeing} < 1} {doTruesee};
+    #if {@hasAffect{spiritual guardian} < 1} {doSpiritGuardian};
+    #if {@hasAffect{blade barrier} < 1} {doBladeBarrier};
+
+    #if {@hasAffect{shapechange} < 2} {doShapechange};
     #if {@hasAffect{sanctuary} < 2} {doSanctuary};
+    #if {@hasAffect{divine armor} < 2} {doDivineArmor};
     #if {@hasAffect{vigor} < 2} {doVigor};
+
+}
+
+#alias doTruesee {
+    #switch {"$MSDP_CLASS"} {
+        #case {"Prophet"} {spellAdd nco {true}};
+        #case {"Druid"} {spellAdd nco {true}};
+        #case {"Templar"} {spellAdd nco {true}};
+    };
 }
 
 #alias doWarcry {
@@ -33,11 +51,43 @@
     }
 }
 
+#alias doDivineArmor {
+    #if { ( @epoch{} - $darmorDelay ) < $lastDArmor } { #return } { #var lastDArmor @epoch{}};
+
+    #if {"$MSDP_CLASS" == "Templar"} {
+        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+            #if {$MSDP_MANA > 160} {spellAdd nco {darmor group}}
+        } {
+            #if {$MSDP_MANA > 40}  {spellAdd nco {darmor}}
+        }
+    }
+}
+#alias doSpiritGuardian {
+    #if { ( @epoch{} - $guardianDelay ) < $lastGuardian } { #return };
+
+    #if {"$MSDP_CLASS" == "Templar"} {
+        #if {$MSDP_MANA > 40}  {spellAdd nco {spirit}}
+        #var lastGuardian @epoch{}
+    }
+}
+#alias doBladeBarrier {
+    #if { ( @epoch{} - $bladeDelay ) < $lastBlade } { #return };
+
+    #if {"$MSDP_CLASS" == "Templar"} {
+        #if {$MSDP_MANA > 40}  {spellAdd nco {blade}}
+        #var lastBlade @epoch{}
+    }
+}
+
 #alias doVigor {
-    #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
-        #if {$MSDP_MANA > 160} {spellAdd nco {vigor group}}
-    } {
-        #if {$MSDP_MANA > 40}  {spellAdd nco {vigor}}
+    #if {@epoch{} < ( $lastVig + 15) } { #return 1 };
+    #var lastVig @epoch{};
+    #if { "$autovigor" == "on" } {
+        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+            #if {$MSDP_MANA > 100} {spellAdd nco {vigor group}}
+        } {
+            #if {$MSDP_MANA > 40}  {spellAdd nco {vigor}}
+        }
     }
 }
 
@@ -47,6 +97,7 @@
         #switch {"$sanctMethod"} {
             #case {"potion"} {spellAdd nco {sanctPotion}};
             #case {"gsanc"} {spellAdd nco {gt gsanc}};
+            #case {"spell"} {doSpellSanct};
             #default {spellAdd nco {doSmartSanct}};
         }
         #var lastSanct @epoch{}
@@ -55,9 +106,19 @@
     }
 }
 
+#alias doSpellSanct {
+    #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+        #if {$MSDP_MANA > 160} {spellAdd nco {sanct group}}
+    } {
+        #if {$MSDP_MANA > 40}  {spellAdd nco {sanct}}
+    }
+}
+
 #alias doSmartSanct {
 
     #if {@groupIsPresent{Donal} == 1 } {spellAdd nco {gt gsanc}};
+    #elseif { "$MSDP_CLASS" == "Prophet" } { doSpellSanct };
+    #elseif { "$MSDP_CLASS" == "Templar" } { doSpellSanct };
     #else {sanctPotion};
 
 }
@@ -67,7 +128,8 @@
 #alias doShapechange {
     #if {"$pref_shapechange" == "werewolf"} {
         spellAdd nco {werewolf}
-    } {
+    };
+    #elseif {&pref_shapechange} {
         spellAdd nco {shapechange $pref_shapechange}
     };
 };
