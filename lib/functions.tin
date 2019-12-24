@@ -81,10 +81,29 @@
 
 #function is_group_fighting {
 
-    #foreach *MSDP_GROUP[%*] {_idx} {
+    #foreach &MSDP_GROUP[%*] {_idx} {
         #if {"$MSDP_GROUP[$_idx][position]" == "Fighting"} { #return 1 }
     };
     #return 0
+}
+
+#function can_group_move {
+    #if {@is_group_fighting} {#return 0};
+    #foreach &MSDP_GROUP[%*] {_idx} {
+        #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#return 0};
+        #regex {$MSDP_GROUP[$_idx][flags]} {>BASH<} {#return 0};
+    };
+    #return 1
+}
+
+#alias smart_move {
+    #if { @can_group_move{} } {
+        #if { "%1" == "" } {
+            #path w
+        } {
+            %1
+        }
+    }
 }
 
 #func hasAffect {
@@ -96,6 +115,7 @@
 }
 
 
+#function strip_ansi {#line strip #var result {%0}}
 #function next_level {#math result {$MSDP_LEVEL + 1}}
 #function pretty_tnl {#format result {%g} {$MSDP_EXPERIENCE_TNL}}
 

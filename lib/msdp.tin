@@ -53,7 +53,7 @@
 #EVENT {IAC SB MSDP}
 {
 	#nop Save all variables in an MSDP list.;
-	#variable {MSDP_%0} {%1};
+	#variable {MSDP_%0} {@strip_ansi{%1}};
 	#variable {msdpOldList[%0]} {%1};
 	#switch {"%0"}
 	{
