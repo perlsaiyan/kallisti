@@ -14,17 +14,19 @@ diag reroll on;
 #nop -- 68 for Werewolf Fighter (with paragon bonuses)
 #nop -- 73 for Centaur Prophet (with paragon bonuses)
 #nop -- 71 for Gnome Mage (with paragon bonuses)
+#nop -- 69 for Pixie Assassin (with paragon bonuses)
 
-#var roll_str 7
-#var roll_int 23
-#var roll_wis 18
-#var roll_dex 9
-#var roll_con 7
+#var prime_stat {strength}
+#var roll_str 21
+#var roll_int 0
+#var roll_wis 0
+#var roll_dex 19
+#var roll_con 0
 
 #nop -- Bonus luck factor
-#var roll_luk 18
+#var roll_luk 0
 
-#var roll_sum 73
+#var roll_sum 69
 #var roll_count 0
 #var max_roll 100000
 
@@ -53,7 +55,7 @@ diag reroll on;
         #system {play -q ~/sounds/stock_payout.wav >/dev/null 2>&1 &};
     } {
         diaLog reroll $roll_count: this char: $_message - sum:$_sum;
-        reroll;
+        reroll $prime_stat;
     }
 
 }
