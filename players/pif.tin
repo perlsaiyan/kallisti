@@ -6,10 +6,10 @@
 #nop -- Generic Player Data;
 #var {name} {Pif};
 #var sex[$name] male;
-#var container backpack;
+#var container portable;
 #var herpgoal 14000
 #var primary_weapon six;
-#var pref_shapechange copper
+#var pref_shapechange gold
 
 #nop -- Grab prompt;
 #action {^< Pif | {.*} | {.*} >} {#var PLAYER_FLAGS {%2}};
