@@ -47,5 +47,57 @@ event_register {variable MSDP_HERO_POINTS} {exp hero points} {expAnnounceHeroPoi
 
 expCounter startup $MSDP_EXPERIENCE
 
+#var levelhrp[51] 3000
+#var levelhrp[52] 4000
+#var levelhrp[53] 4800
+#var levelhrp[54] 5600
+#var levelhrp[55] 6200
+#var levelhrp[56] 6800
+#var levelhrp[57] 7400
+#var levelhrp[58] 8000
+#var levelhrp[59] 8500
+#var levelhrp[60] 9000
+#var levelhrp[61] 9500
+#var levelhrp[62] 10000
+#var levelhrp[63] 10500
+#var levelhrp[64] 11000
+#var levelhrp[65] 11500
+#var levelhrp[66] 12000
+#var levelhrp[67] 12500
+#var levelhrp[68] 13000
+#var levelhrp[69] 13500
+#var levelhrp[70] 14000
+#var levelhrp[71] 14400
+#var levelhrp[72] 14800
+#var levelhrp[73] 15200
+#var levelhrp[74] 15600
+#var levelhrp[75] 16000
+#var levelhrp[76] 16400
+#var levelhrp[77] 16800
+#var levelhrp[78] 17200
+#var levelhrp[79] 17600
+#var levelhrp[80] 18000
+#var levelhrp[81] 18400
+#var levelhrp[82] 18800
+#var levelhrp[83] 19200
+#var levelhrp[84] 19600
+#var levelhrp[85] 20000
+#var levelhrp[86] 20400
+#var levelhrp[87] 20800
+#var levelhrp[88] 21200
+#var levelhrp[89] 21600
+#var levelhrp[90] 22000
+#var levelhrp[91] 22400
+#var levelhrp[92] 22800
+#var levelhrp[93] 23200
+#var levelhrp[94] 23600
+#var levelhrp[95] 24000
+#var levelhrp[96] 24300
+#var levelhrp[97] 24600
+#var levelhrp[98] 24900
+#var levelhrp[99] 25200
+
+#function level_heros {#math {result} {$MSDP_HERO_POINTS - $levelhrp[$MSDP_LEVEL]}}
+
 #class {exp} {close}
 #nop -- vim: syntax=tt
