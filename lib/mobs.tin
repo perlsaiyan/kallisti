@@ -6,23 +6,27 @@
 #nop -- ---------------------------------------------------------------
 
 #nop -- Grab Mob lines
-#act {~^\e\[1;37m%1.%s\[{[0-9]+}\]} {
+#act {~^\e\[1;37m%1.%s \[{[0-9]+}\]} {
+	diaLog kill {multi-add %3};
     #loop {1} {%3} {tmp} {
         #list {mobsInRoom} {add} {@cleanName{%1}};
     };
 } {4}
-#act {~^\e\[0;37m\e\[1;37m%1.%s\[{[0-9]+}\]} {
+#act {~^\e\[0;37m\e\[1;37m%1.%s \[{[0-9]+}\]} {
+	diaLog kill {multi-add2 %3};
     #loop {1} {%3} {tmp} {
         #list {mobsInRoom} {add} {@cleanName{%1}};
     };
 } {4}
 
 #act {~^\e\[1;37m%1.%s} {
+	diaLog kill {single-add};
     #list {mobsInRoom} {add} {@cleanName{%1}};
-}
+} {5}
 #act {~^\e\[0;37m\e\[1;37m%1.} {
+	diaLog kill {single-add2};
     #list {mobsInRoom} {add} {@cleanName{%1}};
-}
+} {5}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -33,8 +37,15 @@
 }
 
 #alias mobAttack {
-    #line sub {vars;func} {$openingAttack @mobsKWFromLong{$mobsInRoom[1]}};
-    #list {mobsInRoom} {delete} {1};
+	#if {&mobsInRoom[] == 0} { #return };
+	#var _tmp @mobsKWFromLong{$mobsInRoom[1]};
+	#if { "$_tmp" == "" } {
+		#list {mobsInRoom} {delete} {1};
+		mobAttack
+	} {
+		#line sub {vars;func} {$openingAttack @mobsKWFromLong{$mobsInRoom[1]}};
+		#list {mobsInRoom} {delete} {1};
+	}
 }
 
 #alias mobsClearList { #list {mobsInRoom} {clear} }
@@ -86,7 +97,11 @@ event_register {statusUpdate} {updateMobLine} {updateMobLine}
 
 #func mobsKWFromLong {
     #format _mktmp {%H} {%0};
-    #var result $mobsKWHash[$_mktmp];
+    #if {&mobsKWHash[$_mktmp]} {
+		#var result $mobsKWHash[$_mktmp];
+	} {
+		#var result {}
+	}
 }
 
 #func hash { #format {result} {%H} {%0}; }
