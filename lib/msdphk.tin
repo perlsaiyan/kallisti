@@ -61,7 +61,10 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
     #untick {hk resume};
     dismount $mount;
     tether $mount;
-    sleep;
+    #switch {"$MSDP_CLASS"} {
+        #case {"Templar"} {sit;meditate};
+        #default {sleep};
+    }
 	#var {regen} {1};
 	#ticker {checkLevelsHigh} {checkLevelsHigh} {5}
 }
@@ -150,7 +153,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	#var {hk} {1};
 	#var {nextTarget} {%1};
     #var regen 0;
-    #line oneshot #tick {hk resume} {hk %1} {$hkResumeInterval};
+    #line oneshot #tick {hk resume} {#if {"$MSDP_POSITION" != "Fighting} {hk %1}} {$hkResumeInterval};
 	hunt %1;
 }
 
@@ -159,7 +162,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 
 #action {^[* You see your target's tracks leading %1. *]} {
-	#if {$hk==1} {%1}
+	#if {$hk==1} {#line oneshot #tick {smart movement} {smart_move %1} {1} }
 } {5}
 
 #action {^[* You found your target! *]} {
@@ -182,9 +185,6 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #action {No target found by the name of '%1.'} {
 	hk $nextTarget
-}
-#action {Nobody here by that name ('%1').} {
-    hk $nextTarget
 }
 #action {^You can't poke someone who's not here!} {
 	hk $nextTarget
@@ -260,14 +260,16 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 0 25
-upperThresholds 85 5 80
+lowThresholds 65 25 10
+upperThresholds 85 50 30
+
 
 #class {hk} {close}
 
 #EVENT {CLASS DESTROYED hk} {
     diaLog azone Untick doregen;
     #untick doregen;
+    #untick {hk resume};
     diaLog azone Untick checkLevelsHigh;
     #untick checkLevelsHigh;
 }
