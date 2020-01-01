@@ -4,6 +4,9 @@
 #al harm {cast 'harm' %0} {5}
 #al heal {cast 'heal' %0} {5}
 
+#var autovigor on
+
+
 #al cv {
     emote &yCONVERTING&-- please stand by;
     spellAdd priority {convert}

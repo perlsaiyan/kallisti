@@ -1,12 +1,7 @@
-#nop -- This is a sample file to show how to set up classes for Kallisti.
-#nop -- They are automatically loaded at startup.
-
 #class {class} {kill}
 #class {class} {open}
 
-#var autovigor off
-
-#al kk {kick %0}
+#var autovigor on
 
 #al rr {get recall $container;rec recall}
 #al hh {get elderberry $container;eat elderberry}

@@ -6,8 +6,6 @@
 
 #var autovigor off
 
-#al kk {kick %0}
-
 #al rr {get recall $container;rec recall}
 #al hh {get elderberry $container;eat elderberry}
 
