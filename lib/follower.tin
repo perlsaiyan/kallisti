@@ -12,12 +12,12 @@
         #default {
             #replace {_portal} {%w } {};
             #replace {_portal} {.} {};
-            #if {"%1" == "$GROUP_LEADER"} {
-                diaLog group attempt to enter $_portal;
-            }
         }
     }
-    enter $_portal;
+	#if {"%1" == "$GROUP_LEADER"} {
+		diaLog group attempt to enter $_portal;
+		enter $_portal;
+	}
 }
 
 #action {^%w turns %2$} {
