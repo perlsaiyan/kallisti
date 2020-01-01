@@ -22,7 +22,14 @@
 
 #alias draw_info {#draw %2 tile %1 $map_left %1 -1 %3;}
 
-#event {VARIABLE UPDATE expMins} {draw_info 35 {<B579><fff>} {XP/Min: %1}};
+#event {VARIABLE UPDATE expMins} {
+    #var _perM @hNum{%1};
+    #math _perH {%1 * 60};
+    #var _perH @hNum{$_perH};
+
+    draw_info 35 {<B579><fff>} {XP/Min: <ffa>$_perM <fff>XP/Hour: <ffa>$_perH}
+};
+
 
 draw_comms
 
