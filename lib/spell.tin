@@ -101,6 +101,7 @@
         #case {"convert"} #var result 12000;
         #case {"shapechange"} #var result 4000;
         #case {"fst"} #var result 3000;
+        #case {"charge"} #var result 3000;
         #default {
             #var result 2000;
             diaLog spell Unknown delay for %1, using $result ms
