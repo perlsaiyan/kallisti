@@ -6,7 +6,7 @@
 #nop -- ---------------------------------------------------------------
 #var groupLoaded 1;
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -19,6 +19,7 @@
         #if {"%2" == "fire"} {ff group};
         #if {"%2" == "vig"} {vig group};
         #if {"%2" == "stand"} {stand;mount dragonne};
+        #if {"%2" == "sleep"} {sleep};
         #if {"%2" == "group all"} {group all};
         #if {"%2" == "sit"} {sit};
         #if {"%2" == "fol self"} {fol self};
@@ -49,11 +50,13 @@
 }
 
 #alias groupNewFollower {
+    #nop %0;
     #if {@groupIsFriend{%1}} {
         #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 0) } {
             #if {@groupAmILeader{}} {spellAdd {nco} {group %1}} {point @groupLeader{}}
         } {
-            spellAdd {nco} {group $name;group %1}
+            spellAdd {nco} {group $name};
+            spellAdd {nco} {group %1}
         }
     } {
         #if {! @groupAmILeader{}} {point @groupLeader{}}
