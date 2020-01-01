@@ -97,6 +97,7 @@
 }
 
 #alias smart_move {
+	#if { @mpoch{} < $spellLock } {#return};
     #if { @can_group_move{} } {
         #if { "%1" == "" } {
             #path w
