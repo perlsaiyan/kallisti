@@ -13,22 +13,20 @@
 event_register {statusUpdate} {status bottom} {statusBottom}
 #alias statusBottom {
 
-
-    #math {herpgoalpct} {( $MSDP_HERO_POINTS * 100 ) / ($MSDP_HERO_POINTS_TNL + $MSDP_HERO_POINTS)};
+    #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
     #math {expgoalpct} { $MSDP_EXPERIENCE / ($MSDP_EXPERIENCE_TNL + $MSDP_EXPERIENCE * 1.00) };
-    #math {expgoalpct} { $MSDP_EXPERIENCE / 400000000.00 };
     #var pretty_xp @hNum{$MSDP_EXPERIENCE_TNL};
 
     #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s | %s}
         {$MSDP_PC_IN_ZONE}
         {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
-        {@display_progress{$expgoalpct;Need $pretty_xp XP;30;<aaa><CBC>}};
+        {@display_progress{$expgoalpct;Need $pretty_xp XP;30}};
 
     #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s %s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
 		{ }
-		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS_TNL Hero Points TNL;30;<aaa><CBC>}};
+		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS_TNL Hero Points TNL;30}};
 
     #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8g (%g TNL) | Au: %-8g} 
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE} {$MSDP_EXPERIENCE_TNL}
