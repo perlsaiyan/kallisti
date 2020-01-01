@@ -8,6 +8,7 @@
 #var lastGuardian 0; #var guardianDelay 15;
 #var lastBlade 0; #var bladeDelay 15;
 #var lastDArmor 0; #var darmorDelay 15;
+#var lastBark 0; #var barkDelay 15;
 #var lastVig 0;
 #var lastWarcry 0
 
@@ -28,6 +29,7 @@
     #if {@hasAffect{sanctuary} < 2} {doSanctuary};
     #if {@hasAffect{divine armor} < 2} {doDivineArmor};
     #if {@hasAffect{vigor} < 2} {doVigor};
+    #if {@hasAffect{barkskin} < 2} {doBarkskin};
 
 }
 
@@ -87,6 +89,17 @@
             #if {$MSDP_MANA > 100} {spellAdd nco {vigor group}}
         } {
             #if {$MSDP_MANA > 40}  {spellAdd nco {vigor}}
+        }
+    }
+}
+
+#alias doBarkskin {
+    #if {@epoch{} < ( $lastBark + 15) } { #return 1 } {#var lastBark @epoch{}};
+    #if { "$autobark" == "on" } {
+        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+            #if {$MSDP_MANA > 100} {spellAdd nco {barkskin group}}
+        } {
+            #if {$MSDP_MANA > 40}  {spellAdd nco {barkskin}}
         }
     }
 }
