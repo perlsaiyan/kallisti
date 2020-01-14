@@ -73,7 +73,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 	wake;
 	stand;
     mount $mount;
-	$openingAttack $nextTarget;
+	spellAdd {nco} {$openingAttack $nextTarget};
     #var regen 0;
 	look;
 	#untick {checkLevelsHigh}
@@ -162,7 +162,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 
 #action {^[* You see your target's tracks leading %1. *]} {
-	#if {$hk==1} {#line oneshot #tick {smart movement} {smart_move %1} {1} }
+	#if {$hk==1} {spellAdd {nco} {smart_move %1}}
 } {5}
 
 #action {^[* You found your target! *]} {
