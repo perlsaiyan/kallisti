@@ -41,6 +41,17 @@
     event_raise {commsGos} {%1 (%2)} {%3} {%0};
 } {7}
 
+#action {^<Gemote> '%1 %2'$} {
+    event_raise {commsGos} {%1} {%2}
+}
+
+#action {^<Development: %w> '%2'$} {
+    event_raise {commsDev} {%1} {%2} {%0};
+} {8}
+#action {^<Development: %w (%w)> '%3'$} {
+    event_raise {commsDev} {%1 (%2)} {%3} {%0};
+} {7}
+
 
 #action {^%w ({.*}) tells you, '{.*}'$} {
     event_raise {commsTell} {%1 (%2)} {%3} {%0};
@@ -62,6 +73,7 @@ event_register {commsClan}  {chatwindow} {update_chat <f2ff925>%4};
 event_register {commsGos}   {chatwindow} {update_chat <fce25f9>%4};
 event_register {commsTell}  {chatwindow} {update_chat <ff98825>%4};
 event_register {commsWorld} {chatwindow} {update_chat <fe5e4e3>%3};
+event_register {commsDev}   {chatwindow} {update_chat <fb5b4b3>%4};
 
 #class {comms} {close}
 
