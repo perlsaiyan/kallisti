@@ -8,8 +8,9 @@
 #var lastGuardian 0; #var guardianDelay 15;
 #var lastBlade 0; #var bladeDelay 15;
 #var lastDArmor 0; #var darmorDelay 15;
-#var lastBark 0; #var barkDelay 15;
-#var lastVig 0;
+#var lastBark 0; #var barkDelay 15; #var autobark on;
+#var lastFFire 0; #var ffireDelay 15;
+#var lastVig 0; #var autovigor on;
 #var lastWarcry 0
 
 #alias autoBuf {
@@ -24,6 +25,7 @@
     #if {@hasAffect{true seeing} < 1} {doTruesee};
     #if {@hasAffect{spiritual guardian} < 1} {doSpiritGuardian};
     #if {@hasAffect{blade barrier} < 1} {doBladeBarrier};
+    #if {@hasAffect{faerie fire} < 1} {doFFire};
 
     #if {@hasAffect{shapechange} < 2} {doShapechange};
     #if {@hasAffect{sanctuary} < 2} {doSanctuary};
@@ -40,6 +42,7 @@
         #case {"Templar"} {spellAdd nco {true}};
     };
 }
+
 
 #alias doWarcry {
     #if { "$MSDP_CLASS" == "Barbarian" } { spellAdd any {warcry} }
@@ -94,14 +97,31 @@
 }
 
 #alias doBarkskin {
-    #if {@epoch{} < ( $lastBark + 15) } { #return 1 } {#var lastBark @epoch{}};
-    #if { "$autobark" == "on" } {
-        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
-            #if {$MSDP_MANA > 100} {spellAdd nco {barkskin group}}
-        } {
-            #if {$MSDP_MANA > 40}  {spellAdd nco {barkskin}}
-        }
-    }
+	#switch {"$MSDP_CLASS"} {
+		#case {"Druid"} {
+			#if { (@epoch{} - $lastBark < $barkDelay) } { #return 1 } {#var lastBark @epoch{}};
+			#if { ("$autobark" == "on") } {
+				#if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+					#if {$MSDP_MANA > 100} {spellAdd nco {barkskin group}}
+				} {
+					#if {$MSDP_MANA > 40}  {spellAdd nco {barkskin}}
+				}
+			}
+		};
+	}
+}
+
+#alias doFFire {
+	#switch {"$MSDP_CLASS"} {
+		#case {"Druid"} {
+			#if { (@epoch{} - $lastFFire < $ffireDelay) } { #return 1 } {#var lastFFire @epoch{}};
+				#if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
+					#if {$MSDP_MANA > 100} {spellAdd nco {ffire group}}
+				} {
+					#if {$MSDP_MANA > 40}  {spellAdd nco {ffire}}
+				}
+		};
+	}
 }
 
 #alias doSanctuary {
