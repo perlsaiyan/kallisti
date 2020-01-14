@@ -1,7 +1,7 @@
 #class {layout casting} kill
 #class {layout casting} open
 
-#EVENT {VARIABLE UPDATE spellqueue} {#delay {update casting tile} {casting_block} {0.01} }
+#EVENT {VARIABLE UPDATED spellqueue} {casting_block}
 
 #alias {casting_block} {
 
