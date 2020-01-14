@@ -107,7 +107,10 @@
     #line gag
     }
 
-#act {^You currently have {\d+} maxstat meta session{s?} available to raise your maximum stat limit.} {
+#act {^You currently have {\d+} maxstat meta session{s?} available} {show_meta_advice}
+
+#tab show_meta_advice
+#alias {show_meta_advice} {
     #if { ($metaHero[hp] < $metaHero[stam]) & ($metaHero[hp] < $metaHero[mana])} {
         #showme <f81a2b3>Meta HP for the most heros per experience point
     };
