@@ -15,6 +15,8 @@
 #alias groupCommand {
     #if {@groupIsFriend{%1}} {
         #if {"%2" == "all recall"} {recall};
+        #if {"%2" == "all home"} {home};
+        #if {"%2" == "all depart"} {depart};
         #if {"%2" == "qw"} {recall};
         #if {"%2" == "fire"} {spellAdd nco {ff group}};
         #if {"%2" == "vig"} {spellAdd nco {vig group}};
@@ -25,11 +27,9 @@
         #if {"%2" == "fol self"} {fol self};
         #if {"%2" == "dismount"} {dismount};
         #if {"%2" == "cure"} {spellAdd any {cure %1}};
-        #if {"%2" == "eyes nagra"} {spellAdd nco {true nagra}};
         #if {"%2" == "eyes"} {spellAdd nco {true %1}};
         #if {"%2" == "cv" } {spellAdd any {convert}};
         #if {"%2" == "tnl" } {gt @hNum{$MSDP_EXPERIENCE} experience, @hNum{$MSDP_EXPERIENCE_TNL} TNL};
-        #if {"%2" == "baramon"} {#read $ttd/zone/baramon.zone;run_baramon};
         #if {"%2" == "stop"} {
             #class {zone} kill;
             #class {hk} kill;
@@ -81,7 +81,7 @@
 
 event_register {new follower} {group new follower} {groupNewFollower %2}
 
-#action {^{SaintAjora|Chaoran|Anatta} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
+#action {^{Donal|Dain|Rake|Skade|Chaoran|Anatta|Bauchelain} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
 
 #action {^%w (Goliath) tells you, ':{.*}'$} {%2} {5}
 
