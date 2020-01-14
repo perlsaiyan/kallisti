@@ -13,24 +13,67 @@
 event_register {statusUpdate} {status bottom} {statusBottom}
 #alias statusBottom {
 
-    #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
+    #math {alignpct} { ( $MSDP_ALIGNMENT + 1000.0 ) / 2000.00 };
+
+
+	#switch {"$MSDP_CHARACTER_NAME"} {
+		#case {"Artax"} {
+    #math {expgoalpct} { $MSDP_EXPERIENCE / 2100000000.00 };
+    #var pretty_xp @hNum{$MSDP_EXPERIENCE};
+    #format {_line4} {Others: %s | Pos: %-8s | Opponents: %-5s | %-28s %s}
+        {$MSDP_PC_IN_ZONE}
+        {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
+		{ }
+        {@display_progress{$expgoalpct;$pretty_xp XP;80}};
+		}
+
+		#default {
     #math {expgoalpct} { $MSDP_EXPERIENCE / ($MSDP_EXPERIENCE_TNL + $MSDP_EXPERIENCE * 1.00) };
     #var pretty_xp @hNum{$MSDP_EXPERIENCE_TNL};
-
-    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s | %s}
+    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s |     %s}
         {$MSDP_PC_IN_ZONE}
         {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
         {@display_progress{$expgoalpct;Need $pretty_xp XP;30}};
+		}
+	}
 
-    #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s %s} {$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
+	#switch {"$MSDP_CHARACTER_NAME"} {
+		#case {"Artax"} {
+    #math {herpgoalpct} {$MSDP_HERO_POINTS / 25500.0};
+    #math {herpstnl} {25500 - $MSDP_HERO_POINTS};
+    #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s     %s}
+		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
+        {$MSDP_MANA} {$MSDP_MANA_MAX}
+        {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
+		{ }
+		{@display_progress{$herpgoalpct;$herpstnl Hero Points to L100 ;80}};
+		}
+
+		#default {
+    #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
+    #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s     %s}
+		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
 		{ }
 		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS_TNL Hero Points TNL;30}};
+		}
+	}
 
-    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8g (%g TNL) | Au: %-8g} 
-        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {$MSDP_EXPERIENCE} {$MSDP_EXPERIENCE_TNL}
-        {$MSDP_GOLD};
+	#switch {"$MSDP_CHARACTER_NAME"} {
+		#case {"Artax"} {
+    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s | Au: %-8s | %-18s %s}
+        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}}
+        {@hNum{$MSDP_GOLD}} { }
+		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;80}};
+		};
+		#default {
+    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%-6s TNL) | Au: %-8s | %s} 
+        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}} {@hNum{$MSDP_EXPERIENCE_TNL}}
+        {@hNum{$MSDP_GOLD}}
+		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;30}};
+		}
+	}
 
     #showme {$_line2} {-2};
     #showme {$_line3} {-3};
