@@ -88,7 +88,7 @@
 }
 
 #function can_group_move {
-    #if {@is_group_fighting} {#return 0};
+    #if {@is_group_fighting{}} {#return 0};
     #foreach &MSDP_GROUP[%*] {_idx} {
         #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#return 0};
         #regex {$MSDP_GROUP[$_idx][flags]} {>BASH<} {#return 0};
