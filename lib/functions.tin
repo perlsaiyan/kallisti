@@ -28,7 +28,7 @@
 #function epoch {#format result {%T}};
 #function upoch {#format result {%U}};
 #func mpoch { #math result { @upoch{} / 1000} };
-
+#function lower { #format result {%l} {%0}};
 
 #FUNCTION {display_progress}
 {
@@ -81,7 +81,7 @@
 
 #function is_group_fighting {
 
-    #foreach &MSDP_GROUP[%*] {_idx} {
+    #foreach *MSDP_GROUP[%*] {_idx} {
         #if {"$MSDP_GROUP[$_idx][position]" == "Fighting"} { #return 1 }
     };
     #return 0
