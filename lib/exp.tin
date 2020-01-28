@@ -13,6 +13,11 @@
   #read $lib/exp.tin;
 }
 
+
+#alias tnl {
+	gt I need @hNum{$MSDP_EXPERIENCE_TNL} tnl, currently at @hNum{$expMins} xp/minute
+}
+
 #alias {expCounter} {
         diaLog exp expCounter %2/$MSDP_EXPERIENCE;
 		#math expGainz {%2-$startExp};
