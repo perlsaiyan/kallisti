@@ -10,7 +10,7 @@
 #var lastDArmor 0; #var darmorDelay 15;
 #var lastBark 0; #var barkDelay 15; #var autobark on;
 #var lastFFire 0; #var ffireDelay 15;
-#var lastVig 0; #var autovigor on;
+#var lastVig 0; 
 #var lastWarcry 0
 
 #alias autoBuf {
@@ -59,7 +59,7 @@
 #alias doDivineArmor {
     #if { ( @epoch{} - $darmorDelay ) < $lastDArmor } { #return } { #var lastDArmor @epoch{}};
 
-    #if {"$MSDP_CLASS" == "Templar"} {
+    #if { ("$MSDP_CLASS" == "Templar") || ("$MSDP_CLASS" == "Prophet") } {
         #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 1) } {
             #if {$MSDP_MANA > 160} {spellAdd nco {darmor group}}
         } {
@@ -150,6 +150,7 @@
 #alias doSmartSanct {
 
     #if {@groupIsPresent{Donal} == 1 } {spellAdd nco {gt gsanc}};
+    #elseif {@groupIsPresent{Ujarak} == 1 } {spellAdd nco {gt all sanct group}};
     #elseif { "$MSDP_CLASS" == "Prophet" } { doSpellSanct };
     #elseif { "$MSDP_CLASS" == "Templar" } { doSpellSanct };
     #else {sanctPotion};
