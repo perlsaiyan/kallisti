@@ -89,7 +89,7 @@
 
 #function can_group_move {
     #if {@is_group_fighting{}} {#return 0};
-    #foreach &MSDP_GROUP[%*] {_idx} {
+    #foreach *MSDP_GROUP[%*] {_idx} {
         #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#return 0};
         #regex {$MSDP_GROUP[$_idx][flags]} {>BASH<} {#return 0};
     };
@@ -123,6 +123,34 @@
 #nop -- VT100/terminal functions;
 #function term_width {#screen get cols result}
 
+#action {Active: %w [ Level %d %S %w } {
+    diaLog login Player %1, class %4;
+    #format curPlayer {%l} {%1};
+    #format curClass {%l} {%4};
+}
+
+
+#action {^Welcome to the legendary lands of Kallisti.$} {
+    #read $ttd/players/$curPlayer.tin;
+    #read $lib/common.tin;
+    load_secondary;
+    #class {login} {kill};
+}
+
+
+#action {^Reconnecting.$} {
+
+    #line oneshot #tick {launch char} {
+        #format {_tmp} {%l} {$MSDP_CHARACTER_NAME};
+        #read $ttd/players/${_tmp}.tin;
+        #read $lib/common.tin;
+        load_secondary;
+        #class {login} {kill};
+    } {5};
+
+    #echo {Please wait about 5 seconds to load stuff from MSDP.}
+
+}
 
 #class functions close
 #nop -- vim: syntax=tt
