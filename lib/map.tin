@@ -18,6 +18,7 @@
 #map terrain {Forest} {<228>⟑} DENSE WIDE
 #map terrain {Field} {<128>·} DENSE WIDE
 #map terrain {Desert} {<cca>·} DENSE NARROW
+#map terrain {Inside} {<f707880>▒} DENSE WIDE
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
