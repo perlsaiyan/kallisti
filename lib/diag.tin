@@ -27,7 +27,8 @@
 		#else { #echo {<fca>Diagnostic mode '%1' is '$_diags[%1]'} };
 	} {
 	#if { "%1" == "" } {
-		#foreach {$_diagArgs[%*]} {_config} {#echo {<fca>Diagnostic mode $_config is $_diags[$_config]}}
+		#list {_tmp} {sort} $_diagArgs[%*];
+		#foreach {$_tmp[%*]} {_config} {#echo {<fca>Diagnostic mode $_config is $_diags[$_config]}}
 	} {
 		#echo {<fca>Invalid Diagnostic mode mode '%1'}
 	}
@@ -36,9 +37,18 @@
 
 #nop -- turn all Diagnostic modes off
 
-#alias {allDiagOff} {#foreach {$_diagArgs[%*]} {_config} {diag $_config off}}
+#alias {allDiagOff} {
 
-allDiagOff
+	#list {_tmp} {sort} $_diagArgs[%*];
+	#foreach {$_tmp[%*]} {_config} {
+		#if {"$_diags[$_config]" != "off"} {diag $_config off}
+	}
+}
+
+#alias diag_register {
+	#list {_diagArgs} {find} {%1} {_tmp};
+	#if {$_tmp < 1} {#list {_diagArgs} {sort} {%1};diag %1 off}
+}
 
 #alias {diaLog %1 %2}
 {
@@ -46,6 +56,8 @@ allDiagOff
 		#echo {<bce>DIAGNOSTIC <<ffa>%1<bce>> %2}
 	}
 }
+
+event_raise {diag register} register;
 
 #class {diagMode} {close}
 #nop -- vim: syntax=tt
