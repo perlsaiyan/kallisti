@@ -23,7 +23,7 @@ event_register {variable MSDP_GROUP} {display group} {#delay {update group tile}
     }
 
     #draw <B788C9F><f000> tile 23 $map_left 23 -1 {Group Info (&MSDP_GROUP[] members)};
-    #line sub {var} #draw {<B579>} {tile} 24 $map_left 29 -1 $group_tile_text[1..6];
+    #line sub {var} #draw {<B579>} {tile} 24 $map_left 32 -1 $group_tile_text[1..9];
 }
 
 #func {withMe} {
