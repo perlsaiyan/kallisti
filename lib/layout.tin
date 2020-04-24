@@ -1,4 +1,4 @@
-#var right_panel 40
+#var right_panel 50
 #var chat_rows 10
 #math chat_right {$right_panel + 1}
 #var bottom_panel 3
@@ -27,7 +27,7 @@
     #math _perH {%1 * 60};
     #var _perH @hNum{$_perH};
 
-    draw_info 35 {<B579><fff>} {XP/Min: <ffa>$_perM <fff>XP/Hour: <ffa>$_perH}
+    draw_info 37 {<B579><fff>} {XP/Min: <ffa>$_perM <fff>XP/Hour: <ffa>$_perH}
 };
 
 
