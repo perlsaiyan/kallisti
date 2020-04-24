@@ -19,8 +19,13 @@
 }
 
 #alias {expCounter} {
+		#if { %2 < 0 } {
+			#math {exp_proper} { 2 * $MAXINT + %1 }
+		} {
+			#var exp_proper %2
+		};
         diaLog exp expCounter %2/$MSDP_EXPERIENCE;
-		#math expGainz {%2-$startExp};
+		#math expGainz {$exp_proper - $startExp};
 		#format expNowTime {%T};
         #math expElapsedTime {$expNowTime - $expStartTime};
         #math expPerSec {$expGainz/$expElapsedTime};
