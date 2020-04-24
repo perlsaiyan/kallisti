@@ -9,6 +9,7 @@
     #switch {"%2"} {
         #case {"an earthen-tone portal."} {#var _portal {portal}};
         #case {"a glowing blue-flame portal."} {#var _portal {portal}};
+        #case {"a spider-silkwool Zarkan tent."} {#var _portal {tent}};
         #default {
             #replace {_portal} {%w } {};
             #replace {_portal} {.} {};
@@ -24,6 +25,7 @@
 
     #var _portal %2;
     #switch {"%2"} {
+		#case {"translucent."} {#return};
         #default {
             #replace {_portal} {%w } {};
             #replace {_portal} {.} {};
