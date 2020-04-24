@@ -6,7 +6,7 @@
 #nop -- ---------------------------------------------------------------
 #var groupLoaded 1;
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake} {Skade} {Namas} {Bauchelain} {Finan} {Sanla} {Bottle} {Alita} {Karsa} {Sakur} {Spindle} {Atropa} {Irene} {Callaghan} {Itkovian} {Kallor};
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -14,37 +14,40 @@
 
 #alias groupCommand {
     #if {@groupIsFriend{%1}} {
-        #if {"%2" == "all recall"} {recall};
-        #if {"%2" == "all home"} {home};
-        #if {"%2" == "all depart"} {depart};
-        #if {"%2" == "qw"} {recall};
-        #if {"%2" == "fire"} {spellAdd nco {ff group}};
-        #if {"%2" == "vig"} {spellAdd nco {vig group}};
-        #if {"%2" == "stand"} {stand;mount dragonne};
-        #if {"%2" == "sleep"} {sleep};
-        #if {"%2" == "group all"} {group all};
-        #if {"%2" == "sit"} {sit};
-        #if {"%2" == "fol self"} {fol self};
-        #if {"%2" == "dismount"} {dismount};
-        #if {"%2" == "cure"} {spellAdd any {cure %1}};
-        #if {"%2" == "eyes"} {spellAdd nco {true %1}};
-        #if {"%2" == "cv" } {spellAdd any {convert}};
-        #if {"%2" == "tnl" } {gt @hNum{$MSDP_EXPERIENCE} experience, @hNum{$MSDP_EXPERIENCE_TNL} TNL};
-        #if {"%2" == "stop"} {
-            #class {zone} kill;
-            #class {hk} kill;
-            gt yep, done
-        };
-        #if {"%2" == "heal"} {
-            spellAdd heal {heal %1};
-        };
-        #if {"%2" == "evac"} {
-            qp
-        };
-
-    } {
-        #nop -- Ignore command from non-friend;
-    }
+		#switch {"%2"} {
+			#case {"all recall"} {recall};
+			#case {"all home"} {home};
+			#case {"all depart"} {depart};
+			#case {"qw"} {recall};
+			#case {"fire"} {spellAdd nco {ff group}};
+			#case {"vig"} {spellAdd nco {vig group}};
+			#case {"stand"} {stand;mount dragonne};
+			#case {"sleep"} {sleep};
+			#case {"group all"} {group all};
+			#case {"sum me"} {spellAdd nco {sum %1}};
+			#case {"sit"} {sit};
+			#case {"fol self"} {fol self};
+			#case {"dismount"} {dismount};
+			#case {"cure"} {spellAdd any {cure %1}};
+			#case {"eyes"} {spellAdd nco {true %1}};
+			#case {"all report"} {report};
+			#case {"cv" } {spellAdd any {convert}};
+			#case {"tnl"} {gt @hNum{$MSDP_EXPERIENCE} experience, @hNum{$MSDP_EXPERIENCE_TNL} TNL};
+			#case {"start baramon"} {#read $ttd/zone/baramon.zone.no;dont_run_baramon};
+			#case {"start telluria"} {#read $ttd/zone/telluria.q2;start};
+			#case {"stop"} {
+				#class {zone} kill;
+				#class {hk} kill;
+				gt yep, done
+			};
+			#case {"heal"} {
+				spellAdd heal {heal %1};
+			};
+			#case {"evac"} {
+				qp
+			};
+		}
+	}
 }
 
 #alias groupNewFollower {
@@ -84,6 +87,9 @@ event_register {new follower} {group new follower} {groupNewFollower %2}
 #action {^{Donal|Dain|Rake|Skade|Chaoran|Anatta|Bauchelain} beckons you to follow.} {fol %1;#class zone kill;#class hk kill}
 
 #action {^%w (Goliath) tells you, ':{.*}'$} {%2} {5}
+#action {^%w (Deedra) tells you, ':{.*}'$} {%2} {5}
+
+#action {^%w {rides|flies|sneaks} in} {event_raise {entity arrival} {%1}}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
