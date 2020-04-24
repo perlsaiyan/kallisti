@@ -15,18 +15,28 @@ diag reroll on;
 #nop -- 73 for Centaur Prophet (with paragon bonuses)
 #nop -- 71 for Gnome Mage (with paragon bonuses)
 #nop -- 69 for Pixie Assassin (with paragon bonuses)
+#nop -- 70 for Trog Monastic (with para)
+#nop -- 79 for Goblin Monastic (with para)
+#nop -- 72 for dwarf priest (with para)
+#nop -- 68 for hafling rogue
+#nop -- 68 for dop magic user
+#nop -- 71 for duergar dreadlord
+#nop -- 67 for kender bard
+#nop -- 67 for human bard
+#nop -- 68 for ogre valkyrie
+#nop -- 74 for cyclops mage
 
-#var prime_stat {strength}
-#var roll_str 21
+#var prime_stat {str}
+#var roll_str 24
 #var roll_int 0
 #var roll_wis 0
-#var roll_dex 19
+#var roll_dex 13
 #var roll_con 0
 
 #nop -- Bonus luck factor
-#var roll_luk 0
+#var roll_luk 12
 
-#var roll_sum 69
+#var roll_sum 71
 #var roll_count 0
 #var max_roll 100000
 
