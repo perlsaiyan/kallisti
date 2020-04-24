@@ -27,6 +27,26 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {@display_progress{$expgoalpct;$pretty_xp XP;80}};
 		}
 
+		#case {"Enganar"} {
+    #math {expgoalpct} { $MSDP_EXPERIENCE /  4294967295.000 };
+    #var pretty_xp @hNum{$MSDP_EXPERIENCE};
+    #math bar_size {@term_width{} - ${right_panel}};
+    #format {_line4} {%s}
+        {@display_progress{$expgoalpct;$pretty_xp XP;$bar_size}};
+		}
+
+		#case {"Pif"} {
+    #math {expgoalpct} { $MSDP_EXPERIENCE /  1000000000.000 };
+    #math xptnl {1000000000 - $MSDP_EXPERIENCE};
+    #math xphrs {$xptnl/($expMins * 60.0)};
+    #var pretty_xp @hNum{$xptnl};
+    #math bar_size {@term_width{} - ${right_panel}};
+    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s |     %s}
+        {$MSDP_PC_IN_ZONE}
+        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
+        {@display_progress{$expgoalpct;Need $pretty_xp XP->100 [$xphrs];30}};
+		}
+
 		#default {
     #math {expgoalpct} { $MSDP_EXPERIENCE / ($MSDP_EXPERIENCE_TNL + $MSDP_EXPERIENCE * 1.00) };
     #var pretty_xp @hNum{$MSDP_EXPERIENCE_TNL};
@@ -41,7 +61,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 		#case {"Artax"} {
     #math {herpgoalpct} {$MSDP_HERO_POINTS / 25500.0};
     #math {herpstnl} {25500 - $MSDP_HERO_POINTS};
-    #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s     %s}
+    #format {_line3} {⚕️ %-4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-26s     %s}
 		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
@@ -49,9 +69,26 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 		{@display_progress{$herpgoalpct;$herpstnl Hero Points to L100 ;80}};
 		}
 
+		#case {"Enganar"} {
+    #format {_line3} {⚕️ %-4s/%-4s ⛽ %-4s/%-4s | Others: %s | Pos: %-8s | Opponents: %-5s}
+		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
+        {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
+        {$MSDP_PC_IN_ZONE}
+        {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
+		}
+		#case {"Kligo"} {
+    #math {herpgoalpct} { $MSDP_HERO_POINTS / 8000.00};
+    #format {_line3} {⚕️% -4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-26s     %s}
+		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
+        {$MSDP_MANA} {$MSDP_MANA_MAX}
+        {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
+		{ }
+		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS / 8000 Hero Points;30}};
+		}
+
 		#default {
     #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
-    #format {_line3} {H: %-4s/%-4s | M: %-4s/%-4s | S: %-4s/%-4s | %-26s     %s}
+    #format {_line3} {⚕️ %-4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-26s     %s}
 		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
@@ -62,15 +99,20 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 
 	#switch {"$MSDP_CHARACTER_NAME"} {
 		#case {"Artax"} {
-    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s | Au: %-8s | %-18s %s}
+    #format {_line2} {Sanct: %-2s | Room: %-5s | 🎓 %-8s | 💰 %-8s | %-18s %s}
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}}
         {@hNum{$MSDP_GOLD}} { }
 		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;80}};
 		};
-		#default {
-    #format {_line2} {Sanct: %-2s | Room: %-5s | Exp: %-8s (%-6s TNL) | Au: %-8s | %s} 
-        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}} {@hNum{$MSDP_EXPERIENCE_TNL}}
+		#case {"Enganar"} {
+    #format {_line2} {Sanct: %-2s | Room: %-5s | 🎓 %-8s | Au: %-8s}
+        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}}
         {@hNum{$MSDP_GOLD}}
+		};
+		#default {
+    #format {_line2} {Sanct: %-2s | Room: %-5s | 🎓 %-8s (%-6s TNL) | 💰 %-6s |%-6s %s}
+        {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}} {@hNum{$MSDP_EXPERIENCE_TNL}}
+        {@hNum{$MSDP_GOLD}} { }
 		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;30}};
 		}
 	}
@@ -85,8 +127,8 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 event_register {variable MSDP_AREA_NAME} {status areaupdate} {areaUpdate {%2}}
 #alias areaUpdate {
     diaLog status Update area to %1;
-    #format {_line1} {Area: %-24s} {%1};
-    draw_info 33 {<B579><fff>} {$_line1}
+    #format {_line1} {🌎 %-24s} {%1};
+    draw_info 36 {<B579><fff>} {$_line1}
 }
 
 
