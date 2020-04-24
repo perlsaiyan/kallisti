@@ -1,3 +1,4 @@
+#VARIABLE {MAXINT} {2147483647}
 #ALIAS {MSDP_CONFIGURE %1,%2}
 {
 	#local {i} {};
@@ -53,7 +54,19 @@
 #EVENT {IAC SB MSDP}
 {
 	#nop Save all variables in an MSDP list.;
-	#variable {MSDP_%0} {@strip_ansi{%1}};
+	#switch {"%0"} {
+		#case {"EXPERIENCE"} {
+			#if {%1 < 0} {
+				#var tmpXP %1;
+				#math {MSDP_EXPERIENCE} { (2 * $MAXINT) + $tmpXP };
+			}  {
+				#variable {MSDP_%0} {%1}
+			}
+		};
+		#default {
+			#variable {MSDP_%0} {@strip_ansi{%1}};
+		}
+	};
 	#variable {msdpOldList[%0]} {%1};
 	#switch {"%0"}
 	{
