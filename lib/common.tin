@@ -8,6 +8,9 @@
 #var hisher[female] {her};
 #var logDir {/home/tom/git/kallisti/log}
 
+#var MAXUINT 4294967295;
+#var  MAXINT 2147483647;
+
 #message variable off
 #message tick off
 
@@ -42,8 +45,8 @@
 #PATHDIR          {u}  {d}  {16}
 #PATHDIR          {w}  {e}  {8}
 
-#tick {timer} {#cr} {240}
-#tick {timeStamp} { #format {logDATE} {%t} {%Y-%m-%d %T} ; #showme <ccd>Timestamp: $logDATE} {300}
+#event {MINUTE} {#format {logDATE} {%t} {%Y-%m-%d %T} ;#cr;info data {Timestamp: $logDATE}}
+
 
 #action {^Ptam the God of the Ancients gives you a purple potion of sanctuary.} {
     #delay {pack purple potion} {put all.purple $container} {1}
@@ -92,13 +95,22 @@
 #action {^You are dead!} {#var deathroom $MSDP_ROOM_VNUM; slackDeath}
 
 #action {flies from your grasp} {get $primary_weapon;wield $primary_weapon}
+#action {^Chaoran wields a katana.} {
+	#if {$lastTaunt + 3600 < @epoch{}} {
+		say You know it's not a katana if it has two edges, right?;
+		#var lastTaunt @epoch{}
+		}
+}
+
 
 #action {^$} {event_raise {blank line} {blank line}}
 
 #split 4 4
 #read $lib/events.tin
 #read $lib/spell.tin;
+#read $lib/info2.tin;
 
+#read $lib/auto/master.tin;
 #read $lib/exp.tin;
 #read $lib/comms.tin;
 #read $lib/fighting.tin;
@@ -112,12 +124,24 @@
 #read $lib/slack.tin;
 #read $lib/stock.tin
 #read $lib/status.tin
+#read $lib/expdata.tin
 
 #read $lib/layout.tin
 #read $lib/display/casting.tin
 #read $lib/display/group.tin
 
 
+#list valid_chars create {Pif;Enganar;Kroch}
+#alias {doAutoLogin} {
+    #read $lib/bot/autologin.tin;
+    #foreach {class;tick;delay} {_i} {
+        deload$_i;
+    };
+	diaLog login Attempting to auto login $autolog_char;
+    camp
+}
+
+#var goat {&brG&rrind &bgO&gbtain &byA&yutomate &0eT&chrive&--}
 
 
 log on

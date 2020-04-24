@@ -1,0 +1,66 @@
+#class {info} {kill}
+#class {info} {open}
+
+#var hcolor[auto] {<cde>::<ead><AUTO><cde>::}
+#var hcolor[hk] {<aff>::<ffa><HK><aff>::}
+#var hcolor[heal] {<ffa>::<aff><HEAL><ffa>::}
+#var hcolor[damage] {<fca>::<faa><DAMAGE><fca>::}
+#var hcolor[buff] {<dae>::<dff><BUFF><dae>::}
+#var hcolor[group] {<eda>::<efc><GROUP><eda>::}
+#var hcolor[mobs] {<g15>::<fbf><MOBS><g15>::}
+#var hcolor[data] {<bce>::<ffa><DATA><bce>::}
+#var hcolor[zone] {<faf>::<fbd><ZONE><faf>::}
+#var color[auto] {<cde>}
+#var color[hk] {<aff>}
+#var color[heal] {<ffa>}
+#var color[damage] {<fda>}
+#var color[buff] {<dae>}
+#var color[group] {<eda>}
+#var color[mobs] {<g15>}
+#var color[data] {<bce>}
+#var color[zone] {<faf>}
+#var high {<170>}
+
+#alias {info %1 %2} {
+	#var _infotype %1;
+	#var _rawline %2;
+	#echo {$hcolor[$_infotype] @highlight{$_rawline}}
+}
+
+#function {list_to_line} {
+	#list {%1} simplify output_line;
+	#replace output_line {;} {};
+	#replace output_line {%} {%%%};
+	#var result $output_line
+}
+
+#function {highlight} {
+	#list token_line clear;
+	#list {token_line} {tokenize} {%0};
+	#list apos_ind clear;
+	#foreach *token_line[%*] _i {
+		#if {"$token_line[$_i]"=="'"} {
+			#list apos_ind add $_i
+		}
+	};
+	#var apos_tot &apos_ind[];
+	#if {@isOdd{$apos_tot}} {
+		#math apos_tot $apos_tot-1;
+		#list apos_ind delete -1
+	};
+	#loop 1 $apos_tot _a {
+		#if {@isOdd{$_a}} {
+			#var token_line[$apos_ind[$_a]] {<170>}
+		};
+		#else {
+			#var token_line[$apos_ind[$_a]] {<070>$color[$_infotype]}
+		}
+	};
+	#list token_line simplify output_line;
+	#replace output_line {;} {};
+	#replace output_line {%} {%%%};
+	#var result $output_line
+}
+
+#class {info} {close}
+#nop -- vim: syntax=tt
