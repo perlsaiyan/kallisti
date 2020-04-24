@@ -35,17 +35,21 @@
 #list metaHerosPer[Paladin] create 2.3 1.5 1.3
 #list metaHerosPer[Dreadlord] create 2.3 1.5 1.3
 #list metaHerosPer[Ranger] create 2.3 1.5 1.3
+#list metaHerosPer[Fighter] create 2.45 0.10 1.65
+#list metaHerosPer[Valkyrie] create 2.3 1.5 1.3
 
+#list metaHerosPer[Rogue] create 2.40 0.10 1.70
 #list metaHerosPer[Assassin] create  2.4 0.1 1.7
 #list metaHerosPer[Demoniac] create 2.35 0.6 1.55
 #list metaHerosPer[Bard] create 2.1 1.6 1.4
 
-#list metaHerosPer[Templar] create 1.8 1.95 0.85
-#list metaHerosPer[Druid] create 1.85 1.9 0.9
-#list metaHerosPer[Prophet] create 1.75 2.0 0.85
+#list metaHerosPer[Priest] create 1.80 2.01 0.85
+#list metaHerosPer[Templar] create 1.8 2.01 0.85
+#list metaHerosPer[Druid] create 1.85 1.99 0.9
+#list metaHerosPer[Prophet] create 1.75 2.18 0.85
 
-#list metaHerosPer[Necromancer] create 1.75 2.0 0.85
-#list metaHerosPer[Wizard] create 1.75 2.0 0.85
+#list metaHerosPer[Necromancer] create 1.75 2.18 0.85
+#list metaHerosPer[Wizard] create 1.75 2.18 0.85
 
 #list metaHerosPer[Monk] create 2.3 1.5 1.3
 #list metaHerosPer[Samurai] create 2.4 0.6 1.40
@@ -83,8 +87,8 @@
 #act {^HitPoints             : {\d+} exp & {\d+} coins : Current {\d+}$} {
     #var metaXPCost[hp] %1; #var metaAUCost[hp] %2;
     #math {metaHero[hp]} { $metaXPCost[hp] / @metaHeroHit{} };
-    #format _tmp {<020>HitPoints             : <070>%d <020>exp & <070>%d <020>coins : Current <070>%d<020> (<070>%d <020>per hero)}
-        {%1} {%2} {%3} {$metaHero[hp]};
+    #format _tmp {<020>HitPoints             : <070>%s <020>exp & <070>%s <020>coins : Current <070>%d<020> (<070>%s <020>per hero)}
+        {@hNum{%1}} {@hNum{%2}} {%3} {@hNum{$metaHero[hp]}};
     #showme $_tmp;
     #line gag
     }
@@ -92,8 +96,8 @@
 #act {^ManaPoints            : {\d+} exp & {\d+} coins : Current {\d+}$} {
     #var metaXPCost[mana] %1; #var metaAUCost[mana] %2;
     #math {metaHero[mana]} {$metaXPCost[mana] / @metaHeroMana{} };
-    #format _tmp {<020>ManaPoints            : <070>%d <020>exp & <070>%d <020>coins : Current <070>%d<020> (<070>%d <020>per hero)}
-        {%1} {%2} {%3} {$metaHero[mana]};
+    #format _tmp {<020>ManaPoints            : <070>%s <020>exp & <070>%s <020>coins : Current <070>%d<020> (<070>%s <020>per hero)}
+        {@hNum{%1}} {@hNum{%2}} {%3} {@hNum{$metaHero[mana]}};
     #showme $_tmp;
     #line gag
     }
@@ -101,8 +105,8 @@
 #act {^Stamina               : {\d+} exp & {\d+} coins : Current {\d+}$} {
     #var metaXPCost[stam] %1; #var metaAUCost[stam] %2;
     #math {metaHero[stam]} {$metaXPCost[stam] / @metaHeroStam{} };
-    #format _tmp {<020>Stamina               : <070>%d <020>exp & <070>%d <020>coins : Current <070>%d<020> (<070>%d <020>per hero)}
-        {%1} {%2} {%3} {$metaHero[stam]};
+    #format _tmp {<020>Stamina               : <070>%s <020>exp & <070>%s <020>coins : Current <070>%d<020> (<070>%s <020>per hero)}
+        {@hNum{%1}} {@hNum{%2}} {%3} {@hNum{$metaHero[stam]}};
     #showme $_tmp;
     #line gag
     }
@@ -121,6 +125,15 @@
         #showme <f81a2b3>Meta STAMINA for the most heros per experience point
     };
     #else {#showme <f81a2b3>Unable to provide meta advice, set class vars in meta.tin}
+}
+
+#action {^Meta %1 for the most heros per experience point} {
+	#if {"$autometa" != "on"} { #return; };
+    #switch {"%1"} {
+        #case {"HP"} {buy hit};
+        #case {"MANA"} {buy mana};
+        #case {"STAMINA"} {buy stam};
+    };
 }
 
 #class {meta} {close}
