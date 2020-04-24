@@ -3,15 +3,20 @@
 
 #tick {auto bufs} {autoBuf} {4}
 
-#var sanctMethod auto
 #var lastSanct 0; #var sanctDelay 15;
-#var lastGuardian 0; #var guardianDelay 15;
+#var lastGuardian 0; #var guardianDelay 15; #var autoGuardian off;
 #var lastBlade 0; #var bladeDelay 15;
 #var lastDArmor 0; #var darmorDelay 15;
 #var lastBark 0; #var barkDelay 15; #var autobark on;
 #var lastFFire 0; #var ffireDelay 15;
 #var lastVig 0; 
 #var lastWarcry 0
+
+#switch {"$MSDP_CHARACTER_NAME"} {
+	#case {"Daffyd"} {#var sanctMethod spell};
+	#default {#var sanctMethod auto};
+}
+
 
 #alias autoBuf {
 
@@ -69,8 +74,9 @@
 }
 #alias doSpiritGuardian {
     #if { ( @epoch{} - $guardianDelay ) < $lastGuardian } { #return };
+    #if { "$autoGuardian" == "off" } {#return};
 
-    #if {"$MSDP_CLASS" == "Templar"} {
+    #if { ("$MSDP_CLASS" == "Templar") || ( "$MSDP_CLASS" == "Prophet") } {
         #if {$MSDP_MANA > 40}  {spellAdd nco {spirit}}
         #var lastGuardian @epoch{}
     }
@@ -128,6 +134,7 @@
 
     #if { (@epoch{} - $sanctDelay ) > $lastSanct } {
         #switch {"$sanctMethod"} {
+			#case {"none"} {#nop};
             #case {"potion"} {spellAdd nco {sanctPotion}};
             #case {"gsanc"} {spellAdd nco {gt gsanc}};
             #case {"spell"} {doSpellSanct};
@@ -153,6 +160,7 @@
     #elseif {@groupIsPresent{Ujarak} == 1 } {spellAdd nco {gt all sanct group}};
     #elseif { "$MSDP_CLASS" == "Prophet" } { doSpellSanct };
     #elseif { "$MSDP_CLASS" == "Templar" } { doSpellSanct };
+    #elseif {@groupIsPresent{Ariella} == 1 } {spellAdd nco {gt sanc group}};
     #else {sanctPotion};
 
 }
