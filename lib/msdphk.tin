@@ -23,6 +23,7 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #nop ------------------------------------------
 #nop -- Helpful aliases
 #nop ------------------------------------------
+#alias stop {#class hk kill}
 
 #tab hkKill
 #alias {hkKill} {
@@ -59,10 +60,10 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 #alias {doRegen} {
     #untick {hk resume};
-    dismount $mount;
-    tether $mount;
     #switch {"$MSDP_CLASS"} {
         #case {"Templar"} {sit;meditate};
+        #case {"Samurai"} {sit;meditate};
+        #case {"Monk"} {drop mat;sit mat;meditate};
         #default {sleep};
     }
 	#var {regen} {1};
@@ -70,9 +71,10 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 }
 
 #alias {doWake} {
-	wake;
-	stand;
-    mount $mount;
+	#switch {"$MSDP_CLASS"} {
+		#case {"Monk"} {stand;get mat};
+		#default {wake;stand};
+	}
 	spellAdd {nco} {$openingAttack $nextTarget};
     #var regen 0;
 	look;
@@ -189,6 +191,12 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 #action {^You can't poke someone who's not here!} {
 	hk $nextTarget
 }
+#action {^Never around when required.} {
+	hk $nextTarget
+}
+#action {^Nobody here by the name} {
+	hk $nextTarget
+}
 
 #action {^They aren't here.$} { hk $nextTarget } {9}
 
@@ -260,8 +268,8 @@ event_register {mob_kill} {checkLevels} {checkLevelsLow}
 
 
 setRegenMode mm
-lowThresholds 65 25 10
-upperThresholds 85 50 30
+lowThresholds 65 25 16
+upperThresholds 85 50 66
 
 
 #class {hk} {close}
