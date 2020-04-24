@@ -36,13 +36,13 @@
 
 #action {^<Gossip: %w> '{.*}'$} {
     event_raise {commsGos} {%1} {%2} {%0};
-} {8}
+} {3}
 #action {^<Gossip: %w ({.*})> '{.*}'$} {
     event_raise {commsGos} {%1 (%2)} {%3} {%0};
-} {7}
+} {4}
 
 #action {^<Gemote> '%1 %2'$} {
-    event_raise {commsGos} {%1} {%2}
+    event_raise {commsGos} {%1} {%2} {%0};
 }
 
 #action {^<Development: %w> '%2'$} {
@@ -64,6 +64,12 @@
     event_raise {commsWorld} {%1} {%0};
 } {9}
 
+#action {^[%w:(%w)] {.*}} {
+	event_raise {commsChat} {%2} {%0};
+} {9}
+#action {^[%w:] {.*}} {
+	event_raise {commsChat} {%2} {%0};
+} {9}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
@@ -73,7 +79,8 @@ event_register {commsClan}  {chatwindow} {update_chat <f2ff925>%4};
 event_register {commsGos}   {chatwindow} {update_chat <fce25f9>%4};
 event_register {commsTell}  {chatwindow} {update_chat <ff98825>%4};
 event_register {commsWorld} {chatwindow} {update_chat <fe5e4e3>%3};
-event_register {commsDev}   {chatwindow} {update_chat <fb5b4b3>%4};
+event_register {commsDev}   {chatwindow} {update_chat <fa5b4b3>%4};
+event_register {commsChat}  {chatwindow} {update_chat <f8abeb7>%3};
 
 #class {comms} {close}
 
