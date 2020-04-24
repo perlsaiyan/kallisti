@@ -11,8 +11,8 @@
         &spellqueue[any][]
         &spellqueue[combat][]
         &spellqueue[nco][];
-    #draw <Bf0d5a1><aaa> tile 30 $map_left 30 -1 {Spell Queues};
-    #draw <BF0C674><aaa> tile 31 $map_left 32 -1 $_line;
+    #draw <Bf0d5a1><aaa> tile 33 $map_left 34 -1 {Spell Queues};
+    #draw <BF0C674><aaa> tile 34 $map_left 35 -1 $_line;
 }
 
 
