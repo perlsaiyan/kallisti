@@ -20,9 +20,12 @@
 #map terrain {Desert} {<cca>·} DENSE NARROW
 #map terrain {Inside} {<f707880>▒} DENSE WIDE
 
+#list mapZoneBlacklist create {BLACKLISTS};
+
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
 #nop -- ---------------------------------------------------------------
+
 
 #alias mapRoom {
 	#map goto {$MSDP_ROOM_VNUM} {dig};
@@ -30,23 +33,33 @@
 	#map set roomname $MSDP_ROOM_NAME;
 	#map set roomterrain @cleanTerrain{$MSDP_ROOM_TERRAIN};
 	#map set roomcolor <178>;
-	#nop Create unmapped exits and color unexplored rooms red.;
-	#foreach {*MSDP_ROOM_EXITS[]} {EXIT}
-	{
-		#map get {roomexits} {EXIT_LIST};
-		#if {&EXIT_LIST[$EXIT] == 0}
-		{
-			#map get {roomvnum} {EXIT_VNUM} {$MSDP_ROOM_EXITS[$EXIT]};
-			#if {"$MSDP_ROOM_EXITS[$EXIT]" != "?"} {
-			    #map dig {@dA{$EXIT}} {$MSDP_ROOM_EXITS[$EXIT]};
-			}
-			#if {$EXIT_VNUM == 0}
+
+	#if {@mapZoneBlacklist{$MSDP_AREA_NAME}} {#return};
+
+	#foreach {north;south;east;west;up;down} {EXIT} {
+
+		#if {&MSDP_ROOM_EXITS[$EXIT]} {
+			#map get {roomexits} {EXIT_LIST};
+			#if {&EXIT_LIST[$EXIT] == 0}
 			{
-				#map set {roomcolor} {<118>} {$MSDP_ROOM_EXITS[$EXIT]}
+				#map get {roomvnum} {EXIT_VNUM} {$MSDP_ROOM_EXITS[$EXIT]};
+				#if {"$MSDP_ROOM_EXITS[$EXIT]" != "?"} {
+					#map dig {@dA{$EXIT}} {$MSDP_ROOM_EXITS[$EXIT]};
+				};
+				#if {$EXIT_VNUM == 0}
+				{
+					#map set {roomcolor} {<118>} {$MSDP_ROOM_EXITS[$EXIT]}
+				}
 			}
+		} {
+			#nop -- Room exit doesn't exist, delete
+			#map delete $EXIT
 		}
+
 	}
+
     #nop -- #map map 40 40 overwrite $mapFile;
+
 }
 
 #nop -- ---------------------------------------------------------------
@@ -76,6 +89,10 @@
     #elseif {"%1" == "up"} {#var result u};
     #elseif {"%1" == "down"} {#var result d};
     #else {#var result %1};
+}
+
+#function mapZoneBlacklist {
+	#list mapZoneBlacklist find {%0} {result}
 }
 
 #function cleanTerrain {
