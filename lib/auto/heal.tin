@@ -7,28 +7,34 @@
 #var healpct 80
 event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.1}};
 
+#list healBlack create {Si} {San} {Er} {Yi};
+
 #alias autoheal {
     #nop %0;
     #if { @pct{$MSDP_HEALTH;$MSDP_HEALTH_MAX} < 30 } {
-            spellAdd priority heal;
+		#switch {"$name"} {
+			#case {"Artax"} {spellAdd priority heal};
+			#default {spellAdd priority heal}
+		};
     } {
         #foreach *MSDP_GROUP[%*] {_tmp} {
-            #if {"$MSDP_GROUP[$_tmp][class]" == "MOB"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "Klein"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "the death knight"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "a knight"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "the mandolin player"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian legionary"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian elder"} {#continue};
-            #if {"$MSDP_GROUP[$_tmp][name]" == "a tromenian gendarme"} {#continue};
+#nop            #if {"$MSDP_GROUP[$_tmp][class]" == "MOB"} {#continue};
+            #if {@healBlacklist{$MSDP_GROUP[$_tmp][name]} > 0} {#continue};
             #if {$MSDP_GROUP[$_tmp][health] < $healpct } {
                     #if {$MSDP_GROUP[$_tmp][with_you] == 1} {
                         #nop -- heal $MSDP_GROUP[$_tmp][name];
                         diaLog spell $MSDP_GROUP[$_tmp][name] at $MSDP_GROUP[$_tmp][health];
-                        spellAdd heal {heal $MSDP_GROUP[$_tmp][name]};
+						#switch {"$name"} {
+							#case {"Artax"} {
+								spellAdd heal {heal $MSDP_GROUP[$_tmp][name]}
+								};
+							#default {
+								spellAdd heal {heal $MSDP_GROUP[$_tmp][name]};
+								};
+						}
                     }
             }
-            #if {$MSDP_GROUP[$_tmp][stamina] < 30 } {
+            #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
                     #if {$MSDP_MANA > $refreshManaThreshold} {
                         #if {@refreshBlacklist{$MSDP_GROUP[$_tmp][name]}} {
                             #nop
@@ -41,6 +47,13 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
                     }
             }
         }
+		#if {"$mount_heal" == "on"} {
+			#if {$MSDP_MOUNT_HEALTH_MAX > 0} {
+				#if {@pct{$MSDP_MOUNT_HEALTH;$MSDP_MOUNT_HEALTH_MAX} < 50} {
+					spellAdd heal {heal $mount}
+				}
+			};
+		};
     }
 }
 
@@ -104,7 +117,7 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
 
 
 #function refreshBlacklist {#list {refreshBlack} {find} {%1} {result}}
-
+#function healBlacklist {#list {healBlack} {find} {%1} {result}}
 
 #class {autoheal} {close}
 #nop -- vim: syntax=tt
