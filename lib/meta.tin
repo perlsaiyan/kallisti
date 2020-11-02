@@ -8,7 +8,7 @@
 
 #list metaGains[Mage] create 3.5 5.5 3.5
 #list metaGains[Wizard] create 3.5 5.5 3.5
-#list metaGains[Necromance] create 3.5 5.5 3.5
+#list metaGains[Necromancer] create 3.5 5.5 3.5
 
 #list metaGains[Priest] create 4 5 3.5
 #list metaGains[Templar] create 5 5 3
