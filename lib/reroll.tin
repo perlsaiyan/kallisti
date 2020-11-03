@@ -27,11 +27,11 @@ diag reroll on;
 #nop -- 74 for cyclops mage
 
 #var prime_stat {str}
-#var roll_str 24
+#var roll_str 21
 #var roll_int 0
 #var roll_wis 0
 #var roll_dex 13
-#var roll_con 0
+#var roll_con 15
 
 #nop -- Bonus luck factor
 #var roll_luk 12
