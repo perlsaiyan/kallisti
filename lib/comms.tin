@@ -52,6 +52,13 @@
     event_raise {commsDev} {%1 (%2)} {%3} {%0};
 } {7}
 
+#action {^<Advice: %w> '%2'$} {
+    event_raise {commsDev} {%1} {%2} {%0};
+} {8}
+#action {^<Advice: %w (%w)> '%3'$} {
+    event_raise {commsDev} {%1 (%2)} {%3} {%0};
+} {7}
+
 
 #action {^%w ({.*}) tells you, '{.*}'$} {
     event_raise {commsTell} {%1 (%2)} {%3} {%0};
