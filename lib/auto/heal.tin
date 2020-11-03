@@ -5,9 +5,10 @@
 #untick autodamage;
 #var refreshManaThreshold 300
 #var healpct 80
+#var refreshpct 50
 event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.1}};
 
-#list healBlack create {Si} {San} {Er} {Yi};
+#list healBlack create {Si} {San} {Er} {Yi} {Wu} {raven};
 
 #alias autoheal {
     #nop %0;
@@ -34,7 +35,7 @@ event_register {variable MSDP_GROUP} {autoheal} {#delay {autoheal} {autoheal} {.
 						}
                     }
             }
-            #if {$MSDP_GROUP[$_tmp][stamina] < 40 } {
+            #if {$MSDP_GROUP[$_tmp][stamina] < $refreshpct } {
                     #if {$MSDP_MANA > $refreshManaThreshold} {
                         #if {@refreshBlacklist{$MSDP_GROUP[$_tmp][name]}} {
                             #nop
