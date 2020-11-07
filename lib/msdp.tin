@@ -81,7 +81,6 @@
         #case {"ROOM_VNUM"}
         {
             mapRoom;
-            event_raise {map enter room} $MSDP_ROOM_VNUM;
         };
 	}
 }
@@ -117,5 +116,7 @@
 #VARIABLE         {WONT}  {ü}
 #VARIABLE         {msdpOldList}  {}
 
-#alias mapRoom {#nop} {9};
+#alias mapRoom {#nop %0} {9};
+#alias event_raise {#nop %0} {9};
+
 #nop -- vim: syntax=tt
