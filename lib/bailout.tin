@@ -1,0 +1,25 @@
+#class bailout kill
+#class bailout open
+
+#EVENT {VARIABLE UPDATE MSDP_EXPERIENCE} {
+	#if {%1 > 4150000000} {
+		gt Bailout due to xp, thanks;
+		fol self;
+		spellAdd {nco} recall;
+		home
+	}
+}
+
+
+#if {"$MSDP_CHARACTER_NAME" == "Enganar"} {
+	#tick {safety net} {para_health_check} {1}
+} {
+	#tick {safety net} {auto_health_check} {1}
+}
+
+#alias para_health_check {#if {$MSDP_HEALTH < 2000} { stand;rec recall; home}}
+#alias auto_health_check { #nop }
+
+
+#class bailout close
+#nop -- vim: syntax=tt
