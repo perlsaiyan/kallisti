@@ -15,6 +15,7 @@
         #case {"war pegasus"} {#var mount pegasus};
         #case {"fire drake"} {#var mount drake};
         #case {"The fire drake"} {#var mount drake};
+        #case {"celestial stag"} {#var mount stag};
         #default {#var mount %2};
     }
     syslog Setting mount to $mount.;
