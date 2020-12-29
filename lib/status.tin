@@ -27,8 +27,18 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {@display_progress{$expgoalpct;$pretty_xp XP;80}};
 		}
 
+		#case {"Mulph"} {
+    #math {expgoalpct} { $MSDP_EXPERIENCE / 4000000000.00 };
+    #var pretty_xp @hNum{$MSDP_EXPERIENCE};
+    #format {_line4} {Others: %s | Pos: %-8s | Opponents: %-5s | %-24s %s}
+        {$MSDP_PC_IN_ZONE}
+        {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
+		{ }
+        {@display_progress{$expgoalpct;$pretty_xp XP;30}};
+		}
+
 		#case {"Enganar"} {
-    #math {expgoalpct} { $MSDP_EXPERIENCE /  4294967295.000 };
+    #math {expgoalpct} { $MSDP_EXPERIENCE /  4150000000.000 };
     #var pretty_xp @hNum{$MSDP_EXPERIENCE};
     #math bar_size {@term_width{} - ${right_panel}};
     #format {_line4} {%s}
@@ -41,11 +51,11 @@ event_register {statusUpdate} {status bottom} {statusBottom}
     #math xphrs {$xptnl/($expMins * 60.0)};
     #var pretty_xp @hNum{$xptnl};
     #math bar_size {@term_width{} - ${right_panel}};
-    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s |     %s}
+    #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s | }
         {$MSDP_PC_IN_ZONE}
-        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
-        {@display_progress{$expgoalpct;Need $pretty_xp XP->100 [$xphrs];30}};
+        {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
 		}
+
 
 		#default {
     #math {expgoalpct} { $MSDP_EXPERIENCE / ($MSDP_EXPERIENCE_TNL + $MSDP_EXPERIENCE * 1.00) };
@@ -88,7 +98,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 
 		#default {
     #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
-    #format {_line3} {⚕️ %-4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-26s     %s}
+    #format {_line3} {⚕️ %-4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-27s     %s}
 		{$MSDP_HEALTH} {$MSDP_HEALTH_MAX}
         {$MSDP_MANA} {$MSDP_MANA_MAX}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
@@ -110,7 +120,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {@hNum{$MSDP_GOLD}}
 		};
 		#default {
-    #format {_line2} {Sanct: %-2s | Room: %-5s | 🎓 %-8s (%-6s TNL) | 💰 %-6s |%-6s %s}
+    #format {_line2} {Sanct: %-2s | Room: %-5s | 🎓 %-8s (%-6s TNL) | 💰 %-6s |%-5s %s}
         {$MSDP_AFFECTS[sanctuary]} {$MSDP_ROOM_VNUM} {@hNum{$MSDP_EXPERIENCE}} {@hNum{$MSDP_EXPERIENCE_TNL}}
         {@hNum{$MSDP_GOLD}} { }
 		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;30}};
