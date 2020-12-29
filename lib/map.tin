@@ -19,6 +19,8 @@
 #map terrain {Field} {<128>·} DENSE WIDE
 #map terrain {Desert} {<cca>·} DENSE NARROW
 #map terrain {Inside} {<f707880>▒} DENSE WIDE
+#map terrain {Deep Water} {<f2232ff>▒} DENSE WIDE
+#map terrain {Water} {<f2284ff>▒} DENSE WIDE
 
 #list mapZoneBlacklist create {BLACKLISTS};
 
@@ -58,7 +60,7 @@
 
 	}
 
-    #nop -- #map map 40 40 overwrite $mapFile;
+    #nop -- %0 #map map 40 40 overwrite $mapFile;
 
 }
 
@@ -96,8 +98,8 @@
 }
 
 #function cleanTerrain {
-    #format {_tmp} {%p} {%1};
-	#line sub var #line strip #var result $_tmp;
+    #nop -- #format {_tmp} {%p} {%1};
+	#line sub var #line strip #var result %1;
 }
 
 #class {map} {close}
