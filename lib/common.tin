@@ -46,6 +46,7 @@
 #PATHDIR          {w}  {e}  {8}
 
 #event {MINUTE} {#format {logDATE} {%t} {%Y-%m-%d %T} ;#cr;info data {Timestamp: $logDATE}}
+#event {HOUR} {uptime}
 
 
 #action {^Ptam the God of the Ancients gives you a purple potion of sanctuary.} {
@@ -95,14 +96,8 @@
 #action {^You are dead!} {#var deathroom $MSDP_ROOM_VNUM; slackDeath}
 
 #action {flies from your grasp} {get $primary_weapon;wield $primary_weapon}
-#action {^Chaoran wields a katana.} {
-	#if {$lastTaunt + 3600 < @epoch{}} {
-		say You know it's not a katana if it has two edges, right?;
-		#var lastTaunt @epoch{}
-		}
-}
 
-
+#action {%1 is dead!  R.I.P.} {event_raise {mob kill} {%1}}
 #action {^$} {event_raise {blank line} {blank line}}
 
 #split 4 4
@@ -129,7 +124,7 @@
 #read $lib/layout.tin
 #read $lib/display/casting.tin
 #read $lib/display/group.tin
-
+#read $lib/telluria.tin
 
 #list valid_chars create {Pif;Enganar;Kroch}
 #alias {doAutoLogin} {

@@ -1,0 +1,9 @@
+#class {telluria} {kill}
+#class {telluria} {open}
+
+#act {^All of Telluria shaeks and rumbles as the ground shifts.} {
+	#showme {<ccf>Trackable event: Telluria rumbles at $MSDP_WORLD_TIME!}
+}
+
+#class {telluria} {close}
+#nop -- vim: syntax=tt
