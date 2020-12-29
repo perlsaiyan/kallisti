@@ -6,7 +6,13 @@
 #nop -- ---------------------------------------------------------------
 #var groupLoaded 1;
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake} {Skade} {Namas} {Bauchelain} {Finan} {Sanla} {Bottle} {Alita} {Karsa} {Sakur} {Spindle} {Atropa} {Irene} {Callaghan} {Itkovian} {Kallor};
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake} {Skade} {Namas} {Bauchelain} {Finan} {Sanla} {Bottle} {Alita} {Karsa} {Sakur} {Spindle} {Atropa} {Irene} {Callaghan} {Itkovian} {Kallor} {Scriptaur} {Variun} {Laromette} {Turod} {Jerusha} {Jebus} {Svidne} {Sidra} {Ossim} {Jebus} {Zierek} {Rhysel} {Svafa} {Sigfridr} {Simba} {Bethphage} {Jeska} {Piper}; 
+
+#nop -- DFV People
+#list groupFriends {add} Aymer Variun Narzuc Romulus Konan Rhok Khal Arc;
+
+#nop --  Sorrowsend people
+#list groupFriends {add} Catalyst Vow;
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -24,6 +30,7 @@
 			#case {"stand"} {stand;mount dragonne};
 			#case {"sleep"} {sleep};
 			#case {"group all"} {group all};
+			#case {"mira me"} {spellAdd any {mira %1}};
 			#case {"sum me"} {spellAdd nco {sum %1}};
 			#case {"sit"} {sit};
 			#case {"fol self"} {fol self};
@@ -33,8 +40,8 @@
 			#case {"all report"} {report};
 			#case {"cv" } {spellAdd any {convert}};
 			#case {"tnl"} {gt @hNum{$MSDP_EXPERIENCE} experience, @hNum{$MSDP_EXPERIENCE_TNL} TNL};
-			#case {"start baramon"} {#read $ttd/zone/baramon.zone.no;dont_run_baramon};
-			#case {"start telluria"} {#read $ttd/zone/telluria.q2;start};
+			#case {"start baramon"} {#nop #read $ttd/zone/telluria.vash;nostart};
+			#case {"start telluria"} {telluria_launcher %1};
 			#case {"stop"} {
 				#class {zone} kill;
 				#class {hk} kill;
@@ -48,6 +55,15 @@
 			};
 		}
 	}
+}
+
+#alias telluria_launcher {
+	#switch {"$MSDP_CHARACTER_NAME"} {
+		#case {"Vash"} { #read $ttd/zone/telluria.vash };
+		#default { #read $ttd/zone/telluria.q2 };
+	};
+	pusher %1;
+	start
 }
 
 #alias groupNewFollower {
@@ -74,12 +90,6 @@
     #read $lib/follower.tin;
 }
 
-#action {^You stop following %1.} {
-    #var GROUP_LEADER {};
-    #class follower kill;
-    diaLog group Unloading follower module.;
-}
-
 #action {^%w starts following you.$} {event_raise {new follower} {%1}}
 
 event_register {new follower} {group new follower} {groupNewFollower %2}
@@ -89,7 +99,8 @@ event_register {new follower} {group new follower} {groupNewFollower %2}
 #action {^%w (Goliath) tells you, ':{.*}'$} {%2} {5}
 #action {^%w (Deedra) tells you, ':{.*}'$} {%2} {5}
 
-#action {^%w {rides|flies|sneaks} in} {event_raise {entity arrival} {%1}}
+#action {^{[a-zA-Z ]+} {rides|flies|sneaks} in} {event_raise {entity arrival} {%1}}
+#action {^{[a-zA-Z ]+} arrives from} {event_raise {entity arrival} {%1}}
 
 #nop -- ---------------------------------------------------------------
 #nop -- Events
