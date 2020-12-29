@@ -36,5 +36,16 @@
         turn $_portal;
     }
 }
+
+#action {^You stop following %1.} {
+	#if {"$GROUP_LEADER" == "%1"} {
+		#var GROUP_LEADER {};
+		diaLog group Unloading follower module;
+		#class follower kill;
+	} {
+		#echo {<cca>Somehow unfollowing non-leader}
+	}
+}
+
 #class {follower} {close}
 #nop -- vim: syntax=tt
