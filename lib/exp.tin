@@ -15,7 +15,11 @@
 
 
 #alias tnl {
-	gt I need @hNum{$MSDP_EXPERIENCE_TNL} tnl, currently at @hNum{$expMins} xp/minute
+	#if { $MSDP_EXPERIENCE_TNL < 0 } {
+		gt I have @hNum{$MSDP_EXPERIENCE} xp, at @hNum{$expMins} xp/minute @display_progress{$expgoalpct;XP;10}
+	} #else {
+		gt I need @hNum{$MSDP_EXPERIENCE_TNL} tnl, currently at @hNum{$expMins} xp/minute
+	}
 }
 
 #alias {expCounter} {
