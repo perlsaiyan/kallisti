@@ -91,13 +91,15 @@
 
 #function can_group_move {
     #if {@is_group_fighting{}} {#return 0};
+    #var cgm_check 1;
     #foreach *MSDP_GROUP[%*] {_idx} {
-        #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#return 0};
-        #regex {$MSDP_GROUP[$_idx][flags]} {>BASH<} {#return 0};
-        #if {"$MSDP_GROUP[$_idx][position]" == "Sitting"} {#return 0};
-        #if {"$MSDP_GROUP[$_idx][position]" == "Resting"} {#return 0};
+        #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#var cgm_check 0};
+        #regex {$MSDP_GROUP[$_idx][flags]} {>BASH<} {#var cgm_check 0};
+        #if {"$MSDP_GROUP[$_idx][position]" == "Sitting"} {#var cgm_check 0};
+        #if {"$MSDP_GROUP[$_idx][position]" == "Resting"} {#var cgm_check 0};
+        #if {"$MSDP_GROUP[$_idx][position]" == "Sleeping"} {#var cgm_check 0};
     };
-    #return 1
+    #return $cgm_check
 }
 
 #function is_follower_missing {
