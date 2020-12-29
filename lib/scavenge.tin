@@ -11,7 +11,7 @@
 #action {^A big pile of gold coins is lying here.} {scavengeGold} {5}
 #action {^A large heap of gold coins is lying here.} {scavengeGold} {5}
 #action {^A huge mound of gold coins is lying here.} {scavengeGold} {5}
-#action {^An enormouse mound of gold coins is lying here.} {scavengeGold} {5}
+#action {^An enormous mound of gold coins is lying here.} {scavengeGold} {5}
 #action {^A small mountain of gold coins is lying here.} {scavengeGold} {5}
 #action {^A mountain of gold coins is lying here.} {scavengeGold} {5}
 #action {^A huge mountain of gold coins is lying here.} {scavengeGold} {5}
