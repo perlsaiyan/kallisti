@@ -1,8 +1,8 @@
 #class {goodberry} {kill}
 #class {goodberry} {open}
 
-#act {^A plump elderberry suddenly appears in your hand.} {put elderberry berrybox}
-#act {^A plump {strawberry|blackberry} suddenly appears in your hand.} {junk %1}
+#act {^A plump elderberry suddenly appears in your hands.} {put elderberry berrybox}
+#act {^A plump {strawberry|blackberry} suddenly appears in your hands.} {junk %1}
 
 #alias {stop} {#class goodberry kill}
 
