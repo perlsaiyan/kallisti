@@ -6,13 +6,17 @@
 #nop -- ---------------------------------------------------------------
 #var groupLoaded 1;
 
-#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake} {Skade} {Namas} {Bauchelain} {Finan} {Sanla} {Bottle} {Alita} {Karsa} {Sakur} {Spindle} {Atropa} {Irene} {Callaghan} {Itkovian} {Kallor} {Scriptaur} {Variun} {Laromette} {Turod} {Jerusha} {Jebus} {Svidne} {Sidra} {Ossim} {Jebus} {Zierek} {Rhysel} {Svafa} {Sigfridr} {Simba} {Bethphage} {Jeska} {Piper}; 
+#list groupFriends {create} {Chaoran} {Xepher} {Donal} {Dain} {Akima} {Stabitha} {Nagra} {Toc} {Ariella} {Thomdril} {Skade} {Neith} {Bastet} {Anatta} {Rake} {Skade} {Namas} {Bauchelain} {Finan} {Sanla} {Bottle} {Alita} {Karsa} {Sakur} {Spindle} {Atropa} {Irene} {Callaghan} {Itkovian} {Kallor} {Scriptaur} {Variun} {Laromette} {Turod} {Jerusha} {Jebus} {Svidne} {Sidra} {Ossim} {Jebus} {Zierek} {Rhysel} {Svafa} {Sigfridr} {Simba} {Bethphage} {Jeska} {Piper} {Midnight}; 
 
 #nop -- DFV People
 #list groupFriends {add} Aymer Variun Narzuc Romulus Konan Rhok Khal Arc;
 
 #nop --  Sorrowsend people
-#list groupFriends {add} Catalyst Vow;
+#list groupFriends {add} Catalyst Vow Contempt;
+
+#nop -- Kimo people
+#list groupFriends {add} Solarlight Midnight;
+
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -142,7 +146,7 @@ event_register {commsGroup} {groupCommand} {groupCommand {%2} {%3}}
         #if { "$MSDP_GROUP[$index][name]" == "$name" } {
             #if {$MSDP_GROUP[$index][is_leader] == 1} { #return 1 }
         }
-    }
+    };
     #return 0
 }
 
