@@ -24,14 +24,14 @@
 #alias {info %1 %2} {
 	#var _infotype %1;
 	#var _rawline %2;
-	#echo {$hcolor[$_infotype] @highlight{$_rawline}}
+	#line sub vars #echo {$hcolor[$_infotype] @highlight{$_rawline}}
 }
 
 #function {list_to_line} {
 	#list {%1} simplify output_line;
 	#replace output_line {;} {};
 	#replace output_line {%} {%%%};
-	#var result $output_line
+	#line sub var #var result $output_line
 }
 
 #function {highlight} {
@@ -56,7 +56,7 @@
 			#var token_line[$apos_ind[$_a]] {<070>$color[$_infotype]}
 		}
 	};
-	#list token_line simplify output_line;
+	#list output_line simplify $token_line[%*];
 	#replace output_line {;} {};
 	#replace output_line {%} {%%%};
 	#var result $output_line
