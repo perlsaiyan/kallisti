@@ -25,7 +25,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
 		{ }
         {@display_progress{$expgoalpct;$pretty_xp XP;80}};
-		}
+		};
 
 		#case {"Mulph"} {
     #math {expgoalpct} { $MSDP_EXPERIENCE / 4000000000.00 };
@@ -35,7 +35,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
 		{ }
         {@display_progress{$expgoalpct;$pretty_xp XP;30}};
-		}
+		};
 
 		#case {"Enganar"} {
     #math {expgoalpct} { $MSDP_EXPERIENCE /  4150000000.000 };
@@ -43,7 +43,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
     #math bar_size {@term_width{} - ${right_panel}};
     #format {_line4} {%s}
         {@display_progress{$expgoalpct;$pretty_xp XP;$bar_size}};
-		}
+		};
 
 		#case {"Pif"} {
     #math {expgoalpct} { $MSDP_EXPERIENCE /  1000000000.000 };
@@ -54,7 +54,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
     #format {_line4} {Others: %s | Mount: %-15s | Pos: %-8s | Opponents: %-5s | }
         {$MSDP_PC_IN_ZONE}
         {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER};
-		}
+		};
 
 
 		#default {
@@ -65,7 +65,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_MOUNT_NAME} {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
         {@display_progress{$expgoalpct;Need $pretty_xp XP;30}};
 		}
-	}
+	};
 
 	#switch {"$MSDP_CHARACTER_NAME"} {
 		#case {"Artax"} {
@@ -77,7 +77,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
 		{ }
 		{@display_progress{$herpgoalpct;$herpstnl Hero Points to L100 ;80}};
-		}
+		};
 
 		#case {"Enganar"} {
     #format {_line3} {⚕️ %-4s/%-4s ⛽ %-4s/%-4s | Others: %s | Pos: %-8s | Opponents: %-5s}
@@ -85,7 +85,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
         {$MSDP_PC_IN_ZONE}
         {$MSDP_POSITION} {$MSDP_OPPONENT_NUMBER}
-		}
+		};
 		#case {"Kligo"} {
     #math {herpgoalpct} { $MSDP_HERO_POINTS / 8000.00};
     #format {_line3} {⚕️% -4s/%-4s 🧙 %-4s/%-4s ⛽ %-4s/%-4s | %-26s     %s}
@@ -94,7 +94,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {$MSDP_STAMINA} {$MSDP_STAMINA_MAX}
 		{ }
 		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS / 8000 Hero Points;30}};
-		}
+		};
 
 		#default {
     #math {herpgoalpct} {( @level_heros{} * 1.00) / ($MSDP_HERO_POINTS_TNL + @level_heros{})};
@@ -105,7 +105,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
 		{ }
 		{@display_progress{$herpgoalpct;$MSDP_HERO_POINTS_TNL Hero Points TNL;30}};
 		}
-	}
+	};
 
 	#switch {"$MSDP_CHARACTER_NAME"} {
 		#case {"Artax"} {
@@ -125,7 +125,7 @@ event_register {statusUpdate} {status bottom} {statusBottom}
         {@hNum{$MSDP_GOLD}} { }
 		{@display_progress{$alignpct;Alignment: $MSDP_ALIGNMENT;30}};
 		}
-	}
+	};
 
     #showme {$_line2} {-2};
     #showme {$_line3} {-3};

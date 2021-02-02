@@ -54,11 +54,11 @@
 				}
 			}
 		} {
-			#nop -- Room exit doesn't exist, delete
+			#nop -- Room exit doesn't exist, delete;
 			#map delete $EXIT
 		}
 
-	}
+	};
 
     #nop -- %0 #map map 40 40 overwrite $mapFile;
 

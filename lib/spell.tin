@@ -103,6 +103,7 @@
         #case {"fst"} #var result 3000;
         #case {"charge"} #var result 3000;
         #case {"smart_move"} #var result 250;
+        #case {"mobAttack"} #var result 8000;
         #default {
             #var result 2000;
             diaLog spell Unknown delay for %1, using $result ms
