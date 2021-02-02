@@ -302,6 +302,19 @@
 #var goldlevel[99] 5665000
 #var goldlevel[100] 7864000
 
+
+#function {level_for_herps} {
+
+	#loop {100} {50} {_l} {
+		#if {%1 >= $herolevel[$_l]} {
+			#var result $_l;
+			#break
+		}
+	}
+}
+
+#sub {Hero Points: %1} {Herps:  <090>%1 [@level_for_herps{%1}]}
+
 #tab levelreq
 #alias {levelreq} {
 	#unvar endlevel;
