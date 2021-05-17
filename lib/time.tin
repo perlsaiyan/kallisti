@@ -1,0 +1,14 @@
+#class {time} {kill}
+#class {time} {open}
+
+set_tick_counter
+
+#EVENT {VARIABLE UPDATED MSDP_WORLD_TIME} { set_tick_counter }
+
+#alias set_tick_counter { #math ticktime {@epoch{} + 75} }
+
+#function timeToTick {
+    #math result { $ticktime - @epoch{} }
+}
+
+#class {time} {close}
