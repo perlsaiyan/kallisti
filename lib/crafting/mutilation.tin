@@ -1,0 +1,72 @@
+#class {class} {kill}
+#class {class} {open}
+
+#var auto_corpse bone
+
+event_register {mob kill} {corpse mutilate} {corpse_mutilate_skills};
+
+#alias corpse_mutilate_skills {
+
+	#switch {"$auto_corpse"} {
+		#case {"skin"} {conditional_skin {%2}};
+		#case {"bone"} {conditional_extract {%2}};
+	};
+
+}
+
+#act {^You extract some %1 bone} {
+	#switch {"%1"} {
+		#case {"junk"} {junk bone};
+		#case {"rough"} {junk bone};
+		#case {"average"} {sac bone};
+		#case {"good"} {pp bone};
+		#case {"excellent"} {pp bone};
+		#case {"pristine"} {pp bone};
+		#case {"exquisite"} {pp bone};
+		#case {"superior"} {pp bone};
+		#default {#showme <cca>No handler for %1 bones}
+	}
+}
+#act {^You skin some %1 hide} {
+	#switch {"%1"} {
+		#case {"junk"} {junk hide};
+		#case {"rough"} {junk hide};
+		#case {"average"} {sac hide};
+		#case {"good"} {pp hide};
+		#case {"excellent"} {pp hide};
+		#case {"pristine"} {pp hide};
+		#case {"exquisite"} {pp hide};
+		#case {"superior"} {pp hide};
+		#default {#showme <cca>No handler for %1 hides}
+	}
+}
+
+#alias conditional_extract {
+	#if {$MSDP_STAMINA < 150} {#showme <cca>Low stamina, do not extract.;#return;};
+
+	#switch {"%1"} {
+		#case {"blacklisted corpse type"} {mutilate_blacklist};
+		#default {#showme <cca>Extracting from '%1';extract corpse}
+	};
+};
+
+#alias conditional_skin {
+	#if {$MSDP_STAMINA < 150} {#showme <cca>Low stamina, do not skin.;#return;};
+
+	#switch {"%1"} {
+		#case {"A dark halfling"} {skin corpse};
+		#case {"A tunnel protector"} {skin corpse};
+		#case {"A cave monster"} {skin corpse};
+		#case {"A guardian of the four"} {skin corpse};
+		#case {"Barbelo of The Four"} {skin corpse};
+		#case {"Sabrael"} {skin corpse};
+		#default {#showme <cca>Not skinning from '%1'}
+	};
+};
+
+#alias mutilate_blacklist { #showme <cca>Blacklisted, not mutilating corpse}
+
+
+#class {class} {close}
+
+#nop -- vim: syntax=tt
