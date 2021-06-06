@@ -104,7 +104,7 @@ event_register {readError} {mobsNoData} {nodata_mobs %0}
                     #var flag_tmp @isRanged{$mlList[2]};
                     diaLog kill Flag_tmp is $flag_tmp;
                     addMobs $n_mobs $mLong $flag_tmp
-                }
+                };
             };
             #case {1} {
                 #var n_mobs 1;
@@ -151,7 +151,7 @@ event_register {readError} {mobsNoData} {nodata_mobs %0}
                     #var flag_tmp @isRanged{$mlList[2]};
                     diaLog kill Flag_tmp is $flag_tmp;
                     addMobs $n_mobs $mLong $flag_tmp
-                }
+                };
             };
             #case {1} {
                 #var n_mobs 1;
@@ -218,7 +218,7 @@ event_register {readError} {mobsNoData} {nodata_mobs %0}
                 #format {mobLine} {[%+2s] <370><dca>%-42.42s<070> (<170>%.3s<070>) (%s<070>) [%s]}
                     {$totInRoom} {$_j} {$_kw} {@prColor{$_pr}} {$_fl};
                 #echo {$mobLine}
-            }
+            };
         };
         info mobs To add a mob to the DB use: 'DBAddMob' <mobnumber> <keyw> <priority>;
         info mobs To remove a mob, use: 'DBRemoveMob' <mobnumber>
@@ -270,13 +270,13 @@ event_register {readError} {mobsNoData} {nodata_mobs %0}
                         info mobs Mob $remMob removed from database.
                     } {
                         info mobs Mob not in database.
-                    }
-                }
-            }
-        }
+                    };
+                };
+            };
+        };
     } {
         info mobs You must provide the mob in room number.
-    }
+    };
 }
 
 
@@ -295,16 +295,16 @@ event_register {readError} {mobsNoData} {nodata_mobs %0}
                         #if {&mobsInRoom[$_mir][1]==0} {#list mobsInRoom delete $_mir;diaLog path doing pr list delete};
                         #list flagsInRoom[$_mir] delete 1;
                         #if {&flagsInRoom[$_mir][1]==0} {#list flagsInRoom delete $_mir;diaLog path doing flags list delete};
-                        #break
+                        #break;
                     };
-                }
-            }
+                };
+            };
         } {
             info mobs Fighting, not attacking.
-        }
+        };
     } {
         info mobs No mobs in room.
-    }
+    };
 }
 
 
@@ -381,7 +381,14 @@ event_register {mapEnterRoom} {mobsClearList} {mobsClearList}
 
 #nop -- tells us if a mob is ranged, should be moved to functions.tin
 #function isRanged {
-    #regexp {"%1"} {ranged} {diaLog kill is ranged, returning ranged;#return ranged} {diaLog kill is not ranged, returning default;#return default}
+	#var result default;
+    #regexp {"%1"} {ranged} {
+		diaLog kill is ranged, returning ranged;
+		#var result ranged
+		} {
+	diaLog kill is not ranged, returning default;
+	#var result default
+	};
 }
 
 #nop -- tells us if something is a digit or not - removed as it's already in functions.tin
