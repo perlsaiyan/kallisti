@@ -152,9 +152,9 @@
 #var herolevel[49] 0
 #var herolevel[50] 0
 #var herolevel[51] 3000
-#var herolevel[52] 4000
-#var herolevel[53] 4800
-#var herolevel[54] 5600
+#var herolevel[52] 3800
+#var herolevel[53] 4600
+#var herolevel[54] 5400
 #var herolevel[55] 6200
 #var herolevel[56] 6800
 #var herolevel[57] 7400
