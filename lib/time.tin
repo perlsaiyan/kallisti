@@ -1,11 +1,20 @@
 #class {time} {kill}
 #class {time} {open}
 
+#var standard_tick 75
+#var tick_warning 5
+
 set_tick_counter
 
 #EVENT {VARIABLE UPDATED MSDP_WORLD_TIME} { set_tick_counter }
 
-#alias set_tick_counter { #math ticktime {@epoch{} + 75} }
+#alias set_tick_counter {
+    #math ticktime {@epoch{} + 75};
+    #if {$tick_warning > 0 } {
+        #math tick_delay {$standard_tick - $tick_warning};
+        #line oneshot #tick {tick warning} {#echo {<ffa>Tick in $tick_warning seconds}} {$tick_delay};
+    }
+}
 
 #function timeToTick {
     #math result { $ticktime - @epoch{} }
