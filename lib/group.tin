@@ -17,6 +17,8 @@
 #nop -- Kimo people
 #list groupFriends {add} Solarlight Midnight;
 
+#list groupFriends {add} Jondaiv Jondalar;
+
 
 #nop -- ---------------------------------------------------------------
 #nop -- Aliases
@@ -72,16 +74,20 @@
 
 #alias groupNewFollower {
     #nop %0;
-    #if {@groupIsFriend{%1}} {
-        #if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 0) } {
-            #if {@groupAmILeader{}} {spellAdd {nco} {group %1}} {point @groupLeader{}}
-        } {
-            spellAdd {nco} {group $name};
-            spellAdd {nco} {group %1}
-        }
-    } {
-        #if {! @groupAmILeader{}} {point @groupLeader{}}
-    }
+    #if {"$groupall" == "on"} {
+		group all
+	} #else {
+		#if {@groupIsFriend{%1}} {
+			#if {(&MSDP_GROUP) && (&MSDP_GROUP[] > 0) } {
+				#if {@groupAmILeader{}} {spellAdd {nco} {group %1}} {point @groupLeader{}}
+			} {
+				spellAdd {nco} {group $name};
+				spellAdd {nco} {group %1}
+			}
+		} {
+			#if {! @groupAmILeader{}} {point @groupLeader{}}
+		}
+	};
 }
 
 #nop -- ---------------------------------------------------------------
@@ -114,7 +120,12 @@ event_register {commsGroup} {groupCommand} {groupCommand {%2} {%3}}
 #nop -- ---------------------------------------------------------------
 #nop -- Functions
 #nop -- ---------------------------------------------------------------
-#function groupIsFriend {#list {groupFriends} {find} {%1} {result}}
+#function groupIsFriend {
+	#list {groupFriends} {find} {%1} {result};
+	#if {"$groupall" == "on"} {
+		#var result 1
+	}
+}
 
 #function groupIsGrouped {
     #var result 0;
