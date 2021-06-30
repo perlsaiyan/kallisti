@@ -3,10 +3,10 @@
 
 
 #nop -- Math Functions;
-#func increment { #math result {%1 + 1} }
-#func max { #if {%1 > %2} {#var result %1} {#var result %2} }
-#func pct {#math result { %1 * 100.0 / %2 }}
-#func abs { #if { %1 < 0 } {#math result { %1 * -1 } } { #var result %1 }}
+#function increment { #math result {%1 + 1} }
+#function max { #if {%1 > %2} {#var result %1} {#var result %2} }
+#function pct {#math result { %1 * 100.0 / %2 }}
+#function abs { #if { %1 < 0 } {#math result { %1 * -1 } } { #var result %1 }}
 #function isOdd {#math result {%1 % 2}}
 
 #function {clamp} {
@@ -29,7 +29,7 @@
 #nop -- Time Functions;
 #function epoch {#format result {%T}};
 #function upoch {#format result {%U}};
-#func mpoch { #math result { @upoch{} / 1000} };
+#function mpoch { #math result { @upoch{} / 1000} };
 #function lower { #format result {%l} {%0}};
 
 #FUNCTION {display_progress}
@@ -82,15 +82,18 @@
 }
 
 #function is_group_fighting {
-
+	#var result 0;
     #foreach *MSDP_GROUP[%*] {_idx} {
-        #if {"$MSDP_GROUP[$_idx][position]" == "Fighting"} { #return 1 }
+        #if {"$MSDP_GROUP[$_idx][position]" == "Fighting"} {#var result 1}
     };
-    #return 0
 }
 
 #function can_group_move {
-    #if {@is_group_fighting{}} {#return 0};
+    #if {@is_group_fighting{}} {
+		#var result 0;
+		#return 0;
+	};
+
     #var cgm_check 1;
     #foreach *MSDP_GROUP[%*] {_idx} {
         #regex {$MSDP_GROUP[$_idx][flags]} {-Knees-} {#var cgm_check 0};
@@ -103,11 +106,12 @@
 }
 
 #function is_follower_missing {
+	#var result 0;
 	#foreach *MSDP_GROUP[%*] _fc {
-		#if { $MSDP_GROUP[$_fc][with_you] == 0 } { #return 1 };
+		#if { $MSDP_GROUP[$_fc][with_you] == 0 } { #var result 1 };
 	};
 
-	#return 0;
+	#return
 }
 
 
@@ -138,7 +142,7 @@
 #nop -- VT100/terminal functions;
 #function term_width {#screen get cols result}
 
-#action {Active: %w [ Level %d %S %w } {
+#action {Active Character: %w [ Level %d %S %w } {
     diaLog login Player %1, class %4;
     #format curPlayer {%l} {%1};
     #format curClass {%l} {%4};
@@ -190,6 +194,27 @@
     };
 }
 
+#function unroll_number {
+    #regex {%1} {{[0-9.]+}%w} { 
+        #format {mult} {%l} {&2};
+        
+        #switch {"$mult"} {
+            #case {"k"} {#math result {&1 * 1000}};
+            #case {"m"} {#math result {&1 * 1000000}};
+            #case {"b"} {#math result {&1 * 1000000000}};
+            #case {"t"} {#math result {&1 * 1000000000000}};
+            #default {
+                #showme <cca>Invalid units '$mult';
+                #var result %1;
+                #return %1;
+            }
+        };
+        
+        #format result {%d} {$result};
+    } {
+        #var result %1
+    }
+}
 
 #class functions close
 #nop -- vim: syntax=tt
