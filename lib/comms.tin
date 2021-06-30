@@ -48,7 +48,7 @@
 #action {^<Development: %w> '%2'$} {
     event_raise {commsDev} {%1} {%2} {%0};
 } {8}
-#action {^<Development: %w (%w)> '%3'$} {
+#action {^<Development: %w ({.*})> '%3'$} {
     event_raise {commsDev} {%1 (%2)} {%3} {%0};
 } {7}
 
