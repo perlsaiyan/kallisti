@@ -1,0 +1,67 @@
+#nop -- armorcraft functions
+#class crafting kill
+#class crafting open
+
+#var ac_cracks 0
+#var ac_fails 0
+#var ac_carve on
+
+
+
+
+#act {^You get some %1 bone} {spellAdd any {carve bone}}
+#act {^Oops, you} {spellAdd any {carve bone}}
+#act {^You fail to improve it.} {spellAdd any {carve bone}}
+#act {^You failed to craft anything useful.} {spellAdd any {bonecraft bone}}
+
+#act {^You carve some %1 bone from} {
+	#if {"$ac_carve" == "on"} {
+		bonecraft bone
+	} {
+		#nop %0 %1 %2 %3;
+		pp bone;
+		spellAdd any {get bone};
+	}
+}
+
+#act {^You are exhausted!} {
+	#line oneshot #tick {startcraft} {spellAdd any {carve bone}} {5}
+}
+
+#act {^You can't carve that.} {
+	spellAdd any {bonecraft bone}
+}
+
+#act {^You craft {(a|an)} %1 dagger made from} {
+    #nop %0 %1 %2 %3;
+    look dagger i;
+    drop dagger;
+    spellAdd any {get bone};
+}
+
+#act {^The %1 isn't high enough quality to carve.} {junk bone;get bone}
+
+#act {^The bone won't fit in} {
+    #switch {$MSDP_ROOM_VNUM} {
+        #case {32714} {
+			drop bone;
+            south;
+            pg all.bone; drop all.armor;
+            pg all.armor; drop all.bone;
+            n;
+            get bone
+        };
+        #default {#showme <ccb>No handler for room '$MSDP_ROOM_VNUM'.}
+    }
+    
+}
+
+
+#event {CLASS DESTROYED crafting} {
+    #showme <cca>Todo results;
+}
+
+#showme <eed>You are in combo carve/craft mode.  Set ac_carve off?;
+
+#class crafting close
+#nop -- vim: syntax=tt
